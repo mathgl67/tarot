@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Generateur</class>
- <widget class="QMainWindow" name="Generateur">
+ <class>Generator</class>
+ <widget class="QMainWindow" name="Generator">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Generateur</string>
+   <string>Generator</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -21,30 +21,30 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="Joueur1">
+       <widget class="QPushButton" name="Player1">
         <property name="text">
-         <string>Joueur1</string>
+         <string>Player 1</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="Joueur2">
+       <widget class="QPushButton" name="Player2">
         <property name="text">
-         <string>Joueur2</string>
+         <string>Player 2</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="Joueur3">
+       <widget class="QPushButton" name="Player3">
         <property name="text">
-         <string>Joueur3</string>
+         <string>Player 3</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="Chien">
+       <widget class="QPushButton" name="Dog">
         <property name="text">
-         <string>Chien</string>
+         <string>Dog</string>
         </property>
        </widget>
       </item>
@@ -65,14 +65,14 @@
     <property name="title">
      <string>Distribution</string>
     </property>
-    <addaction name="Distribution_3J"/>
+    <addaction name="Distribution_3P"/>
    </widget>
    <addaction name="Distribution"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="Distribution_3J">
+  <action name="Distribution_3P">
    <property name="text">
-    <string>3 Joueurs</string>
+    <string>3 Players</string>
    </property>
   </action>
  </widget>

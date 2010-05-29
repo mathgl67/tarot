@@ -2,89 +2,89 @@
 from PyQt4 import QtGui, QtCore
 
 from tarot import jeux, distribution
-from tarot.ui.generated.generate import Ui_Generateur 
+from tarot.ui.generated.generate import Ui_Generator
 
-def debug_print(joueur1, joueur2, joueur3, chien):
-	print "joueur1:"
-	for carte in joueur1:
-	    print carte
+def debug_print(p1, p2, p3, dog):
+	print "Player 1:"
+	for card in p1:
+	    print card
 	print
-	print "joueur2:"
-	for carte in joueur2:
-	    print carte
+	print "Player 2:"
+	for card in p2:
+	    print card
 	print
-	print "joueur3:"
-	for carte in joueur3:
-	    print carte
+	print "Player 3:"
+	for card in p3:
+	    print card
 	print
-	print "chien:"
-	for carte in chien:
-	    print carte
+	print "Dog:"
+	for card in dog:
+	    print card
 
 class GenerateWindow(QtGui.QMainWindow):
 	def __init__(self, parent=None):
 		QtGui.QMainWindow.__init__(self, parent)
-		self.ui = Ui_Generateur()
+		self.ui = Ui_Generator()
 		self.ui.setupUi(self)
 		# signals
 		QtCore.QObject.connect(
-			self.ui.Distribution_3J,
+			self.ui.Distribution_3P,
 			QtCore.SIGNAL("activated()"),
-			self.distribution_3j_activated
+			self.distribution_3p_activated
 		)
 
 		QtCore.QObject.connect(
-			self.ui.Joueur1,
+			self.ui.Player1,
 			QtCore.SIGNAL("clicked()"),
-			self.joueur1_clicked
+			self.player1_clicked
 		)
 
 		QtCore.QObject.connect(
-			self.ui.Joueur2,
+			self.ui.Player2,
 			QtCore.SIGNAL("clicked()"),
-			self.joueur2_clicked
+			self.player2_clicked
 		)
 
 		QtCore.QObject.connect(
-			self.ui.Joueur3,
+			self.ui.Player3,
 			QtCore.SIGNAL("clicked()"),
-			self.joueur3_clicked
+			self.player3_clicked
 		)
 
 		QtCore.QObject.connect(
-			self.ui.Chien,
+			self.ui.Dog,
 			QtCore.SIGNAL("clicked()"),
-			self.chien_clicked
+			self.dog_clicked
 		)
 
 
-	def distribution_3j_activated(self):
-		print "Distrib3j activated()"
+	def distribution_3p_activated(self):
+		print "Distribution 3p activated()"
 		jeu = jeux.generer_jeux()
 		jeux.melanger(jeu)
 
 		dist = distribution.Distribution3(jeu)
-		(self.joueur1, self.joueur2, self.joueur3, self.chien) = dist.make()
-		debug_print(self.joueur1, self.joueur2, self.joueur3, self.chien)
+		(self.p1, self.p2, self.p3, self.dog) = dist.make()
+		debug_print(self.p1, self.p2, self.p3, self.dog)
 
 		#create scene
-		self.scene_j1 = self.create_scene(self.joueur1)
-		self.scene_j2 = self.create_scene(self.joueur2)
-		self.scene_j3 = self.create_scene(self.joueur3)
-		self.scene_ch = self.create_scene(self.chien)
+		self.scene_p1 = self.create_scene(self.p1)
+		self.scene_p2 = self.create_scene(self.p2)
+		self.scene_p3 = self.create_scene(self.p3)
+		self.scene_dog = self.create_scene(self.dog)
 
 		#set scene to joueur 1
-		self.ui.GraphicView.setScene(self.scene_j1)
+		self.ui.GraphicView.setScene(self.scene_p1)
 		
 
-	def create_scene(self, carte_list):
+	def create_scene(self, card_list):
 		scene = QtGui.QGraphicsScene(self.ui.GraphicView)
                 pix_size = { "width": 155 * 0.5, "height": 220 * 0.5 }
 		x = y = 0
-                for carte in carte_list:
-                        scene.addItem(carte)
-                        carte.setPos(x * pix_size["width"], y * pix_size["height"])
-			carte.scale(0.5, 0.5)
+                for card in card_list:
+                        card.setPos(x * pix_size["width"], y * pix_size["height"])
+			card.scale(0.5, 0.5)
+                        scene.addItem(card)
 			# increment
                         x += 1
                         if x is 8:
@@ -93,24 +93,19 @@ class GenerateWindow(QtGui.QMainWindow):
 		return scene
 			
 
-	def joueur1_clicked(self):
-		print "Joueur1 clicked()"
-                self.ui.GraphicView.setScene(self.scene_j1)
+	def player1_clicked(self):
+		print "Player 1 clicked()"
+                self.ui.GraphicView.setScene(self.scene_p1)
 
-	def joueur2_clicked(self):
-		print "Joueur2 clicked()"
-                self.ui.GraphicView.setScene(self.scene_j2)
+	def player2_clicked(self):
+		print "Player 2 clicked()"
+                self.ui.GraphicView.setScene(self.scene_p2)
 
-	def joueur3_clicked(self):
-		print "Joueur3 clicked()"
-                self.ui.GraphicView.setScene(self.scene_j3)
+	def player3_clicked(self):
+		print "Player 3 clicked()"
+                self.ui.GraphicView.setScene(self.scene_p3)
 
-	def chien_clicked(self):
-		print "chien clicked()"
-                self.ui.GraphicView.setScene(self.scene_ch)
-
-
-
-
-
+	def dog_clicked(self):
+		print "dog clicked()"
+                self.ui.GraphicView.setScene(self.scene_dog)
 
