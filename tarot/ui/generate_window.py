@@ -75,9 +75,12 @@ class GenerateWindow(QtGui.QMainWindow):
 		#create scenes
 		self.scene_list = {}
 		for num, card_list in self.player_list.iteritems():
-			self.scene_list[num] = self.create_scene(card_list)
+			self.scene_list[num] = self.create_scene(
+				"Player %d" % (num+1),
+				card_list
+			)
 
-		self.scene_dog = self.create_scene(self.dog)
+		self.scene_dog = self.create_scene("Dog", self.dog)
 
 		#set scene to player 1
 		self.ui.GraphicView.setScene(self.scene_list[0])
@@ -96,12 +99,15 @@ class GenerateWindow(QtGui.QMainWindow):
 		print "Distribute for 5 players..."
 		self.distribute(5)
 	
-	def create_scene(self, card_list):
+	def create_scene(self, title, card_list):
 		scene = QtGui.QGraphicsScene(self.ui.GraphicView)
                 pix_size = { "width": 155 * 0.5, "height": 220 * 0.5 }
 		x = y = 0
+		# add title on scene
+		scene.addText(title, QtGui.QFont("Helvsetica", 28)) 
+		# place cards on scene
                 for card in card_list:
-                        card.setPos(x * pix_size["width"], y * pix_size["height"])
+                        card.setPos(x * pix_size["width"], 60 + y * pix_size["height"])
 			card.scale(0.5, 0.5)
                         scene.addItem(card)
 			# increment
