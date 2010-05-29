@@ -1,0 +1,2 @@
+*.pyc
+tarot/ui/generated/*.py

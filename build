@@ -1,0 +1,3 @@
+#! /bin/sh
+
+pyuic4 ui/generate.ui > tarot/ui/generated/generate.py

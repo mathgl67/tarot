@@ -1,0 +1,1497 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="carreau_numero.svg">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective2826"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3839"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3867"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3867-3"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3939"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3939-2"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3939-1"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3939-0"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3939-9"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3939-29"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3939-290"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4451"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4451-8"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4451-86"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4451-3"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4451-4"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4451-7"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4524"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4524-6"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4524-8"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4524-4"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4524-3"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4524-9"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4524-0"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4524-1"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4524-86"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4715"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4715-6"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4715-4"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4715-5"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4770"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4770-8"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4770-5"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4770-7"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4770-76"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4770-769"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4770-4"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4770-1"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4770-9"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective15729"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective16000"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective16000-8"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective16000-7"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective16000-4"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="287.68008"
+     inkscape:cy="397.11944"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="874"
+     inkscape:window-height="806"
+     inkscape:window-x="373"
+     inkscape:window-y="112"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g14860"
+       inkscape:export-filename="/home/mathgl/Codes/tarot/images/cartes/carreau/1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         id="g14599">
+        <g
+           id="g3910">
+          <g
+             id="g3626">
+            <rect
+               style="fill:#999999"
+               id="rect2816"
+               width="154.28572"
+               height="218.57143"
+               x="72.85714"
+               y="76.647896"
+               ry="22.857143" />
+            <rect
+               style="fill:#ffffff"
+               id="rect2816-5"
+               width="148.57146"
+               height="212.85715"
+               x="74.85714"
+               y="78.219322"
+               ry="22.259571" />
+          </g>
+          <text
+             id="text3827"
+             y="193.79076"
+             x="137.14287"
+             style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="193.79076"
+               x="137.14287"
+               id="tspan3829"
+               sodipodi:role="line">1</tspan></text>
+        </g>
+      </g>
+      <g
+         transform="translate(-203.06348,507.18199)"
+         id="g4756">
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="-41.152035"
+           x="492.67517"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="67.111839"
+           x="362.93262"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-7"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="34.93132"
+           x="556.12891"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-5"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="146.08167"
+           x="429.16602"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-74"
+           style="fill:#ff0000" />
+      </g>
+    </g>
+    <g
+       id="g14874"
+       inkscape:export-filename="/home/mathgl/Codes/tarot/images/cartes/carreau/2.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         id="g14607">
+        <g
+           id="g3917">
+          <g
+             id="g3626-0"
+             transform="translate(204.28572,2.1428629)">
+            <rect
+               style="fill:#999999"
+               id="rect2816-3"
+               width="154.28572"
+               height="218.57143"
+               x="72.85714"
+               y="76.647896"
+               ry="22.857143" />
+            <rect
+               style="fill:#ffffff"
+               id="rect2816-5-3"
+               width="148.57146"
+               height="212.85715"
+               x="74.85714"
+               y="78.219322"
+               ry="22.259571" />
+          </g>
+          <text
+             id="text3827-6"
+             y="195.93361"
+             x="341.42859"
+             style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="195.93361"
+               x="341.42859"
+               id="tspan3829-1"
+               sodipodi:role="line">2</tspan></text>
+        </g>
+      </g>
+      <g
+         transform="translate(1.65081,511.32484)"
+         id="g4756-7">
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="-41.152035"
+           x="492.67517"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-6"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="67.111839"
+           x="362.93262"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-7-9"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="34.93132"
+           x="556.12891"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-5-1"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="146.08167"
+           x="429.16602"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-74-9"
+           style="fill:#ff0000" />
+      </g>
+    </g>
+    <g
+       id="g14888"
+       inkscape:export-filename="/home/mathgl/Codes/tarot/images/cartes/carreau/3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         id="g14615">
+        <g
+           id="g3924">
+          <g
+             id="g3626-00"
+             transform="translate(415.92063,2.1037269)">
+            <rect
+               style="fill:#999999"
+               id="rect2816-4"
+               width="154.28572"
+               height="218.57143"
+               x="72.85714"
+               y="76.647896"
+               ry="22.857143" />
+            <rect
+               style="fill:#ffffff"
+               id="rect2816-5-5"
+               width="148.57146"
+               height="212.85715"
+               x="74.85714"
+               y="78.219322"
+               ry="22.259571" />
+          </g>
+          <text
+             id="text3827-4"
+             y="195.8945"
+             x="553.06348"
+             style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="195.8945"
+               x="553.06348"
+               id="tspan3829-2"
+               sodipodi:role="line">3</tspan></text>
+        </g>
+      </g>
+      <g
+         transform="translate(214.50795,511.32484)"
+         id="g4756-76">
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="-41.152035"
+           x="492.67517"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-51"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="67.111839"
+           x="362.93262"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-7-1"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="34.93132"
+           x="556.12891"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-5-4"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="146.08167"
+           x="429.16602"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-74-8"
+           style="fill:#ff0000" />
+      </g>
+    </g>
+    <g
+       id="g14930"
+       inkscape:export-filename="/home/mathgl/Codes/tarot/images/cartes/carreau/4.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         id="g14623">
+        <g
+           transform="translate(-414.49206,251.46771)"
+           id="g3924-3">
+          <g
+             id="g3626-00-9"
+             transform="translate(415.92063,2.1037269)">
+            <rect
+               style="fill:#999999"
+               id="rect2816-4-3"
+               width="154.28572"
+               height="218.57143"
+               x="72.85714"
+               y="76.647896"
+               ry="22.857143" />
+            <rect
+               style="fill:#ffffff"
+               id="rect2816-5-5-3"
+               width="148.57146"
+               height="212.85715"
+               x="74.85714"
+               y="78.219322"
+               ry="22.259571" />
+          </g>
+          <text
+             id="text3827-4-4"
+             y="195.8945"
+             x="553.06348"
+             style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="195.8945"
+               x="553.06348"
+               id="tspan3829-2-6"
+               sodipodi:role="line">4</tspan></text>
+        </g>
+      </g>
+      <g
+         transform="translate(-201.20633,758.4677)"
+         id="g4756-766">
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="-41.152035"
+           x="492.67517"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-9"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="67.111839"
+           x="362.93262"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-7-14"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="34.93132"
+           x="556.12891"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-5-3"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="146.08167"
+           x="429.16602"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-74-6"
+           style="fill:#ff0000" />
+      </g>
+    </g>
+    <g
+       id="g14916"
+       inkscape:export-filename="/home/mathgl/Codes/tarot/images/cartes/carreau/5.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         id="g14631">
+        <g
+           transform="translate(-210.20634,248.61057)"
+           id="g3924-2">
+          <g
+             id="g3626-00-92"
+             transform="translate(415.92063,2.1037269)">
+            <rect
+               style="fill:#999999"
+               id="rect2816-4-8"
+               width="154.28572"
+               height="218.57143"
+               x="72.85714"
+               y="76.647896"
+               ry="22.857143" />
+            <rect
+               style="fill:#ffffff"
+               id="rect2816-5-5-1"
+               width="148.57146"
+               height="212.85715"
+               x="74.85714"
+               y="78.219322"
+               ry="22.259571" />
+          </g>
+          <text
+             id="text3827-4-2"
+             y="195.8945"
+             x="553.06348"
+             style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="195.8945"
+               x="553.06348"
+               id="tspan3829-2-4"
+               sodipodi:role="line">5</tspan></text>
+        </g>
+      </g>
+      <g
+         transform="translate(4.50795,758.4677)"
+         id="g4756-6">
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="-41.152035"
+           x="492.67517"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-97"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="67.111839"
+           x="362.93262"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-7-6"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="34.93132"
+           x="556.12891"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-5-0"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="146.08167"
+           x="429.16602"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-74-90"
+           style="fill:#ff0000" />
+      </g>
+    </g>
+    <g
+       id="g14902"
+       inkscape:export-filename="/home/mathgl/Codes/tarot/images/cartes/carreau/6.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         id="g14639">
+        <g
+           transform="translate(2.6507986,250.03913)"
+           id="g3924-36">
+          <g
+             id="g3626-00-4"
+             transform="translate(415.92063,2.1037269)">
+            <rect
+               style="fill:#999999"
+               id="rect2816-4-0"
+               width="154.28572"
+               height="218.57143"
+               x="72.85714"
+               y="76.647896"
+               ry="22.857143" />
+            <rect
+               style="fill:#ffffff"
+               id="rect2816-5-5-35"
+               width="148.57146"
+               height="212.85715"
+               x="74.85714"
+               y="78.219322"
+               ry="22.259571" />
+          </g>
+          <text
+             id="text3827-4-8"
+             y="195.8945"
+             x="553.06348"
+             style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="195.8945"
+               x="553.06348"
+               id="tspan3829-2-5"
+               sodipodi:role="line">6</tspan></text>
+        </g>
+      </g>
+      <g
+         transform="translate(215.93652,759.89627)"
+         id="g4756-68">
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="-41.152035"
+           x="492.67517"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-77"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="67.111839"
+           x="362.93262"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-7-66"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="34.93132"
+           x="556.12891"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-5-5"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="146.08167"
+           x="429.16602"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-74-3"
+           style="fill:#ff0000" />
+      </g>
+    </g>
+    <g
+       id="g16077">
+      <g
+         id="g14647">
+        <g
+           transform="translate(-623.06349,508.61056)"
+           id="g3924-31">
+          <g
+             id="g3626-00-8"
+             transform="translate(415.92063,2.1037269)">
+            <rect
+               style="fill:#999999"
+               id="rect2816-4-01"
+               width="154.28572"
+               height="218.57143"
+               x="72.85714"
+               y="76.647896"
+               ry="22.857143" />
+            <rect
+               style="fill:#ffffff"
+               id="rect2816-5-5-7"
+               width="148.57146"
+               height="212.85715"
+               x="74.85714"
+               y="78.219322"
+               ry="22.259571" />
+          </g>
+          <text
+             id="text3827-4-9"
+             y="195.8945"
+             x="553.06348"
+             style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="195.8945"
+               x="553.06348"
+               id="tspan3829-2-1"
+               sodipodi:role="line">7</tspan></text>
+        </g>
+      </g>
+      <g
+         transform="translate(-411.20633,1019.8963)"
+         id="g4756-72">
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="-41.152035"
+           x="492.67517"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-64"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="67.111839"
+           x="362.93262"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-7-0"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="34.93132"
+           x="556.12891"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-5-7"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="146.08167"
+           x="429.16602"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-74-5"
+           style="fill:#ff0000" />
+      </g>
+    </g>
+    <g
+       id="g14958"
+       inkscape:export-filename="/home/mathgl/Codes/tarot/images/cartes/carreau/8.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         id="g3626-00-1"
+         transform="translate(4.28572,513.57143)">
+        <rect
+           style="fill:#999999"
+           id="rect2816-4-9"
+           width="154.28572"
+           height="218.57143"
+           x="72.85714"
+           y="76.647896"
+           ry="22.857143" />
+        <rect
+           style="fill:#ffffff"
+           id="rect2816-5-5-4"
+           width="148.57146"
+           height="212.85715"
+           x="74.85714"
+           y="78.219322"
+           ry="22.259571" />
+      </g>
+      <text
+         id="text3827-4-20"
+         y="707.36218"
+         x="141.42856"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="707.36218"
+           x="141.42856"
+           id="tspan3829-2-65"
+           sodipodi:role="line">8</tspan></text>
+      <g
+         transform="translate(-199.77776,1021.3248)"
+         id="g4756-0">
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="-41.152035"
+           x="492.67517"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-1"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="67.111839"
+           x="362.93262"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-7-2"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="34.93132"
+           x="556.12891"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-5-8"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="146.08167"
+           x="429.16602"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-74-0"
+           style="fill:#ff0000" />
+      </g>
+    </g>
+    <g
+       id="g14970"
+       inkscape:export-filename="/home/mathgl/Codes/tarot/images/cartes/carreau/9.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         transform="translate(-198.77777,512.89628)"
+         id="g3924-5">
+        <g
+           id="g3626-00-43"
+           transform="translate(415.92063,2.1037269)">
+          <rect
+             style="fill:#999999"
+             id="rect2816-4-94"
+             width="154.28572"
+             height="218.57143"
+             x="72.85714"
+             y="76.647896"
+             ry="22.857143" />
+          <rect
+             style="fill:#ffffff"
+             id="rect2816-5-5-9"
+             width="148.57146"
+             height="212.85715"
+             x="74.85714"
+             y="78.219322"
+             ry="22.259571" />
+        </g>
+        <text
+           id="text3827-4-5"
+           y="195.8945"
+           x="553.06348"
+           style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+           xml:space="preserve"><tspan
+             y="195.8945"
+             x="553.06348"
+             id="tspan3829-2-57"
+             sodipodi:role="line">9</tspan></text>
+      </g>
+      <g
+         transform="translate(15.93653,1025.6105)"
+         id="g4756-5">
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="-41.152035"
+           x="492.67517"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-2"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="67.111839"
+           x="362.93262"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-7-07"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="34.93132"
+           x="556.12891"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-5-16"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="146.08167"
+           x="429.16602"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-74-4"
+           style="fill:#ff0000" />
+      </g>
+    </g>
+    <g
+       id="g14983"
+       inkscape:export-filename="/home/mathgl/Codes/tarot/images/cartes/carreau/10.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         transform="translate(-203.06348,507.18199)"
+         id="g4087">
+        <g
+           id="g3626-00-41"
+           transform="translate(630.20634,2.1037312)">
+          <rect
+             style="fill:#999999"
+             id="rect2816-4-7"
+             width="154.28572"
+             height="218.57143"
+             x="72.85714"
+             y="76.647896"
+             ry="22.857143" />
+          <rect
+             style="fill:#ffffff"
+             id="rect2816-5-5-93"
+             width="148.57146"
+             height="212.85715"
+             x="74.85714"
+             y="78.219322"
+             ry="22.259571" />
+        </g>
+        <text
+           id="text3827-4-6"
+           y="195.8945"
+           x="753.34918"
+           style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+           xml:space="preserve"><tspan
+             y="195.8945"
+             x="753.34918"
+             id="tspan3829-2-2"
+             sodipodi:role="line">10</tspan></text>
+      </g>
+      <g
+         transform="translate(225.93652,1018.4677)"
+         id="g4756-53">
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="-41.152035"
+           x="492.67517"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-511"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="67.111839"
+           x="362.93262"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-7-00"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="34.93132"
+           x="556.12891"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-5-70"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="146.08167"
+           x="429.16602"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-74-81"
+           style="fill:#ff0000" />
+      </g>
+    </g>
+    <g
+       id="g16091"
+       inkscape:export-filename="/home/mathgl/Codes/tarot/images/cartes/carreau/valet.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         id="g3924-31-8"
+         transform="translate(-620.92063,744.32485)">
+        <g
+           transform="translate(415.92063,2.1037269)"
+           id="g3626-00-8-0">
+          <rect
+             ry="22.857143"
+             y="76.647896"
+             x="72.85714"
+             height="218.57143"
+             width="154.28572"
+             id="rect2816-4-01-1"
+             style="fill:#999999" />
+          <rect
+             ry="22.259571"
+             y="78.219322"
+             x="74.85714"
+             height="212.85715"
+             width="148.57146"
+             id="rect2816-5-5-7-3"
+             style="fill:#ffffff" />
+        </g>
+        <text
+           xml:space="preserve"
+           style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+           x="553.06348"
+           y="195.8945"
+           id="text3827-4-9-9"><tspan
+             sodipodi:role="line"
+             id="tspan3829-2-1-4"
+             x="553.06348"
+             y="195.8945">V</tspan></text>
+      </g>
+      <g
+         transform="translate(-408.3492,1255.6105)"
+         id="g4756-72-6">
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="-41.152035"
+           x="492.67517"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-64-0"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="67.111839"
+           x="362.93262"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-7-0-7"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="34.93132"
+           x="556.12891"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-5-7-7"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="146.08167"
+           x="429.16602"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-74-5-2"
+           style="fill:#ff0000" />
+      </g>
+    </g>
+    <g
+       id="g16104"
+       inkscape:export-filename="/home/mathgl/Codes/tarot/images/cartes/carreau/cavalier.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         transform="translate(6.428571,749.28572)"
+         id="g3626-00-1-7">
+        <rect
+           ry="22.857143"
+           y="76.647896"
+           x="72.85714"
+           height="218.57143"
+           width="154.28572"
+           id="rect2816-4-9-2"
+           style="fill:#999999" />
+        <rect
+           ry="22.259571"
+           y="78.219322"
+           x="74.85714"
+           height="212.85715"
+           width="148.57146"
+           id="rect2816-5-5-4-6"
+           style="fill:#ffffff" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         x="143.57144"
+         y="943.07654"
+         id="text3827-4-20-9"><tspan
+           sodipodi:role="line"
+           id="tspan3829-2-65-4"
+           x="143.57144"
+           y="943.07654">C</tspan></text>
+      <g
+         transform="translate(-194.06348,1255.6106)"
+         id="g4756-72-67">
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="-41.152035"
+           x="492.67517"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-64-3"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="67.111839"
+           x="362.93262"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-7-0-0"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="34.93132"
+           x="556.12891"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-5-7-0"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="146.08167"
+           x="429.16602"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-74-5-8"
+           style="fill:#ff0000" />
+      </g>
+    </g>
+    <g
+       id="g16116"
+       inkscape:export-filename="/home/mathgl/Codes/tarot/images/cartes/carreau/dame.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         id="g3924-5-5"
+         transform="translate(-196.63492,748.61057)">
+        <g
+           transform="translate(415.92063,2.1037269)"
+           id="g3626-00-43-9">
+          <rect
+             ry="22.857143"
+             y="76.647896"
+             x="72.85714"
+             height="218.57143"
+             width="154.28572"
+             id="rect2816-4-94-4"
+             style="fill:#999999" />
+          <rect
+             ry="22.259571"
+             y="78.219322"
+             x="74.85714"
+             height="212.85715"
+             width="148.57146"
+             id="rect2816-5-5-9-8"
+             style="fill:#ffffff" />
+        </g>
+        <text
+           xml:space="preserve"
+           style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+           x="553.06348"
+           y="195.8945"
+           id="text3827-4-5-4"><tspan
+             sodipodi:role="line"
+             id="tspan3829-2-57-9"
+             x="553.06348"
+             y="195.8945">D</tspan></text>
+      </g>
+      <g
+         transform="translate(17.365091,1259.8963)"
+         id="g4756-72-1">
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="-41.152035"
+           x="492.67517"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-64-7"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="67.111839"
+           x="362.93262"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-7-0-4"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="34.93132"
+           x="556.12891"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-5-7-4"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="146.08167"
+           x="429.16602"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-74-5-5"
+           style="fill:#ff0000" />
+      </g>
+    </g>
+    <g
+       id="g16129"
+       inkscape:export-filename="/home/mathgl/Codes/tarot/images/cartes/carreau/roi.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         id="g3924-5-5-0"
+         transform="translate(11.936511,750.03914)">
+        <g
+           transform="translate(415.92063,2.1037269)"
+           id="g3626-00-43-9-0">
+          <rect
+             ry="22.857143"
+             y="76.647896"
+             x="72.85714"
+             height="218.57143"
+             width="154.28572"
+             id="rect2816-4-94-4-2"
+             style="fill:#999999" />
+          <rect
+             ry="22.259571"
+             y="78.219322"
+             x="74.85714"
+             height="212.85715"
+             width="148.57146"
+             id="rect2816-5-5-9-8-8"
+             style="fill:#ffffff" />
+        </g>
+        <text
+           xml:space="preserve"
+           style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+           x="553.06348"
+           y="195.8945"
+           id="text3827-4-5-4-3"><tspan
+             sodipodi:role="line"
+             id="tspan3829-2-57-9-5"
+             x="553.06348"
+             y="195.8945">R</tspan></text>
+      </g>
+      <g
+         transform="translate(225.93652,1261.3248)"
+         id="g4756-72-2">
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="-41.152035"
+           x="492.67517"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-64-8"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="67.111839"
+           x="362.93262"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-7-0-9"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="34.93132"
+           x="556.12891"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-5-7-04"
+           style="fill:#ff0000" />
+        <rect
+           transform="matrix(0.64115599,-0.76741058,0.76835604,0.64002266,0,0)"
+           ry="0"
+           y="146.08167"
+           x="429.16602"
+           height="23.445452"
+           width="24.312426"
+           id="rect3676-74-5-4"
+           style="fill:#ff0000" />
+      </g>
+    </g>
+  </g>
+</svg>
