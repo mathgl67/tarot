@@ -1,7 +1,8 @@
 
 from PyQt4 import QtGui, QtCore
 
-from tarot import jeux, distribution
+from tarot.distribute import Distribute
+from tarot import jeux
 from tarot.ui.generated.generate import Ui_Generator
 
 def debug_print(player_dict, dog):
@@ -24,6 +25,18 @@ class GenerateWindow(QtGui.QMainWindow):
 			self.ui.Distribute_3P,
 			QtCore.SIGNAL("activated()"),
 			self.distribute_3p_activated
+		)
+
+		QtCore.QObject.connect(
+			self.ui.Distribute_4P,
+			QtCore.SIGNAL("activated()"),
+			self.distribute_4p_activated
+		)
+
+		QtCore.QObject.connect(
+			self.ui.Distribute_5P,
+			QtCore.SIGNAL("activated()"),
+			self.distribute_5p_activated
 		)
 
 		QtCore.QObject.connect(
@@ -50,32 +63,39 @@ class GenerateWindow(QtGui.QMainWindow):
 			self.dog_clicked
 		)
 
+	def distribute(self, player_count):
+		card_list = jeux.generer_jeux()
+		jeux.melanger(card_list)
 
-	def distribute_3p_activated(self):
-		print "Distribute 3p activated()"
-		jeu = jeux.generer_jeux()
-		jeux.melanger(jeu)
-
-		dist = distribution.Distribution3(jeu)
-		self.player_list = {} 
-		(self.player_list[0],
-		 self.player_list[1],
-		 self.player_list[2],
-                 self.dog) = dist.make()
+		distribute = Distribute(card_list, player_count)
+ 
+		(self.player_list, self.dog) = distribute.do()
 		debug_print(self.player_list, self.dog)
 
 		#create scenes
 		self.scene_list = {}
-		for num, player in self.player_list.iteritems():
-			self.scene_list[num] = self.create_scene(player)
+		for num, card_list in self.player_list.iteritems():
+			self.scene_list[num] = self.create_scene(card_list)
 
 		self.scene_dog = self.create_scene(self.dog)
 
 		#set scene to player 1
 		self.ui.GraphicView.setScene(self.scene_list[0])
-		self.number_of_player = 3
+		self.number_of_player = player_count 
 		self.current_player = 0
-		
+
+	def distribute_3p_activated(self):
+		print "Distribute for 3 players..."
+		self.distribute(3)
+
+	def distribute_4p_activated(self):
+		print "Distribute for 4 players..."
+		self.distribute(4)
+
+	def distribute_5p_activated(self):
+		print "Distribute for 5 players..."
+		self.distribute(5)
+	
 	def create_scene(self, card_list):
 		scene = QtGui.QGraphicsScene(self.ui.GraphicView)
                 pix_size = { "width": 155 * 0.5, "height": 220 * 0.5 }
