@@ -4,18 +4,11 @@ from PyQt4 import QtGui, QtCore
 from tarot import jeux, distribution
 from tarot.ui.generated.generate import Ui_Generator
 
-def debug_print(p1, p2, p3, dog):
-	print "Player 1:"
-	for card in p1:
-	    print card
-	print
-	print "Player 2:"
-	for card in p2:
-	    print card
-	print
-	print "Player 3:"
-	for card in p3:
-	    print card
+def debug_print(player_dict, dog):
+	for num, player in player_dict.iteritems():
+		print "Player %d:" % (num+1)
+		for card in player:
+		    print card
 	print
 	print "Dog:"
 	for card in dog:
@@ -28,27 +21,27 @@ class GenerateWindow(QtGui.QMainWindow):
 		self.ui.setupUi(self)
 		# signals
 		QtCore.QObject.connect(
-			self.ui.Distribution_3P,
+			self.ui.Distribute_3P,
 			QtCore.SIGNAL("activated()"),
-			self.distribution_3p_activated
+			self.distribute_3p_activated
 		)
 
 		QtCore.QObject.connect(
-			self.ui.Player1,
+			self.ui.PlayerPrev,
 			QtCore.SIGNAL("clicked()"),
-			self.player1_clicked
+			self.player_prev_clicked
 		)
 
 		QtCore.QObject.connect(
-			self.ui.Player2,
+			self.ui.Players,
 			QtCore.SIGNAL("clicked()"),
-			self.player2_clicked
+			self.players_clicked
 		)
 
 		QtCore.QObject.connect(
-			self.ui.Player3,
+			self.ui.PlayerNext,
 			QtCore.SIGNAL("clicked()"),
-			self.player3_clicked
+			self.player_next_clicked
 		)
 
 		QtCore.QObject.connect(
@@ -58,25 +51,31 @@ class GenerateWindow(QtGui.QMainWindow):
 		)
 
 
-	def distribution_3p_activated(self):
-		print "Distribution 3p activated()"
+	def distribute_3p_activated(self):
+		print "Distribute 3p activated()"
 		jeu = jeux.generer_jeux()
 		jeux.melanger(jeu)
 
 		dist = distribution.Distribution3(jeu)
-		(self.p1, self.p2, self.p3, self.dog) = dist.make()
-		debug_print(self.p1, self.p2, self.p3, self.dog)
+		self.player_list = {} 
+		(self.player_list[0],
+		 self.player_list[1],
+		 self.player_list[2],
+                 self.dog) = dist.make()
+		debug_print(self.player_list, self.dog)
 
-		#create scene
-		self.scene_p1 = self.create_scene(self.p1)
-		self.scene_p2 = self.create_scene(self.p2)
-		self.scene_p3 = self.create_scene(self.p3)
+		#create scenes
+		self.scene_list = {}
+		for num, player in self.player_list.iteritems():
+			self.scene_list[num] = self.create_scene(player)
+
 		self.scene_dog = self.create_scene(self.dog)
 
-		#set scene to joueur 1
-		self.ui.GraphicView.setScene(self.scene_p1)
+		#set scene to player 1
+		self.ui.GraphicView.setScene(self.scene_list[0])
+		self.number_of_player = 3
+		self.current_player = 0
 		
-
 	def create_scene(self, card_list):
 		scene = QtGui.QGraphicsScene(self.ui.GraphicView)
                 pix_size = { "width": 155 * 0.5, "height": 220 * 0.5 }
@@ -92,20 +91,27 @@ class GenerateWindow(QtGui.QMainWindow):
 				y += 1
 		return scene
 			
+	def display_player_scene(self):
+		scene = self.scene_list[self.current_player]
+                self.ui.GraphicView.setScene(scene)
 
-	def player1_clicked(self):
-		print "Player 1 clicked()"
-                self.ui.GraphicView.setScene(self.scene_p1)
+	def player_prev_clicked(self):
+		print "Player Previous clicked()"
+		if self.current_player > 0:
+			self.current_player -= 1
+		self.display_player_scene()
 
-	def player2_clicked(self):
-		print "Player 2 clicked()"
-                self.ui.GraphicView.setScene(self.scene_p2)
+	def players_clicked(self):
+		print "Players clicked()"
+		self.display_player_scene()
 
-	def player3_clicked(self):
-		print "Player 3 clicked()"
-                self.ui.GraphicView.setScene(self.scene_p3)
+	def player_next_clicked(self):
+		print "Player Next clicked()"
+		if self.current_player + 1 < self.number_of_player:
+			self.current_player += 1
+		self.display_player_scene()
 
 	def dog_clicked(self):
-		print "dog clicked()"
+		print "Dog clicked()"
                 self.ui.GraphicView.setScene(self.scene_dog)
 

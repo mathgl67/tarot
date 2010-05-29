@@ -21,23 +21,23 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="Player1">
+       <widget class="QPushButton" name="PlayerPrev">
         <property name="text">
-         <string>Player 1</string>
+         <string>Previous player</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="Player2">
+       <widget class="QPushButton" name="Players">
         <property name="text">
-         <string>Player 2</string>
+         <string>Players</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="Player3">
+       <widget class="QPushButton" name="PlayerNext">
         <property name="text">
-         <string>Player 3</string>
+         <string>Next player</string>
         </property>
        </widget>
       </item>
@@ -61,18 +61,30 @@
      <height>23</height>
     </rect>
    </property>
-   <widget class="QMenu" name="Distribution">
+   <widget class="QMenu" name="Distribute">
     <property name="title">
-     <string>Distribution</string>
+     <string>Distribute</string>
     </property>
-    <addaction name="Distribution_3P"/>
+    <addaction name="Distribute_3P"/>
+    <addaction name="Distribute_4P"/>
+    <addaction name="Distribute_5P"/>
    </widget>
-   <addaction name="Distribution"/>
+   <addaction name="Distribute"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="Distribution_3P">
+  <action name="Distribute_3P">
    <property name="text">
     <string>3 Players</string>
+   </property>
+  </action>
+  <action name="Distribute_4P">
+   <property name="text">
+    <string>4 Players</string>
+   </property>
+  </action>
+  <action name="Distribute_5P">
+   <property name="text">
+    <string>5 Players</string>
    </property>
   </action>
  </widget>
