@@ -64,8 +64,8 @@ class GenerateWindow(QtGui.QMainWindow):
 		)
 
 	def distribute(self, player_count):
-		card_list = jeux.generer_jeux()
-		jeux.melanger(card_list)
+		card_list = jeux.generate_tarot_cards()
+		jeux.shuffle_cards(card_list)
 
 		distribute = Distribute(card_list, player_count)
  
@@ -101,14 +101,14 @@ class GenerateWindow(QtGui.QMainWindow):
 	
 	def create_scene(self, title, card_list):
 		scene = QtGui.QGraphicsScene(self.ui.GraphicView)
-                pix_size = { "width": 155 * 0.5, "height": 220 * 0.5 }
+                pix_size = { "width": 221 * 0.35, "height": 391 * 0.35 }
 		x = y = 0
 		# add title on scene
-		scene.addText(title, QtGui.QFont("Helvsetica", 28)) 
+		scene.addText(title, QtGui.QFont("Helvsetica", 24)) 
 		# place cards on scene
                 for card in card_list:
-                        card.setPos(x * pix_size["width"], 60 + y * pix_size["height"])
-			card.scale(0.5, 0.5)
+                        card.setPos(x * pix_size["width"], 50 + y * pix_size["height"])
+			card.scale(0.35, 0.35)
                         scene.addItem(card)
 			# increment
                         x += 1

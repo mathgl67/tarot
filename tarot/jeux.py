@@ -1,35 +1,34 @@
 # !/usr/bin/env python
 
 import random
-import carte
+from tarot.card import Card, FaceCard, TrumpCard, ExcuseCard
 
-def generer_couleur(couleur):
-    liste = []
-    for numero in range(1,11):
-        liste.append(carte.Carte(couleur, numero))
+def generate_suit(suit_name):
+    suit = []
+    for number in range(1,11):
+        suit.append(Card(suit_name, number))
 
-    for figure in ["valet", "cavalier", "dame", "roi"]:
-        liste.append(carte.Figure(couleur, figure))
+    for face_card in ["jack", "knight", "queen", "king"]:
+        suit.append(FaceCard(suit_name, face_card))
 
-    return liste
+    return suit
 
-def generer_atout():
-    liste = []
-    for numero in range(1,22):
-        liste.append(carte.Atout(numero))
+def generate_trumps():
+    trumps = []
+    for number in range(1,22):
+        trumps.append(TrumpCard(number))
 
-    return liste
+    return trumps
 
-def generer_jeux():
-    liste = []
-    liste.extend(generer_couleur("coeur"))
-    liste.extend(generer_couleur("trefle"))
-    liste.extend(generer_couleur("carreau"))
-    liste.extend(generer_couleur("pique"))
-    liste.extend(generer_atout())
-    liste.append(carte.Excuse())
-    return liste
+def generate_tarot_cards():
+    tarot_cards = []
+    for suit_name in ["diamons", "clubs", "hearts", "spades"]:
+	tarot_cards.extend(generate_suit(suit_name))
 
-def melanger(jeu):
-    random.shuffle(jeu)
+    tarot_cards.extend(generate_trumps())
+    tarot_cards.append(ExcuseCard())
+    return tarot_cards 
+
+def shuffle_cards(cards):
+    random.shuffle(cards)
 
