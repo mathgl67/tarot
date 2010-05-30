@@ -1,0 +1,23 @@
+
+une pile de carte = a deck
+une main = a hand
+un tour = a turn
+passer = pass
+
+
+figure = face card
+roi = king
+dame = queen
+cavalier = knight
+valet = jack
+
+couleur = a suit 
+carreau = diamonds
+trefle = clubs
+coeur = hearts
+pique = spades
+
+
+atout: trump card
+l'excuse = the excuse
+

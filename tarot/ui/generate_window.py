@@ -2,6 +2,7 @@
 from PyQt4 import QtGui, QtCore
 
 from tarot.distribute import Distribute
+from tarot.deck import Deck
 from tarot import jeux
 from tarot.ui.generated.generate import Ui_Generator
 
@@ -100,14 +101,23 @@ class GenerateWindow(QtGui.QMainWindow):
 		self.distribute(5)
 	
 	def create_scene(self, title, card_list):
+		deck = Deck(card_list) 
 		scene = QtGui.QGraphicsScene(self.ui.GraphicView)
                 pix_size = { "width": 221 * 0.35, "height": 391 * 0.35 }
 		x = y = 0
 		# add title on scene
-		scene.addText(title, QtGui.QFont("Helvsetica", 24)) 
+		itm_title = scene.addText(title, QtGui.QFont("Helvsetica", 24)) 
+		# add information
+		information = "%d Trumps, %d Faces, %d Bouts" % (
+			deck.count_trumps(),
+			deck.count_faces(),
+			deck.count_bouts()
+		)
+		itm_info = scene.addText(information, QtGui.QFont("Helvsetica", 12))
+		itm_info.setPos(0, 40)
 		# place cards on scene
                 for card in card_list:
-                        card.setPos(x * pix_size["width"], 50 + y * pix_size["height"])
+                        card.setPos(x * pix_size["width"], 70 + y * pix_size["height"])
 			card.scale(0.35, 0.35)
                         scene.addItem(card)
 			# increment

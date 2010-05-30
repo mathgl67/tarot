@@ -10,6 +10,9 @@ class AbstractCard(QtGui.QGraphicsPixmapItem):
     def _get_pixmap(self):
 	return QtGui.QPixmap("images/cards/empty.png")
 
+    def is_bout(self):
+	return False
+
 class Card(AbstractCard):
     def __init__(self, suit, number):
 	self.suit = suit
@@ -55,9 +58,18 @@ class TrumpCard(AbstractCard):
     def __repr__(self):
         return "TrumpCard(number=%d)" % (self.number)
 
+    def is_bout(self):
+	if self.number is 1 or self.number is 21:
+		return True
+	return False
+
 class ExcuseCard(AbstractCard):
     def _get_pixmap(self):
 	return QtGui.QPixmap("images/cards/excuse.png")
 
     def __repr__(self):
         return "ExcuseCard()"
+
+    def is_bout(self):
+	return True	
+
