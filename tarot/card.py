@@ -19,6 +19,9 @@ class Card(AbstractCard):
 	self.number = number
 	super(Card, self).__init__()
 
+    def score(self):
+	return 0.5
+
     def _get_pixmap(self):
 	return QtGui.QPixmap(
 		"images/cards/%s/%d.png" % (self.suit, self.number)
@@ -35,6 +38,16 @@ class FaceCard(AbstractCard):
 	self.suit = suit
         self.name = name
         super(FaceCard, self).__init__()
+
+    def score(self):
+	if self.name == "king":
+		return 4.5
+	elif self.name == "queen":
+		return 3.5
+	elif self.name == "knight":
+		return 2.5
+	# you are jack
+	return 1.5
 
     def _get_pixmap(self):
 	return QtGui.QPixmap(
@@ -58,6 +71,11 @@ class TrumpCard(AbstractCard):
     def __repr__(self):
         return "TrumpCard(number=%d)" % (self.number)
 
+    def score(self):
+	if self.is_bout():
+		return 4.5
+	return 0.5
+
     def is_bout(self):
 	if self.number is 1 or self.number is 21:
 		return True
@@ -69,6 +87,9 @@ class ExcuseCard(AbstractCard):
 
     def __repr__(self):
         return "ExcuseCard()"
+
+    def score(self):
+	return 4.5
 
     def is_bout(self):
 	return True	

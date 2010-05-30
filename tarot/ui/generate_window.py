@@ -108,7 +108,8 @@ class GenerateWindow(QtGui.QMainWindow):
 		# add title on scene
 		itm_title = scene.addText(title, QtGui.QFont("Helvsetica", 24)) 
 		# add information
-		information = "%d Trumps, %d Faces, %d Bouts" % (
+		information = "Score: %.1f (%d Trumps, %d Faces, %d Bouts)" % (
+			deck.score(),
 			deck.count_trumps(),
 			deck.count_faces(),
 			deck.count_bouts()

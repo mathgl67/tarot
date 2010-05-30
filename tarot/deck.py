@@ -24,4 +24,9 @@ class Deck(object):
 			if card.is_bout():
 				count += 1
 		return count
-				
+
+	def score(self):
+		score = 0
+		for card in self.card_list:
+			score += card.score()
+		return score
