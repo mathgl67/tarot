@@ -1,9 +1,9 @@
 
 from PyQt4 import QtGui, QtCore
 
+import tarot.card
 from tarot.distribute import Distribute
 from tarot.deck import Deck
-from tarot import jeux
 from tarot.ui.generated.generate import Ui_Generator
 
 def debug_print(player_dict, dog):
@@ -65,8 +65,8 @@ class GenerateWindow(QtGui.QMainWindow):
 		)
 
 	def distribute(self, player_count):
-		card_list = jeux.generate_tarot_cards()
-		jeux.shuffle_cards(card_list)
+		card_list = tarot.card.generate_tarot_cards()
+		tarot.card.shuffle_cards(card_list)
 
 		distribute = Distribute(card_list, player_count)
  
@@ -108,17 +108,32 @@ class GenerateWindow(QtGui.QMainWindow):
 		# add title on scene
 		itm_title = scene.addText(title, QtGui.QFont("Helvsetica", 24)) 
 		# add information
-		information = "Score: %.1f (%d Trumps, %d Faces, %d Bouts)" % (
+		info1 = "Score: %.1f points - Bouts: %d/3" % (
 			deck.score(),
-			deck.count_trumps(),
-			deck.count_faces(),
 			deck.count_bouts()
 		)
-		itm_info = scene.addText(information, QtGui.QFont("Helvsetica", 12))
-		itm_info.setPos(0, 40)
+		itm_info1 = scene.addText(info1, QtGui.QFont("Helvsetica", 12))
+		itm_info1.setPos(0, 37)
+
+		info2 = "%d trumps (%.2f%% of hand, %.2f%% of game)" % (
+			deck.count_trumps(),
+			deck.deck_percentage_trumps(),
+			deck.game_percentage_trumps()
+		)
+		itm_info2 = scene.addText(info2, QtGui.QFont("Helvsetica", 12))
+		itm_info2.setPos(0, 51)
+
+		info3 = "%d faces (%.2f%% of hand, %.2f%% of game)" % (
+			deck.count_faces(),
+			deck.deck_percentage_faces(),
+			deck.game_percentage_trumps()
+		)
+		itm_info3 = scene.addText(info3, QtGui.QFont("Helvsetica", 12))
+		itm_info3.setPos(0, 65)
+
 		# place cards on scene
                 for card in card_list:
-                        card.setPos(x * pix_size["width"], 70 + y * pix_size["height"])
+                        card.setPos(x * pix_size["width"], 90 + y * pix_size["height"])
 			card.scale(0.35, 0.35)
                         scene.addItem(card)
 			# increment

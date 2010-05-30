@@ -12,6 +12,18 @@ class Deck(object):
 				count += 1
 		return count
 
+	def deck_percentage_trumps(self):
+		return float(100 * self.count_trumps()) / len(self.card_list)
+
+	def deck_percentage_faces(self):
+		return float(100 * self.count_faces()) / len(self.card_list)
+
+	def game_percentage_trumps(self):
+		return float(100 * self.count_trumps()) / 21 
+
+	def game_percentage_faces(self):
+		return float(100 * self.count_faces()) / 16
+
 	def count_trumps(self):
 		return self._count_isinstance(TrumpCard)
 
