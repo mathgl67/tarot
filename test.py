@@ -200,7 +200,7 @@ class ScoreFaces(AbstractRatioIteration):
 class Proba(object):
   def __init__(self):
     self.objects = [
-        DeckPercentageTrump({"test": ">=", "value": 33.33, "ratio": 0.8}), # le test ne fonctionne pas comme souhaiter
+        DeckPercentageTrump({"test": ">=", "value": 100/3, "ratio": 0.8}),
 	CountBouts({"test": ">=", "value": 1, "ratio": 0.8}),
 	CountFaceIs({"name": "king", "test": ">=", "value": 2, "ratio": 0.6 }),
 	CountCuts({"test": ">=", "value":1, "ratio": 0.6}),
