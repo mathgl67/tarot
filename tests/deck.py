@@ -17,7 +17,7 @@ deck1 = Deck([
               FaceCard("hearts", "queen"),
               Card("clubs", 2),
               Card("clubs", 8),
-              FaceCard("clubs", "queen"),#10
+              FaceCard("clubs", "queen"), #10
               Card("diamonds", 6),
               Card("diamonds", 7),
               TrumpCard(9),

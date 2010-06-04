@@ -12,7 +12,7 @@ from tarot.ui.generated.generate import Ui_Generator
 
 def debug_print(player_dict, dog):
     for num, deck in player_dict.iteritems():
-        print "Player %d:" % (num+1)
+        print "Player %d:" % (num + 1)
         for card in deck.card_list:
             print card
     print
@@ -82,7 +82,7 @@ class GenerateWindow(QtGui.QMainWindow):
         self.scene_list = {}
         for num, deck in self.player_list.iteritems():
             self.scene_list[num] = self.create_scene(
-                "Player %d" % (num+1),
+                "Player %d" % (num + 1),
                 deck
             )
 
