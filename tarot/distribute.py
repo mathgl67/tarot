@@ -1,30 +1,33 @@
-# !/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import random
+
+from tarot.deck import Deck
 
 class Distribute(object):
     def __init__(self, card_list, player_count):
         self.card_list = card_list
-	self.player_count = player_count
-	if self.player_count is 5:
-		self.dog_full_count = 3
-	else:
-		self.dog_full_count = 6
+        self.player_count = player_count
+        if self.player_count is 5:
+            self.dog_full_count = 3
+        else:
+            self.dog_full_count = 6
 
     def init(self):
         self.first_round = True
         self.card_count_left = len(self.card_list)
 
         self.current_player = self.player_count - 1
-        self.player_list = {} 
-	for num in range(0, self.player_count):
-		self.player_list[num] = []
+        self.player_list = {}
+         
+        for num in range(0, self.player_count):
+            self.player_list[num] = Deck()
 
-        self.dog = []
+        self.dog = Deck()
         self.dog_count = 0
 
-    def add_card(self, card_list, card):
-        card_list.append(card)
+    def add_card(self, deck, card):
+        deck.card_list.append(card)
         self.card_count_left -= 1
 
     def add_dog(self, card):
@@ -90,4 +93,3 @@ class Distribute(object):
                 self.add_player(card)
 
         return (self.player_list, self.dog)
-

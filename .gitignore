@@ -1,3 +1,6 @@
 *.pyc
 *.sw*
 tarot/ui/generated/*.py
+.externalToolBuilders
+.settings
+.directory

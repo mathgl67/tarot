@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 from PyQt4 import QtGui
-from tarot.ui.generate_window import GenerateWindow
+from tarot.ui.window.generate import GenerateWindow
 
 if __name__ == '__main__':
 	import sys
