@@ -73,7 +73,7 @@ class Distribute(object):
                 print "I must add card in the dog."
             return True
 
-        pif = random.randrange(0,100)
+        pif = random.randrange(0, 100)
         if pif < 10:
             if debug:
                 print "I want add card in the dog."

@@ -88,7 +88,7 @@ class ExcuseCard(AbstractCard):
 
 def generate_suit(suit_name):
     suit = []
-    for number in range(1,11):
+    for number in range(1, 11):
         suit.append(Card(suit_name, number))
 
     for face_card in ["jack", "knight", "queen", "king"]:
@@ -98,7 +98,7 @@ def generate_suit(suit_name):
 
 def generate_trumps():
     trumps = []
-    for number in range(1,22):
+    for number in range(1, 22):
         trumps.append(TrumpCard(number))
 
     return trumps
