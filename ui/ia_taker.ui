@@ -21,6 +21,13 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
+       <widget class="QPushButton" name="Pass">
+        <property name="text">
+         <string>&amp;Pass</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="Little">
         <property name="text">
          <string>&amp;Little</string>
@@ -35,16 +42,16 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="GardeAgainst">
         <property name="text">
-         <string>Garde &amp;contre</string>
+         <string>Garde &amp;against</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="GardeWithout">
         <property name="text">
-         <string>Garde &amp;Sans</string>
+         <string>Garde &amp;Without</string>
         </property>
        </widget>
       </item>
