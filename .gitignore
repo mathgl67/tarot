@@ -4,3 +4,4 @@ tarot/ui/generated/*.py
 .externalToolBuilders
 .settings
 .directory
+*.db
