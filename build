@@ -1,3 +1,4 @@
 #! /bin/sh
 
 pyuic4 ui/generate.ui > tarot/ui/generated/generate.py
+pyuic4 ui/ia_taker.ui > tarot/ui/generated/ia_taker.py

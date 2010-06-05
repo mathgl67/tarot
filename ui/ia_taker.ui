@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Generator</class>
- <widget class="QMainWindow" name="Generator">
+ <class>IATaker</class>
+ <widget class="QMainWindow" name="IATaker">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Generator</string>
+   <string>IA Taker</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -21,30 +21,30 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="PlayerPrev">
+       <widget class="QPushButton" name="Little">
         <property name="text">
-         <string>&amp;Previous player</string>
+         <string>&amp;Little</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="Players">
+       <widget class="QPushButton" name="Garde">
         <property name="text">
-         <string>Pl&amp;ayers</string>
+         <string>&amp;Garde</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="PlayerNext">
+       <widget class="QPushButton" name="pushButton">
         <property name="text">
-         <string>&amp;Next player</string>
+         <string>Garde &amp;contre</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="Dog">
+       <widget class="QPushButton" name="pushButton_2">
         <property name="text">
-         <string>&amp;Dog</string>
+         <string>Garde &amp;Sans</string>
         </property>
        </widget>
       </item>
@@ -63,7 +63,7 @@
    </property>
    <widget class="QMenu" name="Distribute">
     <property name="title">
-     <string>D&amp;istribute</string>
+     <string>&amp;Distribute</string>
     </property>
     <addaction name="Distribute_3P"/>
     <addaction name="Distribute_4P"/>
@@ -74,6 +74,9 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="Distribute_3P">
    <property name="text">
+    <string>3 Players</string>
+   </property>
+   <property name="iconText">
     <string>&amp;3 Players</string>
    </property>
   </action>
@@ -84,7 +87,7 @@
   </action>
   <action name="Distribute_5P">
    <property name="text">
-    <string>&amp;5 Players</string>
+    <string>5 Players</string>
    </property>
   </action>
  </widget>
