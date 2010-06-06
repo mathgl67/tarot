@@ -10,6 +10,8 @@ from tarot.ui.image.store import ImageStore
 from tarot.ui.scene.hand import HandScene
 from tarot.ui.generated.generate import Ui_Generator
 
+from tarot.ai.take import Take
+
 def debug_print(player_dict, dog):
     for num, deck in player_dict.iteritems():
         print "Player %d:" % (num + 1)
@@ -25,6 +27,7 @@ class GenerateWindow(QtGui.QMainWindow):
         QtGui.QMainWindow.__init__(self, parent)
         self.ui = Ui_Generator()
         self.ui.setupUi(self)
+        self.take = None
         self.image_store = ImageStore(os.path.join("images", "cards"))
         # signals
         QtCore.QObject.connect(
@@ -78,11 +81,14 @@ class GenerateWindow(QtGui.QMainWindow):
         (self.player_list, self.dog) = distribute.do()
         debug_print(self.player_list, self.dog)
 
+        #set ia take
+        self.take = Take("test", player_count)
+
         #create scenes
         self.scene_list = {}
         for num, deck in self.player_list.iteritems():
             self.scene_list[num] = HandScene(
-                "Player %d" % (num + 1),
+                "Player %d (AI: %.15f)" % (num + 1, self.take.take(deck)),
                 deck,
                 self.image_store,
                 self.ui.GraphicView
@@ -94,6 +100,7 @@ class GenerateWindow(QtGui.QMainWindow):
         self.ui.GraphicView.setScene(self.scene_list[0])
         self.number_of_player = player_count 
         self.current_player = 0
+        
 
     def distribute_3p_activated(self):
         print "Distribute for 3 players..."

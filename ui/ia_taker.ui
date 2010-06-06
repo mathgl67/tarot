@@ -76,15 +76,23 @@
     <addaction name="Distribute_4P"/>
     <addaction name="Distribute_5P"/>
    </widget>
+   <widget class="QMenu" name="menuProfile">
+    <property name="title">
+     <string>Profile</string>
+    </property>
+    <addaction name="actionDefault"/>
+    <addaction name="actionLoad"/>
+   </widget>
    <addaction name="Distribute"/>
+   <addaction name="menuProfile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="Distribute_3P">
    <property name="text">
-    <string>3 Players</string>
+    <string>&amp;3 Players</string>
    </property>
    <property name="iconText">
-    <string>&amp;3 Players</string>
+    <string>3 Players</string>
    </property>
   </action>
   <action name="Distribute_4P">
@@ -95,6 +103,16 @@
   <action name="Distribute_5P">
    <property name="text">
     <string>5 Players</string>
+   </property>
+  </action>
+  <action name="actionDefault">
+   <property name="text">
+    <string>default</string>
+   </property>
+  </action>
+  <action name="actionLoad">
+   <property name="text">
+    <string>load</string>
    </property>
   </action>
  </widget>

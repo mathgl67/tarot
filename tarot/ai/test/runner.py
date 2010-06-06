@@ -4,48 +4,11 @@ Created on 4 juin 2010
 @author: mathgl
 '''
 
-from tarot.ai.test.deck import BoutCountDeckTest, CutCountDeckTest
-from tarot.ai.test.deck import TrumpPercentageOfDeckTest, FaceCountByNameDeckTest
-
-def a_test_list():
-    tests = {}
-    # bouts
-    tests["bout_count_==_1"] = BoutCountDeckTest({"test": "==", "value": 1})
-    tests["bout_count_==_2"] = BoutCountDeckTest({"test": "==", "value": 2})
-    tests["bout_count_==_3"] = BoutCountDeckTest({"test": "==", "value": 3})
-       
-    # trumps
-    tests["trump_percentage_of_deck_<_10"] = TrumpPercentageOfDeckTest({"test": "<", "value": 10})
-    tests["trump_percentage_of_deck_<_20"] = TrumpPercentageOfDeckTest({"test": "<", "value": 20})
-    tests["trump_percentage_of_deck_<_30"] = TrumpPercentageOfDeckTest({"test": "<", "value": 30})
-    tests["trump_percentage_of_deck_<_40"] = TrumpPercentageOfDeckTest({"test": "<", "value": 40})
-    tests["trump_percentage_of_deck_<_50"] = TrumpPercentageOfDeckTest({"test": "<", "value": 50})
-    tests["trump_percentage_of_deck_>_50"] = TrumpPercentageOfDeckTest({"test": ">", "value": 50})
-       
-    # cuts
-    tests["cut_count_==_1"] = CutCountDeckTest({"test": "==", "value": 1})
-    tests["cut_count_==_2"] = CutCountDeckTest({"test": "==", "value": 2})
-    tests["cut_count_==_3"] = CutCountDeckTest({"test": "==", "value": 3})
-    tests["cut_count_==_4"] = CutCountDeckTest({"test": "==", "value": 4})
-          
-    # faces              
-    tests["face_count_name_is_king_=<_2"] = FaceCountByNameDeckTest({"name": "king", "test": "<=", "value": 2})
-    tests["face_count_name_is_king_>_2"] = FaceCountByNameDeckTest({"name": "king", "test": ">", "value": 2})
-    tests["face_count_name_is_queen_=<_2"] = FaceCountByNameDeckTest({"name": "queen", "test": "<=", "value": 2})
-    tests["face_count_name_is_queen_>_2"] = FaceCountByNameDeckTest({"name": "queen", "test": ">", "value": 2})
-    tests["face_count_name_is_knight_=<_2"] = FaceCountByNameDeckTest({"name": "knight", "test": "<=", "value": 2})
-    tests["face_count_name_is_knight_>_2"] = FaceCountByNameDeckTest({"name": "knight", "test": ">", "value": 2})
-    tests["face_count_name_is_jack_=<_2"] = FaceCountByNameDeckTest({"name": "jack", "test": "<=", "value": 2})
-    tests["face_count_name_is_jack_>_2"] = FaceCountByNameDeckTest({"name": "jack", "test": ">", "value": 2})               
-
-    return tests
-
-
 class Runner(object):
-    def __init__(self, deck, tests={}, ratio=None):
+    def __init__(self, deck, tests=None, config=None):
         self.deck = deck
         self.tests = tests if tests else {}
-        self.ratio = ratio if ratio else {}
+        self.config = config if config else {}
         self.results = {}
             
     def test(self):
@@ -56,9 +19,21 @@ class Runner(object):
     def ratio(self):
         ratio = 1
         for name, result in self.results.iteritems():
+            if not self.config.has_key(name):
+                print "WARNING: test '%s' as no config!" % name
+                continue
+            
+            if self.config[name] == 0.0: # ratio == 0 dangerous ?
+                print "WARNING: test '%s' configuration ratio is 0!" % name
+                continue
+            if self.config[name] == 1.0: # ratio == 1 dangerous ?
+                print "WARNING: test '%s' configuration ratio is 1!" % name
+                continue
+            
             if result:
-                r = self.ratio[name]
+                r = self.config[name]
             else:
-                r = 1 - self.ratio[name]
+                r = 1 - self.config[name]
             ratio *= r
+            
         return ratio

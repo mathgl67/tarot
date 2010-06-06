@@ -12,7 +12,8 @@ from tarot.ui.scene.hand import HandScene
 from tarot.ui.generated.ia_taker import Ui_IATaker
 from tarot.ui.image.store import ImageStore
 
-from tarot.ai.test.runner import a_test_list, Runner
+from tarot.ai.take_config_file import TakeConfigFile
+from tarot.ai.test.runner import Runner
 
 from tarot.distribute import Distribute
 import tarot.card
@@ -21,11 +22,13 @@ class IATakerDb(object):
     def __init__(self, profile_name):
         self.db = sqlite3.connect("taker.db")
         self.profile_name = profile_name
-        self.profile_id = None
+        # load tests
+        self.deck_test_config_file = TakeConfigFile("%s.ini" % profile_name)
+        self.tests = self.deck_test_config_file.get_tests()
         # init table
         self.create_tables_if_not_exits()
         self.create_profile()
-                
+           
     def create_tables_if_not_exits(self):
         cursor = self.db.cursor()
         cursor.execute("""
@@ -109,9 +112,7 @@ class IATakerDb(object):
     def take(self, player_count, deck, value):
         """value: 0(Pass), 1(Little), 2(Guard), 3(GuardAgainst), 4(GuardWithout)"""
         print "Take '%s' with %d" % (deck, value)
-        
-        cursor = self.db.cursor()
-        runner = Runner(deck, a_test_list())
+        runner = Runner(deck, self.tests)
         results = runner.test()
         
         game_id = self.create_game(player_count)
@@ -129,6 +130,10 @@ class IATakerDb(object):
         cursor.close()
         
         return games
+    
+    def save_config(self, player_count):
+        print "save configuration.."
+        self.deck_test_config_file.write_config(player_count, self.get_config(player_count))
     
     def get_config(self, player_count):
         cursor = self.db.cursor()
@@ -149,6 +154,17 @@ class IATakerDb(object):
         
         config = {}
         for key, value in results.iteritems():
+            
+            if value == 0 or value == len(games):
+                adjustement = float(1) / len(games)
+                if value == 0:
+                    print "adjust + 1/games_count for '%s'" % (key)
+                    value = adjustement
+                else:
+                    print "adjust - 1/games_count for '%s'" % (key)
+                    value = 1 - adjustement
+            
+                
             config[key] = float(value) / len(games)
              
         return config
@@ -159,7 +175,7 @@ class IATakerWindow(QtGui.QMainWindow):
         self.ui = Ui_IATaker()
         self.ui.setupUi(self)
         self.image_store = ImageStore(os.path.join("images", "cards"))
-        self.take_db = IATakerDb("default")
+        self.take_db = IATakerDb("test")
         # signals
         QtCore.QObject.connect(
             self.ui.Distribute_3P,
@@ -242,25 +258,28 @@ class IATakerWindow(QtGui.QMainWindow):
         print "pass!"
         self.take_db.take(self.player_count, self.player_hand, 0)
         self.distribute(self.player_count)
-        print self.take_db.get_config(self.player_count)
+        self.take_db.save_config(self.player_count)
         
     def little_clicked(self):
         print "little!"
         self.take_db.take(self.player_count, self.player_hand, 1)
         self.distribute(self.player_count)
+        self.take_db.save_config(self.player_count)
         
     def garde_clicked(self):
         print "garde!"
         self.take_db.take(self.player_count, self.player_hand, 2)
         self.distribute(self.player_count)
+        self.take_db.save_config(self.player_count)
         
     def garde_without_clicked(self):
         print "garde sans!"
         self.take_db.take(self.player_count, self.player_hand, 3)
         self.distribute(self.player_count)
+        self.take_db.save_config(self.player_count)
         
     def garde_against_clicked(self):
         print "garde contre!"
         self.take_db.take(self.player_count, self.player_hand, 4)
         self.distribute(self.player_count)
-        
+        self.take_db.save_config(self.player_count)
