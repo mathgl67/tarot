@@ -6,6 +6,8 @@ Created on 6 juin 2010
 from ConfigParser import RawConfigParser
 from tarot.ai.test.deck import BoutCountDeckTest, TrumpPercentageOfDeckTest
 from tarot.ai.test.deck import CutCountDeckTest, FaceCountByNameDeckTest
+from tarot.ai.test.deck import FaceScoreDeckTest, ScoreDeckTest
+from tarot.ai.test.deck import TrumpCountDeckTest
 
 class TakeConfigFile(object):
     def __init__(self, config_file):
@@ -15,6 +17,9 @@ class TakeConfigFile(object):
             "trump_percentage_of_deck": TrumpPercentageOfDeckTest,
             "cut_count": CutCountDeckTest,
             "face_count_by_name": FaceCountByNameDeckTest,
+            "face_score": FaceScoreDeckTest,
+            "score": ScoreDeckTest,
+            "trump_count": TrumpCountDeckTest,
         }
     
     @staticmethod
