@@ -18,56 +18,148 @@ from tarot.distribute import Distribute
 import tarot.card
 
 class IATakerDb(object):
-    def __init__(self):
+    def __init__(self, profile_name):
         self.db = sqlite3.connect("taker.db")
-        self.profile_name = "default"
-        self.cursor = self.db.cursor()
-        self.cursor.execute("""
+        self.profile_name = profile_name
+        self.profile_id = None
+        # init table
+        self.create_tables_if_not_exits()
+        self.create_profile()
+                
+    def create_tables_if_not_exits(self):
+        cursor = self.db.cursor()
+        cursor.execute("""
             CREATE TABLE IF NOT EXISTS profile (
-                name VARCHAR(250) NOT NULL,
-                PRIMARY KEY(name)
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name VARCHAR(250) UNIQUE
             )
         """)
-        self.cursor.execute("""
-            CREATE TABLE IF NOT EXISTS score (
-                id BIGINT AUTO_INCREMENT,
-                profile_name VARCHAR(250) NOT NULL,
-                test VARCHAR(250),
-                result INTEGER,
-                value INTEGER,
-                PRIMARY KEY(id)
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS game (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                profile_id NOT NULL,
+                player_count INTEGER NOT NULL
             )
         """)
-        self.cursor.execute("""SELECT count(*) FROM profile WHERE name=?""", (self.profile_name,))
-        profile_exists = False
-        for row in self.cursor:
-            if row[0] == 1:
-                profile_exists = True
-        
-        if not profile_exists:
-            print "create entry"
-            self.cursor.execute("""INSERT INTO profile (name) VALUES (?)""", (self.profile_name,))
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS test_result (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                game_id INTEGER(11) NOT NULL,
+                name VARCHAR(255) NOT NULL,
+                result INTEGER(11) NOT NULL,
+                take INTEGER(11) NOT NULL
+            )
+        """)
         
         self.db.commit()
+        cursor.close()
     
-    def take(self, deck, value):
+    def create_profile(self):
+        cursor = self.db.cursor()
+        cursor.execute("SELECT id FROM profile WHERE name=:name",
+                       {"name": self.profile_name})
+        
+        row = cursor.fetchone()
+        if row:
+            self.profile_id = row[0] 
+        else:
+            print "create profile entry"
+            cursor.execute("INSERT INTO profile (name) VALUES (:name)", 
+                           {"name": self.profile_name})
+            self.db.commit()
+            self.profile_id = cursor.lastrowid
+            
+        cursor.close()
+ 
+    def create_game(self, player_count):
+        cursor = self.db.cursor()
+        print "create game entry"
+        cursor.execute("""
+            INSERT INTO game (
+                profile_id, player_count
+            ) VALUES (
+                :profile_id, :player_count
+            )""", {
+            "profile_id": self.profile_id,
+            "player_count": player_count
+        })
+        self.db.commit()
+            
+        game_id = cursor.lastrowid
+        cursor.close()
+        return game_id
+    
+    def create_test_result(self, game_id, name, result, take):
+        cursor = self.db.cursor()
+        cursor.execute("""
+                INSERT INTO test_result (
+                    game_id, name, result, take)
+                VALUES (
+                    :game_id, :name, :result, :take
+                )    
+        """, {
+              "game_id": game_id,
+              "name": name,
+              "result": 1 if result else 0,
+              "take": take
+        })
+        self.db.commit()
+        cursor.close()
+    
+    def take(self, player_count, deck, value):
         """value: 0(Pass), 1(Little), 2(Guard), 3(GuardAgainst), 4(GuardWithout)"""
         print "Take '%s' with %d" % (deck, value)
-        r = Runner(deck, a_test_list())
-        res = r.test()
-        for t, v in res.iteritems():
-            self.cursor.execute("""
-                INSERT INTO score (profile_name, test, result, value) VALUES (?,?,?,?) 
-            """, (self.profile_name, t, 1 if v else 0, value))
-        self.db.commit()
+        
+        cursor = self.db.cursor()
+        runner = Runner(deck, a_test_list())
+        results = runner.test()
+        
+        game_id = self.create_game(player_count)
+        for name, result in results.iteritems():
+            self.create_test_result(game_id, name, result, value)
 
+    def get_games(self, player_count):
+        cursor = self.db.cursor()
+        cursor.execute("SELECT id FROM game WHERE profile_id=:profile_id AND player_count=:player_count",
+                       {"profile_id": self.profile_id, "player_count": player_count})
+        games = []
+        for row in cursor:
+            games.append(row[0])
+
+        cursor.close()
+        
+        return games
+    
+    def get_config(self, player_count):
+        cursor = self.db.cursor()
+        
+        games = self.get_games(player_count)
+        
+        results = {}
+        for game_id in games:
+            cursor.execute("SELECT name, result, take FROM test_result WHERE game_id = :game_id",
+                           {"game_id": game_id})
+            for row in cursor:
+                if not results.has_key(row[0]):
+                    results[row[0]] = 0
+                if row[1] > 0:
+                    results[row[0]] += 1
+                    
+        cursor.close()
+        
+        config = {}
+        for key, value in results.iteritems():
+            config[key] = float(value) / len(games)
+             
+        return config
+    
 class IATakerWindow(QtGui.QMainWindow):
     def __init__(self):
         super(IATakerWindow, self).__init__()
         self.ui = Ui_IATaker()
         self.ui.setupUi(self)
         self.image_store = ImageStore(os.path.join("images", "cards"))
-        self.take_db = IATakerDb()
+        self.take_db = IATakerDb("default")
         # signals
         QtCore.QObject.connect(
             self.ui.Distribute_3P,
@@ -132,7 +224,7 @@ class IATakerWindow(QtGui.QMainWindow):
 
         #set scene to player 1
         self.ui.GraphicView.setScene(self.player_scene)
-        self.number_of_player = player_count 
+        self.player_count = player_count
 
     def distribute_3p_activated(self):
         print "Distribute for 3 players..."
@@ -148,26 +240,27 @@ class IATakerWindow(QtGui.QMainWindow):
         
     def pass_clicked(self):
         print "pass!"
-        self.take_db.take(self.player_hand, 0)
-        self.distribute(self.number_of_player)
+        self.take_db.take(self.player_count, self.player_hand, 0)
+        self.distribute(self.player_count)
+        print self.take_db.get_config(self.player_count)
         
     def little_clicked(self):
         print "little!"
-        self.take_db.take(self.player_hand, 1)
-        self.distribute(self.number_of_player)
+        self.take_db.take(self.player_count, self.player_hand, 1)
+        self.distribute(self.player_count)
         
     def garde_clicked(self):
         print "garde!"
-        self.take_db.take(self.player_hand, 2)
-        self.distribute(self.number_of_player)
+        self.take_db.take(self.player_count, self.player_hand, 2)
+        self.distribute(self.player_count)
         
     def garde_without_clicked(self):
         print "garde sans!"
-        self.take_db.take(self.player_hand, 3)
-        self.distribute(self.number_of_player)
+        self.take_db.take(self.player_count, self.player_hand, 3)
+        self.distribute(self.player_count)
         
     def garde_against_clicked(self):
         print "garde contre!"
-        self.take_db.take(self.player_hand, 4)
-        self.distribute(self.number_of_player)
+        self.take_db.take(self.player_count, self.player_hand, 4)
+        self.distribute(self.player_count)
         
