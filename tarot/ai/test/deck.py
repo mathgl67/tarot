@@ -64,7 +64,7 @@ class TrumpCountDeckTest(AbstractDeckTest):
     def test(self, deck):
         return self._do_test_name(
                                   self.config["test"],
-                                  deck.informations.count_trumps(),
+                                  deck.informations().count_trumps(),
                                   self.config["value"]
                                   )
 
