@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from tarot.card import Card, FaceCard, TrumpCard
+from tarot.card import Card, FaceCard, TrumpCard, ExcuseCard
 
 class DeckInformation(object):
     def __init__(self, deck):
@@ -13,6 +13,50 @@ class DeckInformation(object):
                 count += 1
         return count
 
+    def have_bout_name(self, name):
+        if name == "excuse":
+            if self._count_isinstance(ExcuseCard):
+                return True
+        
+        for card in self.deck.card_list:
+            if isinstance(card, TrumpCard):
+                if card.number == 1 and name == "1":
+                    return True
+                elif card.number == 21 and name == "21":
+                    return True
+                
+        return False
+
+    def have_face_suite(self, suit):
+        count = 0
+        for card in self.deck.card_list:
+            if not isinstance(card, FaceCard):
+                continue
+            if not card.suit == suit:
+                continue
+            count += 1
+        
+        if count == 4:
+            return True
+        return False            
+
+    def count_trump_sup(self, number):
+        count = 0
+        for card in self.deck.card_list:
+            if isinstance(card, TrumpCard):
+                if card.number > number:
+                    print "card!"
+                    count += 1
+        print "trump sup:", count
+        return count
+
+    def count_face_suite(self):
+        count = 0
+        for suit in ["hearts", "diamonds", "clubs", "spades"]:
+            if self.have_face_suite(suit):
+                count += 1
+        return count
+    
     def deck_percentage_trumps(self):
         return float(100 * self.count_trumps()) / self.deck.count()
 

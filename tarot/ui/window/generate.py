@@ -3,7 +3,7 @@ from PyQt4 import QtGui, QtCore
 
 import os.path
 
-import tarot.card
+from tarot.deck import DeckGeneration
 from tarot.distribute import Distribute
 
 from tarot.ui.image.store import ImageStore
@@ -73,10 +73,10 @@ class GenerateWindow(QtGui.QMainWindow):
         )
 
     def distribute(self, player_count):
-        card_list = tarot.card.generate_tarot_cards()
-        tarot.card.shuffle_cards(card_list)
+        deck = DeckGeneration.full()
+        deck.shuffle()
 
-        distribute = Distribute(card_list, player_count)
+        distribute = Distribute(deck, player_count)
  
         (self.player_list, self.dog) = distribute.do()
         debug_print(self.player_list, self.dog)

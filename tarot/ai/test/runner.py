@@ -26,6 +26,9 @@ class Runner(object):
             if self.config[name] == 0.0: # ratio == 0 dangerous ?
                 print "WARNING: test '%s' configuration ratio is 0!" % name
                 continue
+            #if self.config[name] <= 0.5:
+            #    print "WARNING: test '%s' configuration ratio <= 0.5" % name
+            #    continue
             if self.config[name] == 1.0: # ratio == 1 dangerous ?
                 print "WARNING: test '%s' configuration ratio is 1!" % name
                 continue

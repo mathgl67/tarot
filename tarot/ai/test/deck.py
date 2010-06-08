@@ -99,3 +99,24 @@ class ScoreDeckTest(AbstractDeckTest):
                                   deck.score(),
                                   self.config["value"]
                                   )
+
+class BoutNameIsInDeckTest(AbstractDeckTest):
+    def test(self, deck):
+        return deck.informations().have_bout_name(self.config["name"])            
+
+
+class TrumpCountSupDeckTest(AbstractDeckTest):
+    def test(self, deck):
+        return self._do_test_name(
+                                  self.config["test"],
+                                  deck.informations().count_trump_sup(int(self.config["number"])),
+                                  self.config["value"]
+                                  )
+    
+class FaceSuiteCountDeckTest(AbstractDeckTest):
+    def test(self, deck):
+        return self._do_test_name(
+            self.config["test"],
+            deck.informations().count_face_suite(),
+            self.config["value"]
+        )                                              

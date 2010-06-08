@@ -128,6 +128,51 @@ class AiTakerDb(object):
     def get_config(self, player_count):
         cursor = self.db.cursor()
         
+        config = {}
+        for test_name in self.tests.iterkeys():
+            # count_where_a_test_is_true
+            cursor.execute("""
+            SELECT 
+                count(*)
+            FROM 
+                test_result
+             WHERE 
+                 name = :test_name AND 
+                 result = 1
+            """, {
+                    "test_name": test_name
+            })
+            row = cursor.fetchone()
+            count_test_true = row[0]
+            # count_where_a_test_is_true_and_take
+            cursor.execute("""
+            SELECT
+                count(*)
+            FROM
+                test_result 
+            INNER JOIN
+                game ON game_id = game.id
+            WHERE
+                name = :test_name AND
+                result = 1 AND
+                game.take > 0
+            """, {
+                  "test_name": test_name
+            })
+            row = cursor.fetchone()
+            count_test_true_and_take = row[0]
+            print "test:%s count_true:%d and count_true_and_take:%d" % (test_name, count_test_true, count_test_true_and_take)
+            if not count_test_true == 0:       
+                config[test_name] = float(count_test_true_and_take) / count_test_true
+            
+        print "config", config
+            
+        return config
+    
+    
+    def get_config2(self, player_count):
+        cursor = self.db.cursor()
+        
         games = self.get_games_win(player_count)
         
         results = {}

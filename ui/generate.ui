@@ -76,6 +76,9 @@
    <property name="text">
     <string>&amp;3 Players</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+3</string>
+   </property>
   </action>
   <action name="Distribute_4P">
    <property name="text">

@@ -13,7 +13,7 @@ from tarot.ui.image.store import ImageStore
 from tarot.ai.db.taker import AiTakerDb
 
 from tarot.distribute import Distribute
-import tarot.card
+from tarot.deck import DeckGeneration
     
 class IATakerWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -73,10 +73,10 @@ class IATakerWindow(QtGui.QMainWindow):
         self.distribute(3)
         
     def distribute(self, player_count):
-        card_list = tarot.card.generate_tarot_cards()
-        tarot.card.shuffle_cards(card_list)
+        deck = DeckGeneration.full()
+        deck.shuffle()
 
-        distribute = Distribute(card_list, player_count)
+        distribute = Distribute(deck, player_count)
  
         player_list = distribute.do()[0]
 

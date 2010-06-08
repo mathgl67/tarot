@@ -2,3 +2,5 @@
 
 pyuic4 ui/generate.ui > tarot/ui/generated/generate.py
 pyuic4 ui/ia_taker.ui > tarot/ui/generated/ia_taker.py
+pyuic4 ui/game.ui > tarot/ui/generated/game.py
+pyuic4 ui/new_game_dialog.ui > tarot/ui/generated/new_game_dialog.py

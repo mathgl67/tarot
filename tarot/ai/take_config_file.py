@@ -7,12 +7,14 @@ from ConfigParser import RawConfigParser
 from tarot.ai.test.deck import BoutCountDeckTest, TrumpPercentageOfDeckTest
 from tarot.ai.test.deck import CutCountDeckTest, FaceCountByNameDeckTest
 from tarot.ai.test.deck import FaceScoreDeckTest, ScoreDeckTest
-from tarot.ai.test.deck import TrumpCountDeckTest
+from tarot.ai.test.deck import TrumpCountDeckTest, BoutNameIsInDeckTest
+from tarot.ai.test.deck import FaceSuiteCountDeckTest, TrumpCountSupDeckTest
 
 class TakeConfigFile(object):
     def __init__(self, config_file):
         self.config_file = config_file
         self.classes_name = {
+            "bout_name_is": BoutNameIsInDeckTest,
             "bout_count": BoutCountDeckTest,
             "trump_percentage_of_deck": TrumpPercentageOfDeckTest,
             "cut_count": CutCountDeckTest,
@@ -20,6 +22,8 @@ class TakeConfigFile(object):
             "face_score": FaceScoreDeckTest,
             "score": ScoreDeckTest,
             "trump_count": TrumpCountDeckTest,
+            "face_suite_count": FaceSuiteCountDeckTest,
+            "trump_count_sup": TrumpCountSupDeckTest,
         }
     
     @staticmethod
