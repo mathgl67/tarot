@@ -37,7 +37,24 @@ class Deck(object):
     def informations(self):
         return DeckInformation(self)
     
-
+    def split(self):
+        card_list = {}
+        for key in ["trumps_and_excuse", "faces", "faces", "hearts", "diamonds", "spades", "clubs"]:
+            card_list[key] = Deck()
+             
+        for card in self.card_list:
+            if isinstance(card, TrumpCard):
+                card_list["trumps_and_excuse"].append(card)
+            elif isinstance(card, ExcuseCard):
+                card_list["trumps_and_excuse"].append(card)
+            elif isinstance(card, FaceCard):
+                card_list["faces"].append(card)
+            elif isinstance(card, Card):
+                for suit in ["hearts", "diamonds", "spades", "clubs"]:
+                    if card.suit == suit:
+                        card_list[suit].append(card)
+                        
+        return card_list
 
 class DeckGeneration(object):
     @staticmethod

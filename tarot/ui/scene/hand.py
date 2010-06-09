@@ -22,9 +22,6 @@ class LittleHandScene(QtGui.QGraphicsScene):
             self.addItem(card)
             # increment
             x += 1
-                
-    def get_margin_top(self):
-        return 0
 
 class HandScene(QtGui.QGraphicsScene):
     def __init__(self, title, deck, image_store, parent=None):

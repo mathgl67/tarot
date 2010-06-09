@@ -37,10 +37,24 @@
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
+   <widget class="QMenu" name="menuDisplay">
+    <property name="title">
+     <string>&amp;Display</string>
+    </property>
+    <addaction name="actionHand"/>
+    <addaction name="actionTake"/>
+   </widget>
    <addaction name="menuGames"/>
+   <addaction name="menuDisplay"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <widget class="QDockWidget" name="dockWidget_2">
+  <widget class="QDockWidget" name="dockWidgetHand">
+   <property name="minimumSize">
+    <size>
+     <width>800</width>
+     <height>250</height>
+    </size>
+   </property>
    <property name="layoutDirection">
     <enum>Qt::LeftToRight</enum>
    </property>
@@ -55,7 +69,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>6</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tabAll">
         <attribute name="title">
@@ -93,7 +107,7 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="QGraphicsView" name="graphicsView"/>
+          <widget class="QGraphicsView" name="graphicsViewHandHearts"/>
          </item>
         </layout>
        </widget>
@@ -103,7 +117,7 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_7">
          <item>
-          <widget class="QGraphicsView" name="graphicsView_2"/>
+          <widget class="QGraphicsView" name="graphicsViewHandDiamonds"/>
          </item>
         </layout>
        </widget>
@@ -113,7 +127,7 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_8">
          <item>
-          <widget class="QGraphicsView" name="graphicsView_3"/>
+          <widget class="QGraphicsView" name="graphicsViewHandSpades"/>
          </item>
         </layout>
        </widget>
@@ -123,7 +137,7 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_9">
          <item>
-          <widget class="QGraphicsView" name="graphicsView_4"/>
+          <widget class="QGraphicsView" name="graphicsViewHandClubs"/>
          </item>
         </layout>
        </widget>
@@ -132,7 +146,7 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget_4">
+  <widget class="QDockWidget" name="dockWidgetTake">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -145,37 +159,37 @@
    <widget class="QWidget" name="dockWidgetContents_4">
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="pushButtonPass">
        <property name="text">
-        <string>PushButton</string>
+        <string>Pass</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="pushButtonLittle">
        <property name="text">
-        <string>PushButton</string>
+        <string>Little</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="pushButtonGuard">
        <property name="text">
-        <string>PushButton</string>
+        <string>Guard</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="pushButtonGuardAgainst">
        <property name="text">
-        <string>PushButton</string>
+        <string>Guard against</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_5">
+      <widget class="QPushButton" name="pushButtonGuardWithout">
        <property name="text">
-        <string>PushButton</string>
+        <string>Guard without</string>
        </property>
       </widget>
      </item>
@@ -216,6 +230,28 @@
   <action name="actionTest">
    <property name="text">
     <string>test</string>
+   </property>
+  </action>
+  <action name="actionHand">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Hand</string>
+   </property>
+  </action>
+  <action name="actionTake">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Take</string>
    </property>
   </action>
  </widget>
