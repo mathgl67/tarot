@@ -88,7 +88,7 @@ class GenerateWindow(QtGui.QMainWindow):
         self.scene_list = {}
         for num, deck in self.player_list.iteritems():
             self.scene_list[num] = HandScene(
-                "Player %d (AI: %.15f)" % (num + 1, self.take.take(deck)),
+                "Player %d (AI: %s)" % (num + 1, self.take.take(deck)),
                 deck,
                 self.image_store,
                 self.ui.GraphicView

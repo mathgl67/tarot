@@ -123,7 +123,10 @@ class AiTakerDb(object):
     
     def save_config(self, player_count):
         print "save configuration.."
-        self.deck_test_config_file.write_config(player_count, self.get_config(player_count))
+        #get stats
+        (count_total, count_take) = self.db_state(player_count)
+        
+        self.deck_test_config_file.write_config(player_count, count_total, count_take, self.get_config(player_count))
     
     def get_config(self, player_count):
         cursor = self.db.cursor()
@@ -161,14 +164,62 @@ class AiTakerDb(object):
             })
             row = cursor.fetchone()
             count_test_true_and_take = row[0]
-            print "test:%s count_true:%d and count_true_and_take:%d" % (test_name, count_test_true, count_test_true_and_take)
+               
             if not count_test_true == 0:       
-                config[test_name] = float(count_test_true_and_take) / count_test_true
+                config["%s-true" % test_name] = float(count_test_true_and_take) / count_test_true
+            
+            # count_where_a_test_is_true
+            cursor.execute("""
+            SELECT 
+                count(*)
+            FROM 
+                test_result
+             WHERE 
+                 name = :test_name AND 
+                 result = 0
+            """, {
+                    "test_name": test_name
+            })
+            row = cursor.fetchone()
+            count_test_false = row[0]
+            # count_where_a_test_is_true_and_take
+            cursor.execute("""
+            SELECT
+                count(*)
+            FROM
+                test_result 
+            INNER JOIN
+                game ON game_id = game.id
+            WHERE
+                name = :test_name AND
+                result = 0 AND
+                game.take > 0
+            """, {
+                  "test_name": test_name
+            })
+            row = cursor.fetchone()
+            count_test_false_and_take = row[0]
+            if not count_test_false == 0:       
+                config["%s-false" % test_name] = float(count_test_false_and_take) / count_test_false      
             
         print "config", config
             
         return config
     
+    def db_state(self, player_count):
+        cursor = self.db.cursor()
+        
+        query_param = {"player_count": player_count}
+        
+        cursor.execute("SELECT count(*) FROM game WHERE player_count=:player_count", query_param)
+        row = cursor.fetchone()
+        count_total = row[0]
+        
+        cursor.execute("SELECT count(*) FROM game WHERE take > 0 AND player_count=:player_count", query_param)
+        row = cursor.fetchone()
+        count_take = row[0]
+        
+        return (count_total, count_take)
     
     def get_config2(self, player_count):
         cursor = self.db.cursor()

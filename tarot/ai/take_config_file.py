@@ -59,8 +59,25 @@ class TakeConfigFile(object):
         
         return test_dict
     
-    def write_config(self, player_count, ratio_dict):
+    def get_stats(self, player_count):
         config = self.load_config()
+        for key, value in config.items("taker-stats-%dp" % player_count):
+            if key == "count_total":
+                total_count = int(value)
+            elif key == "count_take":
+                take_count = int(value)
+        return (total_count, take_count)
+        
+    def write_config(self, player_count, count_total, count_take, ratio_dict):
+        config = self.load_config()
+        #write stats
+        section = "taker-stats-%dp" % player_count
+        if not config.has_section(section):
+            config.add_section(section)
+            
+        config.set(section, "count_total", count_total)
+        config.set(section, "count_take", count_take) 
+        #write data
         section = "taker-config-%dp" % player_count
         #add section if not exists
         if not config.has_section(section):

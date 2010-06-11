@@ -42,6 +42,12 @@ class IATakerWindow(QtGui.QMainWindow):
         )
         
         QtCore.QObject.connect(
+            self.ui.actionSave,
+            QtCore.SIGNAL("activated()"),
+            self.actionSaveActivated
+        )
+        
+        QtCore.QObject.connect(
             self.ui.Pass,
             QtCore.SIGNAL("clicked()"),
             self.pass_clicked
@@ -99,33 +105,31 @@ class IATakerWindow(QtGui.QMainWindow):
     def distribute_5p_activated(self):
         print "Distribute for 5 players..."
         self.distribute(5)
-        
+    
+    def actionSaveActivated(self):
+        print "save"
+        self.take_db.save_config(self.player_count)
+    
     def pass_clicked(self):
         print "pass!"
         self.take_db.take(self.player_count, self.player_hand, 0)
         self.distribute(self.player_count)
-        self.take_db.save_config(self.player_count)
         
     def little_clicked(self):
         print "little!"
         self.take_db.take(self.player_count, self.player_hand, 1)
         self.distribute(self.player_count)
-        self.take_db.save_config(self.player_count)
         
     def garde_clicked(self):
         print "garde!"
         self.take_db.take(self.player_count, self.player_hand, 2)
         self.distribute(self.player_count)
-        self.take_db.save_config(self.player_count)
         
     def garde_without_clicked(self):
         print "garde sans!"
         self.take_db.take(self.player_count, self.player_hand, 3)
         self.distribute(self.player_count)
-        self.take_db.save_config(self.player_count)
         
     def garde_against_clicked(self):
         print "garde contre!"
         self.take_db.take(self.player_count, self.player_hand, 4)
-        self.distribute(self.player_count)
-        self.take_db.save_config(self.player_count)

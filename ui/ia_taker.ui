@@ -82,6 +82,7 @@
     </property>
     <addaction name="actionDefault"/>
     <addaction name="actionLoad"/>
+    <addaction name="actionSave"/>
    </widget>
    <addaction name="Distribute"/>
    <addaction name="menuProfile"/>
@@ -113,6 +114,11 @@
   <action name="actionLoad">
    <property name="text">
     <string>load</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>save</string>
    </property>
   </action>
  </widget>

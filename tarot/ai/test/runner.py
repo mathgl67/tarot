@@ -19,24 +19,15 @@ class Runner(object):
     def ratio(self):
         ratio = 1
         for name, result in self.results.iteritems():
-            if not self.config.has_key(name):
+            if not (self.config.has_key("%s-true" % name) and
+                    self.config.has_key("%s-false" % name)):
                 print "WARNING: test '%s' as no config!" % name
                 continue
-            
-            if self.config[name] == 0.0: # ratio == 0 dangerous ?
-                print "WARNING: test '%s' configuration ratio is 0!" % name
-                continue
-            #if self.config[name] <= 0.5:
-            #    print "WARNING: test '%s' configuration ratio <= 0.5" % name
-            #    continue
-            if self.config[name] == 1.0: # ratio == 1 dangerous ?
-                print "WARNING: test '%s' configuration ratio is 1!" % name
-                continue
-            
+                    
             if result:
-                r = self.config[name]
+                r = self.config["%s-true" % name]
             else:
-                r = 1 - self.config[name]
+                r = self.config["%s-false" % name]
             ratio *= r
             
         return ratio

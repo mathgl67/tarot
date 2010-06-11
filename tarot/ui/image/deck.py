@@ -4,8 +4,7 @@ Created on 4 juin 2010
 @author: mathgl
 '''
 
-from PyQt4 import QtGui, QtCore
-from tarot.card import AbstractCard
+from PyQt4 import QtGui
 
 class CardItem(QtGui.QGraphicsPixmapItem):
     def __init__(self, image_store, card):
