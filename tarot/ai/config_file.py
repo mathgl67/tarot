@@ -24,4 +24,4 @@ class AiConfigFile(ConfigParser):
     def save(self):
         self.set("ai", "path", self.path)
         self.set("ai", "default", self.default)
-        self.write(file(self.file_full_path, "w+")
+        self.write(file(self.file_full_path, "w+"))
