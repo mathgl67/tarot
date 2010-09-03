@@ -21,6 +21,10 @@ class Deck(object):
 
     def append(self, card):
         self.card_list.append(card)
+        
+    def move(self, card, deck):
+        self.deck.append(card)
+        self.card_list.remove(card)
 
     def shuffle(self):
         random.shuffle(self.card_list)

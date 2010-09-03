@@ -18,7 +18,7 @@ class NewGameDialog(QtGui.QDialog):
         self.ui.setupUi(self)
 
     def get_result(self):
-        game = Game(self.ui.numberOfPlayer.value())
+        game = Game()
         game.player_list.append(GuiPlayer("mathgl"))
         for num in range(0, self.ui.numberOfAi.value()):
             game.player_list.append(DummyAiPlayer("ai_%d" % num))

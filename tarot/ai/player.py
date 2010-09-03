@@ -8,7 +8,8 @@ from tarot.player import AbstractPlayer
 
 class DummyAiPlayer(AbstractPlayer):
     def take(self, turn_take):
-        return self.take["pass"]
+        print "shoudl take?"
+        self.takeDecided.emit(self.takeList["pass"])
     
     def turn(self, turn_deck):
         return None
