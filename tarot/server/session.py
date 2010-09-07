@@ -1,5 +1,7 @@
 
-from PyQt4 import QtCore, QtXml
+from PyQt4 import QtCore
+
+from tarot.server.message import Message
 
 class Session(QtCore.QThread):
     def __init__(self, server, client):
@@ -10,26 +12,19 @@ class Session(QtCore.QThread):
         self.socket.readyRead.connect(self.socket_ready_read)
         self.socket.disconnected.connect(self.socket_disconnected)
         self.user = None
-        self.channel = None
+        self.channel = None 
     
-    def new_xml(self, element_name):
-        doc = QtXml.QDomDocument()
-        elem = doc.createElement(element_name)
-        doc.appendChild(elem)
-        return (doc, elem)
-    
-    def send_xml(self, document):
-        data = document.toString()
-        data.replace("\n", "") # This is bad...
-        self.socket.write("%s\n" % data)         
+    def send_line(self, line):
+        self.socket.write("%s\n" % line)
     
     def socket_disconnected(self):
         print "disconnected"
         if self.channel:
             # leave the channel
-            (leave_doc, leave) = self.new_xml("channel-left")
-            leave.setAttribute("user", self.user.name)
-            self.server.session_list.send_to_channel(self.channel, leave_doc)
+            self.server.session_list.send_to_channel(self.channel,
+                Message.simple("channel-left", {"user": self.user.name})
+            )
+            
         # stop loop
         self.exit()
         self.wait()
@@ -67,10 +62,10 @@ class SessionList(list):
                 result.append(session)
         return result
     
-    def send_to_channel(self, channel, document):
+    def send_to_channel(self, channel, line):
         for session in self.get_by_channel(channel):
-            session.send_xml(document)
+            session.send_line(line)
 
-    def send_to_all(self, document):
+    def send_to_all(self, line):
         for session in self:
-            session.send_xml(document)
+            session.send_line(line)

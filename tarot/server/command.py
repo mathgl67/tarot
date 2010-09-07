@@ -1,6 +1,8 @@
 
 from PyQt4 import QtCore, QtXml
 
+from tarot.server.message import Message
+
 class AbstractCommand(QtCore.QObject):
     name=None
     must_be_auth=True
@@ -29,7 +31,7 @@ class CommandList(list):
         return None
   
     def run(self, session, line):
-        document = QtXml.QDomDocument("line")
+        document = QtXml.QDomDocument()
         (ret, error_msg, error_line, error_column) = document.setContent(line)
         if not ret:
             print "parse:", line 
@@ -83,7 +85,6 @@ class AuthCommand(AbstractCommand):
                 1 - User or password incorrect
                 2 - User already have a session
         """
-        (doc, auth) = session.new_xml("auth")
         
         user = session.server.config_store.user_list.get_by_name(element.attribute("user"))
         if user:
@@ -93,22 +94,23 @@ class AuthCommand(AbstractCommand):
                 if not session.server.session_list.user_exists(user):
                     print "user %s authentified" % (user.name)
                     session.user = user
-                    auth.setAttribute("result", "success")
-                    session.send_xml(doc)
+                    session.send_line(Message.simple("auth", { "result": "success" }))
                     return
                 else:
                     print "user %s already have a session" % (user.name)
-                    auth.setAttribute("result", "error")
-                    auth.setAttribute("code", "2")
-                    auth.setAttribute("message", "User already have a session.")
-                    session.send_xml(doc)
+                    session.send_line(Message.simple("auth", {
+                        "result": "error",
+                        "code": "2",
+                        "message": "User already have a session."
+                    }))
                     return
         
         print "bad authententification"
-        auth.setAttribute("result", "error")
-        auth.setAttribute("code", "2")
-        auth.setAttribute("message", "User or password incorrect")
-        session.send_xml(doc)
+        session.send_line(Message.simple("auth", {
+            "result": "error",
+            "code": "1",
+            "message": "User or password incorrect"
+        }))
         
 class ChannelEnterCommand(AbstractCommand):
     name="channel-enter"
@@ -128,9 +130,7 @@ class ChannelEnterCommand(AbstractCommand):
             code / message:
                 1 - Channel doesn't exists.
                 2 - Channel bad password.
-        """
-        (result_doc, result) = session.new_xml("channel-enter")
-        
+        """        
         name = element.attribute("name")
         password = element.attribute("password")
         
@@ -140,23 +140,28 @@ class ChannelEnterCommand(AbstractCommand):
                 print "user %s enter in channel %s" % (session.user.name, channel.name)
                 session.channel = channel
                 # inform people in channel
-                (join_doc, join) = session.new_xml("channel-join")
-                join.setAttribute("user", session.user.name)
-                session.server.session_list.send_to_channel(session.channel, join_doc)
+                session.server.session_list.send_to_channel(
+                    session.channel,
+                    Message.simple("channel-join", {"user": session.user.name})
+                )
                 # set success
-                result.setAttribute("result", "success")
+                session.send_line(Message.simple("channel-enter", {"result": "success"}))
             else:
                 print "user %s bad password for channel %s" % (session.user.name, channel.name)
-                result.setAttribute("result", "error")
-                result.setAttribute("code", "2")
-                result.setAttribute("message", "Channel bad password.")
+                session.send_line(Message.simple("channel-enter", {
+                    "result": "error",
+                    "code": "2",
+                    "message": "Wrong password"
+                }))
+            return
         else:
-                print "user %s channel not exists %s" % (session.user.name, channel.name)
-                result.setAttribute("result", "error")
-                result.setAttribute("code", "1")
-                result.setAttribute("message", "Channel does'nt exists.")
+                print "user %s want enter in channel %s that not exists" % (session.user.name, channel.name)
+                session.send_line(Message.simple("channel-enter", {
+                    "result": "error",
+                    "code": "1",
+                    "message": "Channel does'nt exists."
+                }))
                 
-        session.send_xml(result_doc)
 
 class ChannelUsersCommand(AbstractCommand):
     name="channel-users"
@@ -172,14 +177,9 @@ class ChannelUsersCommand(AbstractCommand):
                     <user name="user2" />
                 </channel-users>
         """
-        (result_doc, result) = session.new_xml("channel-users")
-        for session_ in session.server.session_list.get_by_channel(session.channel):
-            user = result_doc.createElement("user")
-            user.setAttribute("name", session_.user.name)
-            result.appendChild(user)
-    
-        print "user %s ask for user list in chan %s" % (session.user.name, session.channel.name) 
-        session.send_xml(result_doc)
+        print "user %s ask for user list in chan %s" % (session.user.name, session.channel.name)
+        session_list = session.server.session_list.get_by_channel(session.channel)
+        session.send_line(Message.channel_users(session_list))
 
 class ChannelMessageCommand(AbstractCommand):
     name="channel-message"
@@ -195,8 +195,7 @@ class ChannelMessageCommand(AbstractCommand):
         print "user %s send message to %s" % (session.user.name, session.channel.name)
         message = element.attribute("message")
         
-        (result_doc,result) = session.new_xml("channel-message")
-        result.setAttribute("user", session.user.name)
-        result.setAttribute("message", message)
-        
-        session.server.session_list.send_to_channel(session.channel, result_doc)
+        session.server.session_list.send_to_channel(
+            session.channel,
+            Message.simple("channel-message", {"user": session.user.name, "message": message})
+        )

@@ -4,12 +4,13 @@ Created on 8 juin 2010
 @author: mathgl
 '''
 
-from xml.dom import minidom
 from PyQt4 import QtGui, QtNetwork
 from PyQt4.QtCore import Qt
+
 from tarot.ui.generated.game import Ui_GameWindow
 from tarot.ui.window.new_connection import ConnectionDialog
-
+from tarot.server.message import Message
+from tarot.server.client import Client
 
 class ChatWidget(object):
     def __init__(self, main_window):
@@ -99,9 +100,12 @@ class ChatWidget(object):
 class GameWindow(QtGui.QMainWindow):
     def __init__(self):
         super(GameWindow, self).__init__()
-        self.socket = self.socket = QtNetwork.QTcpSocket()
+        self.socket = Client()
         self.socket.connected.connect(self.connected)
-        self.socket.readyRead.connect(self.readyRead)
+        self.socket.channel_message_received.connect(self.channel_message_received)
+        self.socket.channel_join_received.connect(self.channel_join_received)
+        self.socket.channel_left_received.connect(self.channel_left_received)
+        self.socket.channel_users_received.connect(self.channel_users_received)
         
         self.ui = Ui_GameWindow()
         self.ui.setupUi(self)
@@ -119,44 +123,29 @@ class GameWindow(QtGui.QMainWindow):
             )
     
     def connected(self):
-            self.socket.write(
-                """<auth user="%s" password="%s" />\n""" % (
-                    self.connection_opts["user"],
-                    self.connection_opts["user_password"]
-            ))
-            self.socket.write(
-                """<channel-enter name="%s" password="%s" />\n""" % (
-                    self.connection_opts["channel"],
-                    self.connection_opts["channel_password"]
-            ))
-            self.connected = True
+            self.socket.auth(
+                self.connection_opts["user"],
+                self.connection_opts["user_password"]
+            )
+            self.socket.channel_enter(
+                self.connection_opts["channel"],
+                self.connection_opts["channel_password"]
+            )
 
-    def readyRead(self):
-        while True:
-            line = self.socket.readLine()
-            if not line:
-                return
-                     
-            print "receive:", line
-            dom = minidom.parseString(line)
-            root = dom.childNodes[0]
-            if root.nodeName == "channel-message":
-                user = root.getAttributeNode("user")
-                message = root.getAttributeNode("message")
-                self.chat_widget.message(user.nodeValue, message.nodeValue) 
-            elif root.nodeName == "channel-join":
-                user = root.getAttributeNode("user")
-                self.chat_widget.notice("%s enter." % user.nodeValue)
-                print "ask channel users update"
-                self.socket.write("""<channel-users />\n""")
-            elif root.nodeName == "channel-left":
-                user = root.getAttributeNode("user")
-                self.chat_widget.notice("%s left." % user.nodeValue)
-                print "ask channel users update"
-                self.socket.write("""<channel-users />\n""")
-            elif root.nodeName == "channel-users":
-                self.ui.listWidgetUsers.clear()
-                for node in root.childNodes:
-                    if node.nodeName == "user":
-                        self.ui.listWidgetUsers.addItem(node.getAttribute("name"))
-            
+    def channel_join_received(self, user):
+        self.chat_widget.notice("%s enter." % user)
+        print "ask channel users update"
+        self.socket.channel_users()
+
+    def channel_left_received(self, user):
+        self.chat_widget.notice("%s left." % user)
+        print "ask channel users update"
+        self.socket.channel_users()
+
+    def channel_message_received(self, user, message):
+        self.chat_widget.message(user, message) 
+    
+    def channel_users_received(self, user_list):
+        self.ui.listWidgetUsers.clear()
+        for user in user_list:
+            self.ui.listWidgetUsers.addItem(user)
