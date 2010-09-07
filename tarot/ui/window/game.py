@@ -4,12 +4,11 @@ Created on 8 juin 2010
 @author: mathgl
 '''
 
-from PyQt4 import QtGui, QtNetwork
+from PyQt4 import QtGui
 from PyQt4.QtCore import Qt
 
 from tarot.ui.generated.game import Ui_GameWindow
 from tarot.ui.window.new_connection import ConnectionDialog
-from tarot.server.message import Message
 from tarot.server.client import Client
 
 class ChatWidget(object):
