@@ -1,6 +1,8 @@
 
 from xml.dom import minidom
 
+from PyQt4.Qt import qDebug
+
 from tarot.server.user import UserList
 from tarot.server.chan import ChannelList
 
@@ -13,13 +15,16 @@ class ConfigStore(object):
         self.channel_list = None
     
     def load(self):
+        qDebug("read config file: %s" % self.file_path)
         with open(self.file_path, "r") as f:
             content = f.read()
+            qDebug("parse config file")
             document = minidom.parseString(content)
             root = document.childNodes[0]
             self.from_xml(root)    
         
     def save(self):
+        qDebug("save config file" % self.file_path)
         document = minidom.Document()
         document.appendChild(self.to_xml())
         
