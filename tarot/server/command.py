@@ -23,6 +23,7 @@ class CommandList(list):
         self.append(ChannelEnterCommand)
         self.append(ChannelUsersCommand)
         self.append(ChannelMessageCommand)
+        self.append(GameStartCommand)
   
     def get_by_name(self, name):
         for command in self:
@@ -155,7 +156,7 @@ class ChannelEnterCommand(AbstractCommand):
                 }))
             return
         else:
-                print "user %s want enter in channel %s that not exists" % (session.user.name, channel.name)
+                print "user %s want enter in channel %s that not exists" % (session.user.name, name)
                 session.send_line(Message.simple("channel-enter", {
                     "result": "error",
                     "code": "1",
@@ -199,3 +200,11 @@ class ChannelMessageCommand(AbstractCommand):
             session.channel,
             Message.simple("channel-message", {"user": session.user.name, "message": message})
         )
+
+class GameStartCommand(AbstractCommand):
+    name="game-start"
+    
+    @staticmethod
+    def run(session, element):
+        print "user %s start game in chan %s" % (session.user.name, session.channel.name)
+        

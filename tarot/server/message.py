@@ -24,6 +24,15 @@ class Message(object):
         return Message.to_string(doc)
     
     @staticmethod
+    def game_start(user_list):
+        (doc, root) = Message.prepare_document("game-start")
+        for user_name in user_list:
+            user = doc.createElement("user")
+            user.setAttribute("name", user_name)
+            root.appendChild(user)
+        return Message.to_string(doc)    
+    
+    @staticmethod
     def channel_users(session_list):
         (doc, root) = Message.prepare_document("channel-users")
         for session in session_list:

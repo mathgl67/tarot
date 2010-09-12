@@ -34,7 +34,10 @@ class Client(QtNetwork.QTcpSocket):
     
     def channel_users(self):    
         self.send_line(Message.simple("channel-users"))
-        
+    
+    def game_start(self, user_list):
+        self.send_line(Message.game_start(user_list))
+    
     def ready_read(self):
         line = self.readLine()
         if not line:

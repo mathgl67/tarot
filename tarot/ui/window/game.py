@@ -5,96 +5,12 @@ Created on 8 juin 2010
 '''
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import Qt
 
+from tarot.ui.widget.chat import ChatWidget
 from tarot.ui.generated.game import Ui_GameWindow
 from tarot.ui.window.new_connection import ConnectionDialog
 from tarot.server.client import Client
 
-class ChatWidget(object):
-    def __init__(self, main_window):
-        self.main_window = main_window
-        self.webView = self.main_window.ui.webViewChat
-        self.lineEdit = self.main_window.ui.lineEditChat
-        self.lineEdit.returnPressed.connect(self.send_message)
-        
-        self.css = """
-            .notice {
-                font-size: 9pt;
-                color: gray;
-            }
-            
-            .notice:before {
-                content: " --- ";
-            }
-           
-            .author {
-                color: red;
-            }
-            
-            .author:before {
-                content: "<"
-            }
-            
-            .author:after {
-                content: "> ";
-            }
-            
-            .message {
-                font-size: 10pt;
-            }
-        """
-        self.frame = """
-        <html>
-        <head>
-            <style type="text/css">
-            %s
-            </style>
-        </head>
-        <body>
-            %s
-        </body>
-        </html>
-        """
-              
-        self.content = ""
-    
-    def update(self):
-        self.webView.setHtml(self.frame % (
-            self.css,
-            self.content
-        )) 
-        self.webView.page().mainFrame().setScrollBarValue(Qt.Vertical, self.webView.page().mainFrame().scrollBarMaximum(Qt.Vertical))
-        
-         
-    def notice(self, text):
-        self.content += """
-            <div class="notice">
-                %s
-            </div>""" % text
-        self.update()      
-        
-    def message(self, author, text):
-        self.content += """
-            <div class="message">
-                <span class="author">%s</span>
-                <span class="text">%s</span>
-            </div>
-        """ % (
-            author,
-            text
-        )
-        self.update()
-
-    def send_message(self):
-        message = self.lineEdit.text()
-        self.lineEdit.clear()
-        print "should send:", message
-        if self.main_window.socket:
-            self.main_window.socket.write(
-                """<channel-message message="%s" />\n""" % (message)
-            )
-            
 
 class GameWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -111,6 +27,10 @@ class GameWindow(QtGui.QMainWindow):
  
         self.ui.actionConnection.triggered.connect(self.connection)
         self.chat_widget = ChatWidget(self)
+        
+        #game tab
+        self.ui.pushButtonAppendGame.clicked.connect(self.append_to_game)
+        self.ui.pushButtonGameStart.clicked.connect(self.game_start)
                  
     def connection(self):
         dialog = ConnectionDialog()
@@ -130,6 +50,25 @@ class GameWindow(QtGui.QMainWindow):
                 self.connection_opts["channel"],
                 self.connection_opts["channel_password"]
             )
+
+    def append_to_game(self):
+        selected = self.ui.listWidgetUsers.selectedItems()
+        if len(selected) == 1:
+            user = selected[0].text()
+            self.ui.listWidgetPlayers.addItem(user)
+
+    def game_start(self):
+        player_count = self.ui.listWidgetPlayers.count()
+        #if not player_count >= 3 or not player_count <= 5:
+        #    message = QtGui.QMessageBox(QtGui.QMessageBox.Warning, "Error", "You can start game only if you have between 3 and 5 players")
+        #    message.exec_()
+        
+        user_list = []      
+        for item_index in range(0, player_count): 
+            item = self.ui.listWidgetPlayers.item(item_index)
+            user_list.append(item.text())
+        
+        self.socket.game_start(user_list)
 
     def channel_join_received(self, user):
         self.chat_widget.notice("%s enter." % user)
