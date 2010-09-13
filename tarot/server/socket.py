@@ -16,7 +16,7 @@ class TcpServer(QtNetwork.QTcpServer):
         self.command_list = CommandList()
             
     def listen(self):
-        if self.config_store.host:
+        if self.config_store.listen_host:
             host = QtNetwork.QHostAddress()
             host.setAddress(self.config_store.listen_host)
         else:

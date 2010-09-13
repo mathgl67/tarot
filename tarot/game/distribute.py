@@ -2,7 +2,7 @@
 
 import random
 
-from tarot.deck import Deck
+from tarot.game.deck import Deck
 
 class Distribute(object):
     def __init__(self, deck, player_count):

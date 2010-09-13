@@ -2,8 +2,8 @@
 
 import random
 
-from tarot.card import Card, ExcuseCard, TrumpCard, FaceCard
-from tarot.deck_information import DeckInformation
+from tarot.game.card import Card, ExcuseCard, TrumpCard, FaceCard
+from tarot.game.deck_information import DeckInformation
 
 
 class Deck(object):

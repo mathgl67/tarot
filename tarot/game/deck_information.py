@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from tarot.card import Card, FaceCard, TrumpCard, ExcuseCard
+from tarot.game.card import Card, FaceCard, TrumpCard, ExcuseCard
 
 class DeckInformation(object):
     def __init__(self, deck):

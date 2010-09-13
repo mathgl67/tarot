@@ -7,7 +7,7 @@ Created on 4 juin 2010
 import os.path
 
 from PyQt4 import QtGui
-from tarot.card import Card, ExcuseCard, TrumpCard, FaceCard
+from tarot.game.card import Card, ExcuseCard, TrumpCard, FaceCard
 
 class ImageStore(object):
     def __init__(self, base_path):

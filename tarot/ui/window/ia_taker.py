@@ -12,8 +12,8 @@ from tarot.ui.generated.ia_taker import Ui_IATaker
 from tarot.ui.image.store import ImageStore
 from tarot.ai.db.taker import AiTakerDb
 
-from tarot.distribute import Distribute
-from tarot.deck import DeckGeneration
+from tarot.game.distribute import Distribute
+from tarot.game.deck import DeckGeneration
     
 class IATakerWindow(QtGui.QMainWindow):
     def __init__(self):

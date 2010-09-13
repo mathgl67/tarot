@@ -3,8 +3,8 @@ from PyQt4 import QtGui, QtCore
 
 import os.path
 
-from tarot.deck import DeckGeneration
-from tarot.distribute import Distribute
+from tarot.game.deck import DeckGeneration
+from tarot.game.distribute import Distribute
 
 from tarot.ui.image.store import ImageStore
 from tarot.ui.scene.hand import HandScene

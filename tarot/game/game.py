@@ -4,9 +4,9 @@ Created on 8 juin 2010
 @author: mathgl
 '''
 
-from tarot.deck import DeckGeneration
-from tarot.distribute import Distribute
-from tarot.player import GuiPlayer, PlayerList
+from tarot.game.deck import DeckGeneration
+from tarot.game.distribute import Distribute
+from tarot.game.player import GuiPlayer, PlayerList
 
 from PyQt4 import QtCore
 
