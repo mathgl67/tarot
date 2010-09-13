@@ -14,12 +14,14 @@ if __name__ == '__main__':
     
     qDebug("load config file")
     config_store = ConfigStore("config/server.xml")
-    config_store.load()
+    if not config_store.load():
+        qFatal("cannot load config file")
+        sys.exit(1)
 
     qDebug("create tcp server and listen")
     server = TcpServer(app, config_store)
     if not server.listen():
         qFatal("cannot listen: %s" % server.errorString())
-        sys.exit(-1)    
+        sys.exit(2)    
 
     sys.exit(app.exec_())

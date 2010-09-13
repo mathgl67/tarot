@@ -206,5 +206,26 @@ class GameStartCommand(AbstractCommand):
     
     @staticmethod
     def run(session, element):
-        print "user %s start game in chan %s" % (session.user.name, session.channel.name)
-        
+        """
+            <game-start>user_list</game-start>
+            
+            user_list:
+                <user name="user1" />
+            
+            user event:
+                <game-deck />
+                <game-contract />
+
+            channel event:
+                <game-started />
+            
+        """
+        print "user %s start game in channel %s" % (session.user.name, session.channel.name)
+        user_list = []
+        child = element.firstChildElement()
+        while not child.isNull():
+            if child.tagName() == "user":
+                user_list.append(session.server.config_store.user_list.get_by_name(child.attribute("name")))
+            child = child.nextSiblingElement()
+            
+        print user_list

@@ -1,6 +1,6 @@
 
 import hashlib
-from xml.dom import minidom
+from PyQt4 import QtCore, QtXml
 
 class ChannelList(list):
     def get_by_name(self, name):
@@ -10,20 +10,25 @@ class ChannelList(list):
         return None
     
     def to_xml(self):
-        node = minidom.Element("channel_list")
+        node = QtXml.QDomElement()
+        node.setTagName("channel_list")
         for channel in self:
             node.appendChild(channel.to_xml())
         return node
     
-    def from_xml(self, node):           
-        for child in node.childNodes:
-            if child.nodeName == "channel":
+    def from_xml(self, node):
+        child = node.firstChildElement()   
+        while not child.isNull():
+            if child.tagName() == "channel":
                 channel = Channel()
                 channel.from_xml(child)
                 self.append(channel)
+            child = child.nextSiblingElement()
 
-class Channel(object):
+class Channel(QtCore.QObject):
     def __init__(self, name=None, email=None, password=None):
+        QtCore.QObject.__init__(self)
+        
         self.name = name
         self._password = password
     
@@ -34,14 +39,15 @@ class Channel(object):
         )
     
     def to_xml(self):
-        channel = minidom.Element("channel")
+        channel = QtXml.QDomElement()
+        channel.setTagName("channel")
         channel.setAttribute("name", self.name)
         channel.setAttribute("password", self._password)
         return channel
         
     def from_xml(self, node):
-        self.name =  node.getAttribute("name")
-        self._password = node.getAttribute("password")
+        self.name =  node.attribute("name")
+        self._password = node.attribute("password")
     
     def verify_password(self, password):
         hash = hashlib.sha512(password)

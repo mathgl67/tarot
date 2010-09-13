@@ -1,13 +1,15 @@
 
-from xml.dom import minidom
 
-from PyQt4.Qt import qDebug
+from PyQt4 import QtCore, QtXml
+from PyQt4.Qt import qDebug, qCritical
 
 from tarot.server.user import UserList
 from tarot.server.chan import ChannelList
 
-class ConfigStore(object):
+class ConfigStore(QtCore.QObject):
     def __init__(self, file_path):
+        QtCore.QObject.__init__(self)
+        
         self.file_path = file_path
         self.listen_host = None
         self.listen_port = None
@@ -15,27 +17,39 @@ class ConfigStore(object):
         self.channel_list = None
     
     def load(self):
-        qDebug("read config file: %s" % self.file_path)
+        qDebug("config: read file: %s" % self.file_path)
         with open(self.file_path, "r") as f:
             content = f.read()
-            qDebug("parse config file")
-            document = minidom.parseString(content)
-            root = document.childNodes[0]
-            self.from_xml(root)    
+            qDebug("config: parse xml")
+            document = QtXml.QDomDocument()
+            document.setContent(content)
+            (ret, error_msg, error_line, error_column) = document.setContent(content)
+            if not ret:
+                qDebug("file content: %s" % (content)) 
+                qCritical("error: %s (line=%d;column=%d)" % (error_msg, error_line, error_column))
+                return False
+            
+            qDebug("config: xml parsed")   
+            
+            return self.from_xml(document.firstChildElement())    
         
     def save(self):
         qDebug("save config file" % self.file_path)
-        document = minidom.Document()
+        document = QtXml.QDomDocument()
         document.appendChild(self.to_xml())
         
         with open(self.file_path, "w") as f:
-            f.write(document.toprettyxml())
+            f.write(document.toString())
     
     def to_xml(self):
-        config = minidom.Element("config")
-        listen = minidom.Element("listen")
+        config = QtXml.QDomElement()
+        config.setTagName("config")
+        
+        listen = QtXml.QDomElement()
+        listen.setTagName("listen")
         listen.setAttribute("host", self.host)
         listen.setAttribute("port", str(self.port))
+        
         config.appendChild(listen)
                 
         if self.user_list:
@@ -47,18 +61,24 @@ class ConfigStore(object):
         return config
     
     def from_xml(self, node):
-        if node.nodeName != "config":
+        qDebug("config: importing xml dom")
+        if node.tagName() != "config":
+            qCritical("config: first element is not the 'config' Element")
             return False        
         
-        for child in node.childNodes:
-            if child.nodeName == "listen":
-                self.host = child.getAttribute("host")
-                self.port = int(child.getAttribute("port"))
-            elif child.nodeName == "user_list":
+        child = node.firstChildElement()
+        while not child.isNull():
+            qDebug("config: child name '%s'" % child.tagName())
+            if child.tagName() == "listen":
+                self.host = child.attribute("host")
+                self.port = int(child.attribute("port"))
+            elif child.tagName() == "user_list":
                 self.user_list = UserList()
                 self.user_list.from_xml(child)
-            elif child.nodeName == "channel_list":
+            elif child.tagName() == "channel_list":
                 self.channel_list = ChannelList()
-                self.channel_list.from_xml(child) 
+                self.channel_list.from_xml(child)
+            child = child.nextSiblingElement() 
 
         return True
+    

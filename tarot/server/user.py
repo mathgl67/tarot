@@ -1,6 +1,6 @@
 
 import hashlib
-from xml.dom import minidom
+from PyQt4 import QtCore, QtXml
 
 class UserList(list):
     def get_by_name(self, name):
@@ -10,20 +10,25 @@ class UserList(list):
         return None
     
     def to_xml(self):
-        node = minidom.Element("user_list")
+        node = QtXml.QDomElement()
+        node.setTagName("user_list")
         for user in self:
             node.appendChild(user.to_xml())
         return node
     
-    def from_xml(self, node):           
-        for child in node.childNodes:
-            if child.nodeName == "user":
+    def from_xml(self, node):
+        child = node.firstChildElement()    
+        while not child.isNull():
+            if child.tagName() == "user":
                 user = User()
                 user.from_xml(child)
                 self.append(user)
+            child = child.nextSiblingElement()
 
-class User(object):
+class User(QtCore.QObject):
     def __init__(self, name=None, email=None, groups=None, password=None):
+        QtCore.QObject.__init__(self)
+        
         self.name = name
         self.email = email
         self.is_admin = False
@@ -37,19 +42,19 @@ class User(object):
         )
     
     def to_xml(self):
-        user = minidom.Element("user")
+        user = QtXml.QDomElement()
+        user.setTagName("user")
         user.setAttribute("name", self.name)
         user.setAttribute("email", self.email)
         user.setAttribute("is_admin", "yes" if self.is_admin else "no")
         user.setAttribute("password", self._password)
-        
         return user
         
     def from_xml(self, node):
-        self.name =  node.getAttribute("name")
-        self.email = node.getAttribute("email")
-        self.is_admin = True if node.getAttribute("is_admin") == "yes" else False
-        self._password = node.getAttribute("password")
+        self.name =  node.attribute("name")
+        self.email = node.attribute("email")
+        self.is_admin = True if node.attribute("is_admin") == "yes" else False
+        self._password = node.attribute("password")
     
     def verify_password(self, password):
         hash = hashlib.sha512(password)
