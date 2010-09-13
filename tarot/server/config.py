@@ -47,8 +47,8 @@ class ConfigStore(QtCore.QObject):
         
         listen = QtXml.QDomElement()
         listen.setTagName("listen")
-        listen.setAttribute("host", self.host)
-        listen.setAttribute("port", str(self.port))
+        listen.setAttribute("host", self.listen_host)
+        listen.setAttribute("port", str(self.listen_port))
         
         config.appendChild(listen)
                 
@@ -70,8 +70,8 @@ class ConfigStore(QtCore.QObject):
         while not child.isNull():
             qDebug("config: child name '%s'" % child.tagName())
             if child.tagName() == "listen":
-                self.host = child.attribute("host")
-                self.port = int(child.attribute("port"))
+                self.listen_host = child.attribute("host")
+                self.listen_port = int(child.attribute("port"))
             elif child.tagName() == "user_list":
                 self.user_list = UserList()
                 self.user_list.from_xml(child)

@@ -18,14 +18,14 @@ class TcpServer(QtNetwork.QTcpServer):
     def listen(self):
         if self.config_store.host:
             host = QtNetwork.QHostAddress()
-            host.setAddress(self.config_store.host)
+            host.setAddress(self.config_store.listen_host)
         else:
             host = QtNetwork.QHostAddress.Any
         
         return QtNetwork.QTcpServer.listen(
             self,
             host, #(self.config_store.host),
-            self.config_store.port
+            self.config_store.listen_port
         )
     
     def new_connection(self):
