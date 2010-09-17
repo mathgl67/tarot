@@ -52,6 +52,7 @@ class Channel(QtCore.QObject):
         
         self.name = name
         self._password = password
+        self.game = None
     
     def __repr__(self):
         return "Channel(name=%s,_password=%s)" % (

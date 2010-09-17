@@ -23,6 +23,7 @@
 from PyQt4 import QtCore, QtXml
 
 from tarot.server.message import Message
+from tarot.server.game import Game
 
 class AbstractCommand(QtCore.QObject):
     name=None
@@ -233,6 +234,9 @@ class GameStartCommand(AbstractCommand):
             user_list:
                 <user name="user1" />
             
+            return:
+                <game-start-error name="invalid_user_count" />
+                
             user event:
                 <game-deck />
                 <game-contract />
@@ -242,11 +246,24 @@ class GameStartCommand(AbstractCommand):
             
         """
         print "user %s start game in channel %s" % (session.user.name, session.channel.name)
-        user_list = []
+        game = Game()
+        
         child = element.firstChildElement()
         while not child.isNull():
             if child.tagName() == "user":
-                user_list.append(session.server.config_store.user_list.get_by_name(child.attribute("name")))
+                game.append_player_session(
+                    session.server.session_list.get_by_user_name(child.attribute("name"))
+                )              
             child = child.nextSiblingElement()
-            
-        print user_list
+        
+        # player count check
+        if not game.have_valid_player_count():
+            print "game_start: invalid user count."
+            session.send_line(
+                Message.simple("game-start-error", {"name": "invalid_user_count"})
+            )
+            return
+        
+        # distribute
+        game.distribute()
+        

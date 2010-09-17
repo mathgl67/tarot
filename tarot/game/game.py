@@ -22,7 +22,7 @@
 
 from tarot.game.deck import DeckGeneration
 from tarot.game.distribute import Distribute
-from tarot.game.player import GuiPlayer, PlayerList
+from tarot.game.player import PlayerList
 
 from PyQt4 import QtCore
 
@@ -34,11 +34,6 @@ class Game(QtCore.QObject):
         self.deck = DeckGeneration.full()
         self.deck.shuffle()
         self.dog = None
-    
-    def getGuiPlayer(self):
-        for player in self.player_list.player_list:
-            if isinstance(player, GuiPlayer):
-                return player
     
     def distribute(self):
         distribute = Distribute(self.deck, self.player_list.player_count)

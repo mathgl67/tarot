@@ -20,13 +20,20 @@
 #  along with Tarot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from tarot.player import AbstractPlayer
+from PyQt4 import QtCore
 
-class DummyAiPlayer(AbstractPlayer):
-    def take(self, turn_take):
-        print "shoudl take?"
-        self.takeDecided.emit(self.takeList["pass"])
+from tarot.server.session import SessionList
+
+class Game(QtCore.QObject):
+    def __init__(self):
+        self.sessions = SessionList()
     
-    def turn(self, turn_deck):
-        return None
+    def append_player_session(self, session):
+        self.sessions.append(session)
+        
+    def have_valid_player_count(self):
+        player_count = len(self.sessions)
+        if player_count >= 3 or player_count <= 5:
+            return True
+        return False
     

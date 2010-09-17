@@ -33,7 +33,8 @@ class Session(QtCore.QThread):
         self.socket.readyRead.connect(self.socket_ready_read)
         self.socket.disconnected.connect(self.socket_disconnected)
         self.user = None
-        self.channel = None 
+        self.channel = None
+        self.deck = None
     
     def send_line(self, line):
         self.socket.write("%s\n" % line)
@@ -71,10 +72,19 @@ class Session(QtCore.QThread):
 
 class SessionList(list):
     def user_exists(self, user):
-        for session in self:
-            if session.user == user:
-                return True
+        if self.get_by_user_name(user.name):
+            return True 
         return False
+    
+    def get_by_user_name(self, user_name):
+        for session in self:
+            if not session.user:
+                pass
+            
+            if session.user.name == user_name:
+                return session
+        
+        return None
     
     def get_by_channel(self, channel):
         result = SessionList()

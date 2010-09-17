@@ -51,8 +51,8 @@ class Message(object):
             user = doc.createElement("user")
             user.setAttribute("name", user_name)
             root.appendChild(user)
-        return Message.to_string(doc)    
-    
+        return Message.to_string(doc)
+        
     @staticmethod
     def channel_users(session_list):
         (doc, root) = Message.prepare_document("channel-users")
