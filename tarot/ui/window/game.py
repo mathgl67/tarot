@@ -58,6 +58,7 @@ class GameWindow(QtGui.QMainWindow):
             )
     
     def connected(self):
+            self.socket.stream()
             self.socket.auth(
                 self.connection_opts["user"],
                 self.connection_opts["user_password"]

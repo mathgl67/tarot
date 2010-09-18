@@ -38,6 +38,7 @@ class Bot(Client):
         self.channel_message_received.connect(self.channel_message_received_)
         
     def connected_(self):
+        self.stream()
         self.auth(self.options["user"], self.options["user_password"])
         self.channel_enter(self.options["channel"], self.options["channel_password"])
     

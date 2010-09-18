@@ -20,7 +20,7 @@
 #  along with Tarot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from PyQt4 import QtCore, QtXml
+from PyQt4 import QtCore
 
 from tarot.server.message import Message
 from tarot.server.game import Game
@@ -31,7 +31,17 @@ class AbstractCommand(QtCore.QObject):
     must_be_admin=False
     
     @staticmethod
-    def run(session, node):
+    def parse_attributes(session):
+        attr_list = session.reader.attributes()
+        attributes = {}
+        for idx in range(0, attr_list.size()):
+            attr = attr_list.at(idx)
+            attributes[str(attr.name().toString())] = str(attr.value().toString())
+        
+        return attributes
+    
+    @staticmethod
+    def run(session):
         pass
     
 class CommandList(list):
@@ -53,16 +63,9 @@ class CommandList(list):
                 return command
         return None
   
-    def run(self, session, line):
-        document = QtXml.QDomDocument()
-        (ret, error_msg, error_line, error_column) = document.setContent(line)
-        if not ret:
-            print "parse:", line 
-            print "error:", error_msg, "(line=", error_line, ";column=", error_column, ")"
-            return
-        
-        root = document.documentElement()
-        command = self.get_by_name(root.tagName())
+    def run(self, session):
+        command_name = session.reader.name().toString()
+        command = self.get_by_name(command_name)
         if command:        
             if command.must_be_auth and not session.user:
                 session.socket.write("<command-not-allowed />\n")
@@ -72,9 +75,9 @@ class CommandList(list):
                 session.socket.write("<command-not-allowed />\n")
                 return
                                 
-            command.run(session, root)
+            command.run(session)
         else:
-            print "command unknown:", root.tagName()
+            print "command unknown:", command_name
             session.socket.write("<command-unknown />\n")
             return
 
@@ -83,7 +86,7 @@ class AdminShutdownCommand(AbstractCommand):
     must_be_admin=True
     
     @staticmethod
-    def run(session, element):
+    def run(session):
         """
             <admin-shutdown />
 
@@ -96,7 +99,7 @@ class AuthCommand(AbstractCommand):
     must_be_auth=False
     
     @staticmethod
-    def run(session, element):
+    def run(session):
         """
             <auth user="name" password="password" />
             
@@ -108,11 +111,12 @@ class AuthCommand(AbstractCommand):
                 1 - User or password incorrect
                 2 - User already have a session
         """
-        
-        user = session.server.config_store.user_list.get_by_name(element.attribute("user"))
+        attributes = AuthCommand.parse_attributes(session)
+        user_name = attributes.get("user", None)
+        user = session.server.config_store.user_list.get_by_name(user_name)
         if user:
             print "user found"
-            if user.verify_password(element.attribute("password")):
+            if user.verify_password(attributes["password"]):
                 print "user password okay"
                 if not session.server.session_list.user_exists(user):
                     print "user %s authentified" % (user.name)
@@ -139,7 +143,7 @@ class ChannelEnterCommand(AbstractCommand):
     name="channel-enter"
     
     @staticmethod
-    def run(session, element):
+    def run(session):
         """
             <channel-enter name="chan1" password="pass" />
             
@@ -153,9 +157,10 @@ class ChannelEnterCommand(AbstractCommand):
             code / message:
                 1 - Channel doesn't exists.
                 2 - Channel bad password.
-        """        
-        name = element.attribute("name")
-        password = element.attribute("password")
+        """
+        attributes = ChannelEnterCommand.parse_attributes(session)        
+        name = attributes.get("name", None)
+        password = attributes.get("password", None)
         
         channel = session.server.config_store.channel_list.get_by_name(name)
         if channel:
@@ -190,7 +195,7 @@ class ChannelUsersCommand(AbstractCommand):
     name="channel-users"
     
     @staticmethod
-    def run(session, element):
+    def run(session):
         """
             <channel-users />
             
@@ -208,7 +213,7 @@ class ChannelMessageCommand(AbstractCommand):
     name="channel-message"
     
     @staticmethod
-    def run(session, element):
+    def run(session):
         """
             <channel-message message="a message" />
                     
@@ -216,7 +221,8 @@ class ChannelMessageCommand(AbstractCommand):
                 <channel-message user="user1" message="a message" />
         """
         print "user %s send message to %s" % (session.user.name, session.channel.name)
-        message = element.attribute("message")
+        attributes = ChannelMessageCommand.parse_attributes(session)
+        message = attributes.get("message", "")
         
         session.server.session_list.send_to_channel(
             session.channel,
@@ -224,10 +230,10 @@ class ChannelMessageCommand(AbstractCommand):
         )
 
 class GameStartCommand(AbstractCommand):
-    name="game-start"
+    name="game-start"    
     
     @staticmethod
-    def run(session, element):
+    def run(session):
         """
             <game-start>user_list</game-start>
             
@@ -248,7 +254,7 @@ class GameStartCommand(AbstractCommand):
         print "user %s start game in channel %s" % (session.user.name, session.channel.name)
         game = Game()
         
-        child = element.firstChildElement()
+        child = element.firstChildElement() # yes not adapted..
         while not child.isNull():
             if child.tagName() == "user":
                 game.append_player_session(

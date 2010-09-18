@@ -32,6 +32,7 @@ class Session(QtCore.QThread):
         self.socket = client
         self.socket.readyRead.connect(self.socket_ready_read)
         self.socket.disconnected.connect(self.socket_disconnected)
+        self.reader = QtCore.QXmlStreamReader()
         self.user = None
         self.channel = None
         self.deck = None
@@ -58,11 +59,31 @@ class Session(QtCore.QThread):
         self.server.command_list.run(self, line)
     
     def socket_ready_read(self):
-        while True:
-            line = self.socket.readLine()
-            if not line:
-                return
-            self.socket_line_received(line)
+        content = self.socket.readAll()
+        print "content:", content
+        self.reader.addData(content)
+        
+        while not self.reader.atEnd():
+            self.reader.readNext()
+            if self.reader.hasError():
+                if self.reader.error() == QtCore.QXmlStreamReader.PrematureEndOfDocumentError:
+                    print "document not finish.."
+                else:
+                    print "document error:", self.reader.errorString()
+                    self.reader.clear()
+            else:
+                if self.reader.isStartDocument():
+                    print "document start"
+                    continue
+                elif self.reader.isEndDocument():
+                    print "document end: closing socket"
+                    self.socket.close()
+                elif self.reader.isEndElement():
+                    print "document element ended..."
+                elif self.reader.isStartElement():
+                    print "document element start"
+                    if not self.reader.name().toString() == "stream":
+                        self.server.command_list.run(self)
             
     def run(self):
         """
@@ -78,10 +99,7 @@ class SessionList(list):
     
     def get_by_user_name(self, user_name):
         for session in self:
-            if not session.user:
-                pass
-            
-            if session.user.name == user_name:
+            if session.user and session.user.name == user_name:
                 return session
         
         return None

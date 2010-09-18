@@ -35,6 +35,9 @@ class Client(QtNetwork.QTcpSocket):
     
     def send_line(self, line):
         self.write("%s\n" % line)
+    
+    def stream(self):
+        self.send_line("<stream>") 
         
     def auth(self, user, password):
         self.send_line(Message.simple("auth", {
