@@ -77,7 +77,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidgetServer">
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tabChat">
         <attribute name="title">
@@ -94,7 +94,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEditChat"/>
+          <widget class="QLineEdit" name="lineEditChat">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="inputMask">
+            <string/>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>

@@ -24,6 +24,8 @@ from PyQt4 import QtCore
 
 class ChatWidget(QtCore.QObject):
     def __init__(self, main_window):
+        QtCore.QObject.__init__(self)
+        
         self.main_window = main_window
         self.webView = self.main_window.ui.webViewChat
         self.lineEdit = self.main_window.ui.lineEditChat
@@ -98,11 +100,12 @@ class ChatWidget(QtCore.QObject):
         self.update()
 
     def send_message(self):
+        print "should message.."
         message = self.lineEdit.text()
         self.lineEdit.clear()
         print "should send:", message
         if self.main_window.socket:
-            self.main_window.socket.write(
-                """<channel-message message="%s" />\n""" % (message)
+            self.main_window.socket.send_line(
+                """<channel-message message="%s" />""" % (message)
             )
             

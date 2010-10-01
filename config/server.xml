@@ -4,9 +4,9 @@
 	<user_list>
 		<user email="mathgl@test.org" name="mathgl" password="ee26b0dd4af7e749aa1a8ee3c10ae9923f618980772e473f8819a5d4940e0db27ac185f8a0e1d5f84f88bc887fd67b143732c304cc5fa9ad8e6f57f50028a8ff" is_admin="yes" />
 		<user email="another@email.org" name="another" password="ee26b0dd4af7e749aa1a8ee3c10ae9923f618980772e473f8819a5d4940e0db27ac185f8a0e1d5f84f88bc887fd67b143732c304cc5fa9ad8e6f57f50028a8ff" is_admin="no" />
-        <user email="test@email.org" name="bot1" password="1bf6caf41e7edf0ea36216aef279f13b04b1ebe765a4a17f97d230b8b717aac3085c2605c03e0738312bbb53bfd455a4accbbc97529d01b5d0ae785fff3e3ec4" is_admin="no" />
-        <user email="test@email.org" name="bot2" password="1bf6caf41e7edf0ea36216aef279f13b04b1ebe765a4a17f97d230b8b717aac3085c2605c03e0738312bbb53bfd455a4accbbc97529d01b5d0ae785fff3e3ec4" is_admin="no" />
-        <user email="test@email.org" name="bot3" password="1bf6caf41e7edf0ea36216aef279f13b04b1ebe765a4a17f97d230b8b717aac3085c2605c03e0738312bbb53bfd455a4accbbc97529d01b5d0ae785fff3e3ec4" is_admin="no" />
+	        <user email="test@email.org" name="bot1" password="1bf6caf41e7edf0ea36216aef279f13b04b1ebe765a4a17f97d230b8b717aac3085c2605c03e0738312bbb53bfd455a4accbbc97529d01b5d0ae785fff3e3ec4" is_admin="no" />
+        	<user email="test@email.org" name="bot2" password="1bf6caf41e7edf0ea36216aef279f13b04b1ebe765a4a17f97d230b8b717aac3085c2605c03e0738312bbb53bfd455a4accbbc97529d01b5d0ae785fff3e3ec4" is_admin="no" />
+	        <user email="test@email.org" name="bot3" password="1bf6caf41e7edf0ea36216aef279f13b04b1ebe765a4a17f97d230b8b717aac3085c2605c03e0738312bbb53bfd455a4accbbc97529d01b5d0ae785fff3e3ec4" is_admin="no" />
 	</user_list>
 	<channel_list>
 		<channel name="chan1" password="%"/>

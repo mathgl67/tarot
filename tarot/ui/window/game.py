@@ -32,7 +32,7 @@ class GameWindow(QtGui.QMainWindow):
     def __init__(self):
         super(GameWindow, self).__init__()
         self.socket = Client()
-        self.socket.connected.connect(self.connected)
+        self.socket.connected.connect(self.socket_connected)
         self.socket.channel_message_received.connect(self.channel_message_received)
         self.socket.channel_join_received.connect(self.channel_join_received)
         self.socket.channel_left_received.connect(self.channel_left_received)
@@ -51,13 +51,17 @@ class GameWindow(QtGui.QMainWindow):
     def connection(self):
         dialog = ConnectionDialog()
         if dialog.exec_():
+            print "get connection option"
             self.connection_opts = dialog.get_result()
+            print "options:", repr(self.connection_opts)
+            print "connect"
             self.socket.connectToHost(
                 self.connection_opts["host"],
                 self.connection_opts["port"]
             )
     
-    def connected(self):
+    def socket_connected(self):
+            print "connected"
             self.socket.stream()
             self.socket.auth(
                 self.connection_opts["user"],

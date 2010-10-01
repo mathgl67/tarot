@@ -20,7 +20,7 @@
 #  along with Tarot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from PyQt4 import QtCore, QtNetwork, QtXml
+from PyQt4 import QtCore, QtNetwork
 from tarot.server.message import Message
 
 class Client(QtNetwork.QTcpSocket):
@@ -32,7 +32,8 @@ class Client(QtNetwork.QTcpSocket):
     def __init__(self):
         QtNetwork.QTcpSocket.__init__(self)
         self.readyRead.connect(self.ready_read)
-    
+        self.reader = QtCore.QXmlStreamReader()
+        
     def send_line(self, line):
         self.write("%s\n" % line)
     
@@ -62,42 +63,64 @@ class Client(QtNetwork.QTcpSocket):
     def game_start(self, user_list):
         self.send_line(Message.game_start(user_list))
     
-    def ready_read(self):
-        line = self.readLine()
-        if not line:
-            return
-                        
-        print "receive:", line[:-1]
-        document = QtXml.QDomDocument()     
-        (ret, error_msg, error_line, error_column) = document.setContent(line)
-        if not ret:
-            print "parse:", line 
-            print "error:", error_msg, "(line=", error_line, ";column=", error_column, ")"
-            return
+    def parse_attributes(self):
+        attr_list = self.reader.attributes()
+        attributes = {}
+        for idx in range(0, attr_list.size()):
+            attr = attr_list.at(idx)
+            attributes[str(attr.name().toString())] = str(attr.value().toString())
         
-        root = document.documentElement()
-        print "roottag:", root.tagName()
-        
-        if root.tagName() == "channel-message":
-            user = root.attribute("user")
-            message = root.attribute("message")
-            self.channel_message_received.emit(user, message)
-        elif root.tagName() == "channel-join":
-            user = root.attribute("user")
-            self.channel_join_received.emit(user)
-        elif root.tagName() == "channel-left":
-            user = root.attribute("user")
-            self.channel_left_received.emit(user)
-        elif root.tagName() == "channel-users":
-            node = root.firstChild()
+        return attributes
+    
+    def handle(self, name):
+        print "handle command name:", name
+        if "channel-message" == name:
+            attributes = self.parse_attributes()
+            self.channel_message_received.emit(attributes["user"], attributes["message"])
+        elif "channel-join" == name:
+            attributes = self.parse_attributes()
+            self.channel_join_received.emit(attributes["user"])
+        elif "channel-left" == name:
+            attributes = self.parse_attributes()
+            self.channel_left_received.emit(attributes["user"])
+        elif "channel-users" == name:
             user_list = []
-            while not node.isNull():
-                if node.isElement():
-                    elem = node.toElement()
-                    if elem.tagName() == "user":
-                        user_list.append(elem.attribute("name"))
-                self.channel_users_received.emit(user_list)
-                node = node.nextSibling()
+            while not self.reader.atEnd():
+                self.reader.readNext()
+                if self.reader.isEndElement():
+                    if "channel-users" == self.reader.name().toString():
+                        break
+                elif self.reader.isStartElement():
+                    if "user" == self.reader.name().toString():
+                        attributes = self.parse_attributes()
+                        user_list.append(attributes["name"])
+            
+            self.channel_users_received.emit(user_list)
+    
+    def ready_read(self):
+        content = self.readAll()
+        print "content:", content
+        self.reader.addData(content)
         
-        # recurse until end of data    
-        self.ready_read()                
+        while not self.reader.atEnd():
+            self.reader.readNext()
+            if self.reader.hasError():
+                if self.reader.error() == QtCore.QXmlStreamReader.PrematureEndOfDocumentError:
+                    print "document not finish.."
+                    return
+                else:
+                    print "document error:", self.reader.errorString()
+                    self.reader.clear()
+            else:
+                if self.reader.isStartDocument():
+                    print "document start"
+                    continue
+                elif self.reader.isEndDocument():
+                    print "document end: closing socket"
+                    self.close()
+                elif self.reader.isEndElement():
+                    print "document element ended..."
+                elif self.reader.isStartElement():
+                    print "document element start"
+                    if not self.reader.name().toString() == "stream":
+                        self.handle(self.reader.name().toString())
