@@ -4,23 +4,6 @@
 	<comment></comment>
 	<projects>
 	</projects>
-	<buildSpec>
-		<buildCommand>
-			<name>org.python.pydev.PyDevBuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
-			<triggers>full,incremental,</triggers>
-			<arguments>
-				<dictionary>
-					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/build.launch</value>
-				</dictionary>
-			</arguments>
-		</buildCommand>
-	</buildSpec>
 	<natures>
 		<nature>org.python.pydev.pythonNature</nature>
 	</natures>
