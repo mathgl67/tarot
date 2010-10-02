@@ -105,7 +105,5 @@ class ChatWidget(QtCore.QObject):
         self.lineEdit.clear()
         print "should send:", message
         if self.main_window.socket:
-            self.main_window.socket.send_line(
-                """<channel-message message="%s" />""" % (message)
-            )
+            self.main_window.stream.output.channel_message(message)
             

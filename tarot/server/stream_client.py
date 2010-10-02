@@ -20,48 +20,30 @@
 #  along with Tarot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from PyQt4 import QtCore, QtNetwork
-from tarot.server.message import Message
+from PyQt4 import QtCore
+from tarot.server.stream import AbstractOutputStream, AbstractInputStream, AbstractStream
 
-class Client(QtNetwork.QTcpSocket):
+class ClientOutputStream(AbstractOutputStream):
+    def auth(self, username, password):
+        self.base("auth", {"user": username, "password": password})
+
+    def channel_enter(self, name, password):
+        self.base("channel-enter", {"name": name, "password": password})
+
+    def channel_leave(self, username):
+        self.base("channel-leave", {"user": username})
+        
+    def channel_message(self, message):
+        self.base("channel-message", {"message": message})
+
+    def channel_users(self):
+        self.base("channel-users")
+
+class ClientInputStream(AbstractInputStream):
     channel_join_received = QtCore.pyqtSignal(str)
     channel_left_received = QtCore.pyqtSignal(str)
     channel_users_received = QtCore.pyqtSignal(list)
     channel_message_received = QtCore.pyqtSignal(str, str)
-    
-    def __init__(self):
-        QtNetwork.QTcpSocket.__init__(self)
-        self.readyRead.connect(self.ready_read)
-        self.reader = QtCore.QXmlStreamReader()
-        
-    def send_line(self, line):
-        self.write("%s\n" % line)
-    
-    def stream(self):
-        self.send_line("<stream>") 
-        
-    def auth(self, user, password):
-        self.send_line(Message.simple("auth", {
-           "user": user,
-           "password": password 
-        }))
-        
-    def channel_enter(self, name, password):
-        self.send_line(Message.simple("channel-enter", {
-            "name": name,
-            "password": password
-        }))
-        
-    def channel_message(self, message):
-        self.send_line(Message.simple("channel-message", {
-            "message": message
-        }))
-    
-    def channel_users(self):    
-        self.send_line(Message.simple("channel-users"))
-    
-    def game_start(self, user_list):
-        self.send_line(Message.game_start(user_list))
     
     def parse_attributes(self):
         attr_list = self.reader.attributes()
@@ -96,31 +78,9 @@ class Client(QtNetwork.QTcpSocket):
                         user_list.append(attributes["name"])
             
             self.channel_users_received.emit(user_list)
-    
-    def ready_read(self):
-        content = self.readAll()
-        print "content:", content
-        self.reader.addData(content)
+
+class ClientStream(AbstractStream):
+    def _init_stream(self):
+        self.input = ClientInputStream(self)
+        self.output = ClientOutputStream(self)
         
-        while not self.reader.atEnd():
-            self.reader.readNext()
-            if self.reader.hasError():
-                if self.reader.error() == QtCore.QXmlStreamReader.PrematureEndOfDocumentError:
-                    print "document not finish.."
-                    return
-                else:
-                    print "document error:", self.reader.errorString()
-                    self.reader.clear()
-            else:
-                if self.reader.isStartDocument():
-                    print "document start"
-                    continue
-                elif self.reader.isEndDocument():
-                    print "document end: closing socket"
-                    self.close()
-                elif self.reader.isEndElement():
-                    print "document element ended..."
-                elif self.reader.isStartElement():
-                    print "document element start"
-                    if not self.reader.name().toString() == "stream":
-                        self.handle(self.reader.name().toString())

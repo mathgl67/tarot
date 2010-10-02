@@ -20,23 +20,26 @@
 #  along with Tarot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from PyQt4 import QtGui
+from PyQt4 import QtGui, QtNetwork
 
 from tarot.ui.widget.chat import ChatWidget
 from tarot.ui.generated.game import Ui_GameWindow
 from tarot.ui.window.new_connection import ConnectionDialog
-from tarot.server.client import Client
+from tarot.server.stream_client import ClientStream
 
 
 class GameWindow(QtGui.QMainWindow):
     def __init__(self):
         super(GameWindow, self).__init__()
-        self.socket = Client()
-        self.socket.connected.connect(self.socket_connected)
-        self.socket.channel_message_received.connect(self.channel_message_received)
-        self.socket.channel_join_received.connect(self.channel_join_received)
-        self.socket.channel_left_received.connect(self.channel_left_received)
-        self.socket.channel_users_received.connect(self.channel_users_received)
+        self.socket = QtNetwork.QTcpSocket()
+        self.socket.connected.connect(self.connected)
+        
+        self.stream = ClientStream(self.socket)
+        self.stream.input.stream_initialized.connect(self.stream_initialized)
+        self.stream.input.channel_message_received.connect(self.channel_message_received)
+        self.stream.input.channel_join_received.connect(self.channel_join_received)
+        self.stream.input.channel_left_received.connect(self.channel_left_received)
+        self.stream.input.channel_users_received.connect(self.channel_users_received)
         
         self.ui = Ui_GameWindow()
         self.ui.setupUi(self)
@@ -60,14 +63,16 @@ class GameWindow(QtGui.QMainWindow):
                 self.connection_opts["port"]
             )
     
-    def socket_connected(self):
-            print "connected"
-            self.socket.stream()
-            self.socket.auth(
+    def connected(self):
+            self.stream.output.start()
+    
+    def stream_initialized(self):
+            print "stream initialized"
+            self.stream.output.auth(
                 self.connection_opts["user"],
                 self.connection_opts["user_password"]
             )
-            self.socket.channel_enter(
+            self.stream.output.channel_enter(
                 self.connection_opts["channel"],
                 self.connection_opts["channel_password"]
             )
@@ -94,12 +99,12 @@ class GameWindow(QtGui.QMainWindow):
     def channel_join_received(self, user):
         self.chat_widget.notice("%s enter." % user)
         print "ask channel users update"
-        self.socket.channel_users()
+        self.stream.output.channel_users()
 
     def channel_left_received(self, user):
         self.chat_widget.notice("%s left." % user)
         print "ask channel users update"
-        self.socket.channel_users()
+        self.stream.output.channel_users()
 
     def channel_message_received(self, user, message):
         self.chat_widget.message(user, message) 

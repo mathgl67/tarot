@@ -63,9 +63,8 @@ class CommandList(list):
                 return command
         return None
   
-    def run(self, session):
-        command_name = session.reader.name().toString()
-        command = self.get_by_name(command_name)
+    def run(self, name, session):
+        command = self.get_by_name(name)
         if command:        
             if command.must_be_auth and not session.user:
                 session.socket.write("<command-not-allowed />\n")
@@ -77,7 +76,7 @@ class CommandList(list):
                                 
             command.run(session)
         else:
-            print "command unknown:", command_name
+            print "command unknown:", name
             session.socket.write("<command-unknown />\n")
             return
 
