@@ -45,15 +45,6 @@ class ClientInputStream(AbstractInputStream):
     channel_users_received = QtCore.pyqtSignal(list)
     channel_message_received = QtCore.pyqtSignal(str, str)
     
-    def parse_attributes(self):
-        attr_list = self.reader.attributes()
-        attributes = {}
-        for idx in range(0, attr_list.size()):
-            attr = attr_list.at(idx)
-            attributes[str(attr.name().toString())] = str(attr.value().toString())
-        
-        return attributes
-    
     def handle(self, name):
         print "handle command name:", name
         if "channel-message" == name:

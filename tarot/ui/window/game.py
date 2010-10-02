@@ -35,7 +35,6 @@ class GameWindow(QtGui.QMainWindow):
         self.socket.connected.connect(self.connected)
         
         self.stream = ClientStream(self.socket)
-        self.stream.input.stream_initialized.connect(self.stream_initialized)
         self.stream.input.channel_message_received.connect(self.channel_message_received)
         self.stream.input.channel_join_received.connect(self.channel_join_received)
         self.stream.input.channel_left_received.connect(self.channel_left_received)
@@ -64,10 +63,8 @@ class GameWindow(QtGui.QMainWindow):
             )
     
     def connected(self):
+            print "connected"
             self.stream.output.start()
-    
-    def stream_initialized(self):
-            print "stream initialized"
             self.stream.output.auth(
                 self.connection_opts["user"],
                 self.connection_opts["user_password"]

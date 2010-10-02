@@ -23,6 +23,7 @@
 from PyQt4 import QtCore
 
 from tarot.server.message import Message
+from tarot.server.stream_server import ServerStream
 
 class Session(QtCore.QThread):
     def __init__(self, server, client):
@@ -30,9 +31,9 @@ class Session(QtCore.QThread):
         self.server = server
         self.server.session_list.append(self)
         self.socket = client
-        self.socket.readyRead.connect(self.socket_ready_read)
         self.socket.disconnected.connect(self.socket_disconnected)
-        self.reader = QtCore.QXmlStreamReader()
+        self.stream = ServerStream(self.socket, self)
+        self.stream.output.start()
         self.user = None
         self.channel = None
         self.deck = None
@@ -53,38 +54,7 @@ class Session(QtCore.QThread):
         self.wait()
         # remove itself
         self.server.session_list.remove(self)
-            
-    def socket_line_received(self, line):
-        print "line received: %s (%s, %s)" % (line, self.user, self.channel)
-        self.server.command_list.run(self, line)
-    
-    def socket_ready_read(self):
-        content = self.socket.readAll()
-        print "content:", content
-        self.reader.addData(content)
-        
-        while not self.reader.atEnd():
-            self.reader.readNext()
-            if self.reader.hasError():
-                if self.reader.error() == QtCore.QXmlStreamReader.PrematureEndOfDocumentError:
-                    print "document not finish.."
-                else:
-                    print "document error:", self.reader.errorString()
-                    self.reader.clear()
-            else:
-                if self.reader.isStartDocument():
-                    print "document start"
-                    continue
-                elif self.reader.isEndDocument():
-                    print "document end: closing socket"
-                    self.socket.close()
-                elif self.reader.isEndElement():
-                    print "document element ended..."
-                elif self.reader.isStartElement():
-                    print "document element start"
-                    if not self.reader.name().toString() == "stream":
-                        self.server.command_list.run(self)
-            
+             
     def run(self):
         """
         This simply execute a loop for the client thread
@@ -110,7 +80,7 @@ class SessionList(list):
             if session.channel == channel:
                 result.append(session)
         return result
-    
+        
     def send_to_channel(self, channel, line):
         for session in self.get_by_channel(channel):
             session.send_line(line)

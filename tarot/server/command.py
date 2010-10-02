@@ -31,17 +31,7 @@ class AbstractCommand(QtCore.QObject):
     must_be_admin=False
     
     @staticmethod
-    def parse_attributes(session):
-        attr_list = session.reader.attributes()
-        attributes = {}
-        for idx in range(0, attr_list.size()):
-            attr = attr_list.at(idx)
-            attributes[str(attr.name().toString())] = str(attr.value().toString())
-        
-        return attributes
-    
-    @staticmethod
-    def run(session):
+    def run(stream):
         pass
     
 class CommandList(list):
@@ -63,21 +53,22 @@ class CommandList(list):
                 return command
         return None
   
-    def run(self, name, session):
+    def run(self, name, stream):
         command = self.get_by_name(name)
+        session = stream.context
         if command:        
             if command.must_be_auth and not session.user:
-                session.socket.write("<command-not-allowed />\n")
+                stream.output.error("command_not_allowed")
                 return
             
             if command.must_be_admin and session.user and not session.user.is_admin:
-                session.socket.write("<command-not-allowed />\n")
+                stream.output.error("command_not_allowed")
                 return
                                 
-            command.run(session)
+            command.run(stream)
         else:
             print "command unknown:", name
-            session.socket.write("<command-unknown />\n")
+            stream.output.error("command_unknown")
             return
 
 class AdminShutdownCommand(AbstractCommand):
@@ -85,12 +76,12 @@ class AdminShutdownCommand(AbstractCommand):
     must_be_admin=True
     
     @staticmethod
-    def run(session):
+    def run(stream):
         """
             <admin-shutdown />
 
         """
-        session.server.application.quit()
+        stream.context.server.application.quit()
         
 
 class AuthCommand(AbstractCommand):
@@ -98,7 +89,7 @@ class AuthCommand(AbstractCommand):
     must_be_auth=False
     
     @staticmethod
-    def run(session):
+    def run(stream):
         """
             <auth user="name" password="password" />
             
@@ -110,7 +101,8 @@ class AuthCommand(AbstractCommand):
                 1 - User or password incorrect
                 2 - User already have a session
         """
-        attributes = AuthCommand.parse_attributes(session)
+        session = stream.context
+        attributes = stream.input.parse_attributes()
         user_name = attributes.get("user", None)
         user = session.server.config_store.user_list.get_by_name(user_name)
         if user:
@@ -120,29 +112,29 @@ class AuthCommand(AbstractCommand):
                 if not session.server.session_list.user_exists(user):
                     print "user %s authentified" % (user.name)
                     session.user = user
-                    session.send_line(Message.simple("auth", { "result": "success" }))
+                    stream.output.base("auth", { "result": "success" })
                     return
                 else:
                     print "user %s already have a session" % (user.name)
-                    session.send_line(Message.simple("auth", {
+                    stream.output.base("auth", {
                         "result": "error",
                         "code": "2",
                         "message": "User already have a session."
-                    }))
+                    })
                     return
         
         print "bad authententification"
-        session.send_line(Message.simple("auth", {
+        stream.output.base("auth", {
             "result": "error",
             "code": "1",
             "message": "User or password incorrect"
-        }))
+        })
         
 class ChannelEnterCommand(AbstractCommand):
     name="channel-enter"
     
     @staticmethod
-    def run(session):
+    def run(stream):
         """
             <channel-enter name="chan1" password="pass" />
             
@@ -157,7 +149,8 @@ class ChannelEnterCommand(AbstractCommand):
                 1 - Channel doesn't exists.
                 2 - Channel bad password.
         """
-        attributes = ChannelEnterCommand.parse_attributes(session)        
+        session = stream.context
+        attributes = stream.input.parse_attributes()        
         name = attributes.get("name", None)
         password = attributes.get("password", None)
         
@@ -167,34 +160,31 @@ class ChannelEnterCommand(AbstractCommand):
                 print "user %s enter in channel %s" % (session.user.name, channel.name)
                 session.channel = channel
                 # inform people in channel
-                session.server.session_list.send_to_channel(
-                    session.channel,
-                    Message.simple("channel-join", {"user": session.user.name})
-                )
+                stream.output_channel.base("channel-join", {"user": session.user.name})
                 # set success
-                session.send_line(Message.simple("channel-enter", {"result": "success"}))
+                stream.output.base("channel-enter", {"result": "success"})
             else:
                 print "user %s bad password for channel %s" % (session.user.name, channel.name)
-                session.send_line(Message.simple("channel-enter", {
+                stream.output.base("channel-enter", {
                     "result": "error",
                     "code": "2",
-                    "message": "Wrong password"
-                }))
+                    "message": "Wrong password" 
+                })
             return
         else:
                 print "user %s want enter in channel %s that not exists" % (session.user.name, name)
-                session.send_line(Message.simple("channel-enter", {
+                stream.output.base("channel-enter", {
                     "result": "error",
                     "code": "1",
                     "message": "Channel does'nt exists."
-                }))
+                })
                 
 
 class ChannelUsersCommand(AbstractCommand):
     name="channel-users"
     
     @staticmethod
-    def run(session):
+    def run(stream):
         """
             <channel-users />
             
@@ -204,35 +194,38 @@ class ChannelUsersCommand(AbstractCommand):
                     <user name="user2" />
                 </channel-users>
         """
-        print "user %s ask for user list in chan %s" % (session.user.name, session.channel.name)
-        session_list = session.server.session_list.get_by_channel(session.channel)
-        session.send_line(Message.channel_users(session_list))
+        print "user %s ask for user list in chan %s" % (stream.context.user.name, stream.context.channel.name)
+        session_list = stream.context.server.session_list.get_by_channel(stream.context.channel)
+        stream.output.writer.writeStartElement("channel-users")
+        for session in session_list:
+            stream.output.writer.writeStartElement("user")
+            stream.output.writer.writeAttribute("name", session.user.name)
+            stream.output.writer.writeEndElement()
+        stream.output.writer.writeEndElement()
 
 class ChannelMessageCommand(AbstractCommand):
     name="channel-message"
     
     @staticmethod
-    def run(session):
+    def run(stream):
         """
             <channel-message message="a message" />
                     
             channel event:
                 <channel-message user="user1" message="a message" />
         """
+        session = stream.context
         print "user %s send message to %s" % (session.user.name, session.channel.name)
-        attributes = ChannelMessageCommand.parse_attributes(session)
+        attributes = stream.input.parse_attributes()
         message = attributes.get("message", "")
         
-        session.server.session_list.send_to_channel(
-            session.channel,
-            Message.simple("channel-message", {"user": session.user.name, "message": message})
-        )
+        stream.output_channel.base("channel-message", {"user": session.user.name, "message": message})
 
 class GameStartCommand(AbstractCommand):
     name="game-start"    
     
     @staticmethod
-    def run(session):
+    def run(stream):
         """
             <game-start>user_list</game-start>
             
@@ -250,6 +243,7 @@ class GameStartCommand(AbstractCommand):
                 <game-started />
             
         """
+        session = stream.context
         print "user %s start game in channel %s" % (session.user.name, session.channel.name)
         game = Game()
         

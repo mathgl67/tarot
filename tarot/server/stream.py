@@ -50,14 +50,21 @@ class AbstractOutputStream(QtCore.QObject):
         self.base("error", attributes)
 
 
-class AbstractInputStream(QtCore.QObject):
-    stream_initialized=QtCore.pyqtSignal()
-    
+class AbstractInputStream(QtCore.QObject):    
     def __init__(self, stream):
         QtCore.QObject.__init__(self)
         self.stream = stream
         self.reader = QtCore.QXmlStreamReader()    
         self.stream.socket.readyRead.connect(self.ready_read)
+    
+    def parse_attributes(self):
+        attr_list = self.reader.attributes()
+        attributes = {}
+        for idx in range(0, attr_list.size()):
+            attr = attr_list.at(idx)
+            attributes[str(attr.name().toString())] = str(attr.value().toString())
+        
+        return attributes
     
     def handle(self, name):
         pass
@@ -87,16 +94,15 @@ class AbstractInputStream(QtCore.QObject):
                     print "document element ended..."
                 elif self.reader.isStartElement():
                     print "document element start"
-                    if self.reader.name().toString() == "stream":
-                        self.stream_initialized.emit()
-                    else:
+                    if self.reader.name().toString() != "stream":
                         self.handle(self.reader.name().toString())
                     
     
 class AbstractStream(QtCore.QObject):
-    def __init__(self, socket=None):
+    def __init__(self, socket, context=None):
         QtCore.QObject.__init__(self)
         self.socket = socket
+        self.context = context
         self.input = None
         self.output = None
         self._init_stream()
