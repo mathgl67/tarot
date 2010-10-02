@@ -22,7 +22,6 @@
 
 from PyQt4 import QtCore
 
-from tarot.server.message import Message
 from tarot.server.stream_server import ServerStream
 
 class Session(QtCore.QThread):
@@ -45,9 +44,7 @@ class Session(QtCore.QThread):
         print "disconnected"
         if self.channel:
             # leave the channel
-            self.server.session_list.send_to_channel(self.channel,
-                Message.simple("channel-left", {"user": self.user.name})
-            )
+            self.stream.output_channel.base("channel-left", {"user": self.user.name})
             
         # stop loop
         self.exit()

@@ -22,7 +22,6 @@
 
 from PyQt4 import QtCore
 
-from tarot.server.message import Message
 from tarot.server.game import Game
 
 class AbstractCommand(QtCore.QObject):
