@@ -20,31 +20,36 @@
 #  along with Tarot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from PyQt4 import QtCore
+from PyQt4 import QtCore, QtNetwork
 
-from tarot.server.client import Client
+from tarot.server.stream_client import ClientStream
 
-class Bot(Client):
+class Bot(QtCore.QObject):
     
     quitRequested=QtCore.pyqtSignal()
     
     def __init__(self, options):
-        Client.__init__(self)
+        QtCore.QObject.__init__(self)
+        
         self.options = options
         
-        self.connected.connect(self.connected_)
-        
-        self.disconnected.connect(self.disconnected_)
-        self.channel_message_received.connect(self.channel_message_received_)
-        
-    def connected_(self):
-        self.stream()
-        self.auth(self.options["user"], self.options["user_password"])
-        self.channel_enter(self.options["channel"], self.options["channel_password"])
+        self.socket  = QtNetwork.QTcpSocket()
+        self.socket.connected.connect(self.connected)
+        self.socket.disconnected.connect(self.disconnected)
+        self.stream = ClientStream(self.socket)
+        self.stream.input.channel_message_received.connect(self.channel_message_received)
     
-    def disconnected_(self):
+    def connectToHost(self, host, port):    
+        self.socket.connectToHost(host, port)
+        
+    def connected(self):
+        self.stream.output.start()
+        self.stream.output.auth(self.options["user"], self.options["user_password"])
+        self.stream.output.channel_enter(self.options["channel"], self.options["channel_password"])
+    
+    def disconnected(self):
         self.quitRequested.emit()
     
-    def channel_message_received_(self, user, message):
+    def channel_message_received(self, user, message):
         if message == "quit":
             self.quitRequested.emit()

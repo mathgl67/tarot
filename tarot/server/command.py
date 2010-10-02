@@ -22,7 +22,7 @@
 
 from PyQt4 import QtCore
 
-from tarot.server.game import Game
+#from tarot.server.game import Game
 
 class AbstractCommand(QtCore.QObject):
     name=None
@@ -242,26 +242,26 @@ class GameStartCommand(AbstractCommand):
                 <game-started />
             
         """
-        session = stream.context
-        print "user %s start game in channel %s" % (session.user.name, session.channel.name)
-        game = Game()
-        
-        child = element.firstChildElement() # yes not adapted..
-        while not child.isNull():
-            if child.tagName() == "user":
-                game.append_player_session(
-                    session.server.session_list.get_by_user_name(child.attribute("name"))
-                )              
-            child = child.nextSiblingElement()
-        
-        # player count check
-        if not game.have_valid_player_count():
-            print "game_start: invalid user count."
-            session.send_line(
-                Message.simple("game-start-error", {"name": "invalid_user_count"})
-            )
-            return
-        
-        # distribute
-        game.distribute()
+#        session = stream.context
+#        print "user %s start game in channel %s" % (session.user.name, session.channel.name)
+#        game = Game()
+#        
+#        child = element.firstChildElement() # yes not adapted..
+#        while not child.isNull():
+#            if child.tagName() == "user":
+#                game.append_player_session(
+#                    session.server.session_list.get_by_user_name(child.attribute("name"))
+#                )              
+#            child = child.nextSiblingElement()
+#        
+#        # player count check
+#        if not game.have_valid_player_count():
+#            print "game_start: invalid user count."
+#            session.send_line(
+#                Message.simple("game-start-error", {"name": "invalid_user_count"})
+#            )
+#            return
+#        
+#        # distribute
+#        game.distribute()
         
