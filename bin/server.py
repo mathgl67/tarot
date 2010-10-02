@@ -22,7 +22,7 @@
 #
 
 from tarot.server.config import ConfigStore
-from tarot.server.socket import TcpServer
+from tarot.server.server import Server
 
 import sys
 from PyQt4 import QtCore
@@ -40,7 +40,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     qDebug("create tcp server and listen")
-    server = TcpServer(app, config_store)
+    server = Server(app, config_store)
     if not server.listen():
         qFatal("cannot listen: %s" % server.errorString())
         sys.exit(2)    

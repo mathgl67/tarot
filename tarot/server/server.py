@@ -25,7 +25,7 @@ from tarot.server.command import CommandList
 
 from PyQt4 import QtCore, QtNetwork
 
-class TcpServer(QtNetwork.QTcpServer):
+class Server(QtNetwork.QTcpServer):
     def __init__(self, application, config_store):
         QtNetwork.QTcpServer.__init__(self)
         self.application = application
