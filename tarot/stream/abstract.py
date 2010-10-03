@@ -22,6 +22,8 @@
 
 from PyQt4 import QtCore
 
+from tarot.stream.handler.abstract import StreamHandlerList
+
 class AbstractOutputStream(QtCore.QObject):
     def __init__(self, stream):
         QtCore.QObject.__init__(self)
@@ -49,25 +51,38 @@ class AbstractOutputStream(QtCore.QObject):
             attributes["message"] = message
         self.base("error", attributes)
 
-
 class AbstractInputStream(QtCore.QObject):    
     def __init__(self, stream):
         QtCore.QObject.__init__(self)
         self.stream = stream
-        self.reader = QtCore.QXmlStreamReader()    
+        self.reader = QtCore.QXmlStreamReader()
+        self.handler_list = StreamHandlerList(self.stream) 
         self.stream.socket.readyRead.connect(self.ready_read)
+        self._init_handlers()
     
+    #still used in stream_server#
     def parse_attributes(self):
         attr_list = self.reader.attributes()
         attributes = {}
         for idx in range(0, attr_list.size()):
             attr = attr_list.at(idx)
             attributes[str(attr.name().toString())] = str(attr.value().toString())
-        
+            
         return attributes
+    #still used in stream_server#
+    
+    def _init_handlers(self):
+        pass
     
     def handle(self, name):
-        pass
+        handler = self.handler_list.get_by_name(name)
+        if not handler:
+            print "command unknown:", name
+            self.stream.output.error("unknown_command", "command %s" % name)
+        else:
+            handler.setup()
+            handler.parse()
+            handler.run()
     
     def ready_read(self):
         content = self.stream.socket.readAll()

@@ -21,7 +21,7 @@
 #
 
 from PyQt4 import QtCore
-from tarot.server.stream import AbstractOutputStream, AbstractInputStream, AbstractStream
+from tarot.stream.abstract import AbstractOutputStream, AbstractInputStream, AbstractStream
 
 class ServerOutputStream(AbstractOutputStream):
     pass

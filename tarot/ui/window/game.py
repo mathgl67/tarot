@@ -25,7 +25,7 @@ from PyQt4 import QtGui, QtNetwork
 from tarot.ui.widget.chat import ChatWidget
 from tarot.ui.generated.game import Ui_GameWindow
 from tarot.ui.window.new_connection import ConnectionDialog
-from tarot.server.stream_client import ClientStream
+from tarot.stream.client import ClientStream
 
 
 class GameWindow(QtGui.QMainWindow):

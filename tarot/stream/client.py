@@ -21,7 +21,8 @@
 #
 
 from PyQt4 import QtCore
-from tarot.server.stream import AbstractOutputStream, AbstractInputStream, AbstractStream
+from tarot.stream.abstract import AbstractOutputStream, AbstractInputStream, AbstractStream
+from tarot.stream.handler.client.all import _module_handler_list
 
 class ClientOutputStream(AbstractOutputStream):
     def auth(self, username, password):
@@ -40,35 +41,14 @@ class ClientOutputStream(AbstractOutputStream):
         self.base("channel-users")
 
 class ClientInputStream(AbstractInputStream):
+    error_received = QtCore.pyqtSignal(str, str)
     channel_join_received = QtCore.pyqtSignal(str)
     channel_left_received = QtCore.pyqtSignal(str)
     channel_users_received = QtCore.pyqtSignal(list)
     channel_message_received = QtCore.pyqtSignal(str, str)
     
-    def handle(self, name):
-        print "handle command name:", name
-        if "channel-message" == name:
-            attributes = self.parse_attributes()
-            self.channel_message_received.emit(attributes["user"], attributes["message"])
-        elif "channel-join" == name:
-            attributes = self.parse_attributes()
-            self.channel_join_received.emit(attributes["user"])
-        elif "channel-left" == name:
-            attributes = self.parse_attributes()
-            self.channel_left_received.emit(attributes["user"])
-        elif "channel-users" == name:
-            user_list = []
-            while not self.reader.atEnd():
-                self.reader.readNext()
-                if self.reader.isEndElement():
-                    if "channel-users" == self.reader.name().toString():
-                        break
-                elif self.reader.isStartElement():
-                    if "user" == self.reader.name().toString():
-                        attributes = self.parse_attributes()
-                        user_list.append(attributes["name"])
-            
-            self.channel_users_received.emit(user_list)
+    def _init_handlers(self):
+        self.handler_list.from_class_list(_module_handler_list)
 
 class ClientStream(AbstractStream):
     def _init_stream(self):

@@ -22,7 +22,7 @@
 
 from PyQt4 import QtCore
 
-from tarot.server.stream_server import ServerStream
+from tarot.stream.server import ServerStream
 
 class Session(QtCore.QThread):
     def __init__(self, server, client):

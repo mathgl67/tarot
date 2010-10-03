@@ -39,6 +39,7 @@ class CommandList(list):
         self._init_commands()
   
     def _init_commands(self):
+        self.append(ErrorCommand)
         self.append(AdminShutdownCommand)
         self.append(AuthCommand)
         self.append(ChannelEnterCommand)
@@ -81,7 +82,22 @@ class AdminShutdownCommand(AbstractCommand):
 
         """
         stream.context.server.application.quit()
-        
+
+class ErrorCommand(AbstractCommand):
+    name="error"
+    must_be_auth=False
+    
+    @staticmethod
+    def run(stream):
+        """
+            <admin-shutdown />
+
+        """
+        attributes = stream.input.parse_attributes()
+        print "error %s: %s" % (
+            attributes["name"],
+            attributes["message"] if attributes["message"] else "No error message."
+        )
 
 class AuthCommand(AbstractCommand):
     name="auth"

@@ -22,7 +22,7 @@
 
 from PyQt4 import QtCore, QtNetwork
 
-from tarot.server.stream_client import ClientStream
+from tarot.stream.client import ClientStream
 
 class Bot(QtCore.QObject):
     
