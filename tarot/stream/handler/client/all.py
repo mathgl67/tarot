@@ -22,6 +22,6 @@
 
 from tarot.stream.handler.client import channel, error
 
-_module_handler_list = []
-_module_handler_list.extend(channel._module_handler_list)
-_module_handler_list.extend(error._module_handler_list)
+all_client_handler_class = []
+all_client_handler_class.extend(channel._module_handler_list)
+all_client_handler_class.extend(error._module_handler_list)

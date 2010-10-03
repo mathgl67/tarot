@@ -22,7 +22,7 @@
 
 from PyQt4 import QtCore
 from tarot.stream.abstract import AbstractOutputStream, AbstractInputStream, AbstractStream
-from tarot.stream.handler.client.all import _module_handler_list
+from tarot.stream.handler.client.all import all_client_handler_class
 
 class ClientOutputStream(AbstractOutputStream):
     def auth(self, username, password):
@@ -41,14 +41,15 @@ class ClientOutputStream(AbstractOutputStream):
         self.base("channel-users")
 
 class ClientInputStream(AbstractInputStream):
+    # define signals
     error_received = QtCore.pyqtSignal(str, str)
     channel_join_received = QtCore.pyqtSignal(str)
     channel_left_received = QtCore.pyqtSignal(str)
     channel_users_received = QtCore.pyqtSignal(list)
     channel_message_received = QtCore.pyqtSignal(str, str)
     
-    def _init_handlers(self):
-        self.handler_list.from_class_list(_module_handler_list)
+    # define handler class list
+    all_handler_class = all_client_handler_class
 
 class ClientStream(AbstractStream):
     def _init_stream(self):

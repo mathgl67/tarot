@@ -33,17 +33,8 @@ class AbstractStreamHandler(QtCore.QObject):
         self.input = self.stream.input
         self.output = self.stream.output
     
-    def parse_attributes(self):
-        attr_list = self.input.reader.attributes()
-        attributes = {}
-        for idx in range(0, attr_list.size()):
-            attr = attr_list.at(idx)
-            attributes[str(attr.name().toString())] = str(attr.value().toString())
-            
-        return attributes
-    
     def parse(self):
-        self.attributes = self.parse_attributes()
+        self.attributes = self.input.parse_attributes()
     
     def run(self):
         pass
@@ -59,9 +50,10 @@ class StreamHandlerList(list):
         list.append(self, handler)
         
     def from_class_list(self, class_list):
-        for cls in class_list:
-            obj = cls(self.stream)
-            self.append(obj)
+        if class_list:
+            for cls in class_list:
+                obj = cls(self.stream)
+                self.append(obj)
         
     def get_by_name(self, name):
         for handler in self:

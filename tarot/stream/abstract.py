@@ -51,16 +51,19 @@ class AbstractOutputStream(QtCore.QObject):
             attributes["message"] = message
         self.base("error", attributes)
 
-class AbstractInputStream(QtCore.QObject):    
+class AbstractInputStream(QtCore.QObject):
+    all_handler_class=None
+    
     def __init__(self, stream):
         QtCore.QObject.__init__(self)
         self.stream = stream
         self.reader = QtCore.QXmlStreamReader()
-        self.handler_list = StreamHandlerList(self.stream) 
+        
+        self.handler_list = StreamHandlerList(self.stream)
+        self.handler_list.from_class_list(self.all_handler_class)
+        
         self.stream.socket.readyRead.connect(self.ready_read)
-        self._init_handlers()
     
-    #still used in stream_server#
     def parse_attributes(self):
         attr_list = self.reader.attributes()
         attributes = {}
@@ -69,10 +72,6 @@ class AbstractInputStream(QtCore.QObject):
             attributes[str(attr.name().toString())] = str(attr.value().toString())
             
         return attributes
-    #still used in stream_server#
-    
-    def _init_handlers(self):
-        pass
     
     def handle(self, name):
         handler = self.handler_list.get_by_name(name)
@@ -97,22 +96,18 @@ class AbstractInputStream(QtCore.QObject):
                     return
                 else:
                     print "document error:", self.reader.errorString()
-                    self.reader.clear()
+                    print "closing socket"
+                    self.stream.socket.close()
             else:
-                if self.reader.isStartDocument():
-                    print "document start"
-                    continue
-                elif self.reader.isEndDocument():
+                if self.reader.isEndDocument():
                     print "document end: closing socket"
-                    self.close()
-                elif self.reader.isEndElement():
-                    print "document element ended..."
+                    self.stream.socket.close()
                 elif self.reader.isStartElement():
                     print "document element start"
                     if self.reader.name().toString() != "stream":
                         self.handle(self.reader.name().toString())
                     
-    
+
 class AbstractStream(QtCore.QObject):
     def __init__(self, socket, context=None):
         QtCore.QObject.__init__(self)
