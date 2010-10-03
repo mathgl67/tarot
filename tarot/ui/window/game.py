@@ -49,6 +49,8 @@ class GameWindow(QtGui.QMainWindow):
         #game tab
         self.ui.pushButtonAppendGame.clicked.connect(self.append_to_game)
         self.ui.pushButtonGameStart.clicked.connect(self.game_start)
+        
+        self.game_players = []
                  
     def connection(self):
         dialog = ConnectionDialog()
@@ -77,8 +79,17 @@ class GameWindow(QtGui.QMainWindow):
     def append_to_game(self):
         selected = self.ui.listWidgetUsers.selectedItems()
         if len(selected) == 1:
-            user = selected[0].text()
-            self.ui.listWidgetPlayers.addItem(user)
+            user_name = selected[0].text()
+            
+            if user_name not in self.game_players:
+                print "select:", user_name
+                selected[0].setBackgroundColor(QtGui.QColor("green"))
+                self.game_players.append(user_name)
+            else:
+                print "unselect:", user_name
+                selected[0].setBackgroundColor(QtGui.QColor("white"))
+                self.game_players.remove(user_name)
+            
 
     def game_start(self):
         player_count = self.ui.listWidgetPlayers.count()
