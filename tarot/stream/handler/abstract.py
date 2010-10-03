@@ -33,6 +33,9 @@ class AbstractStreamHandler(QtCore.QObject):
         self.input = self.stream.input
         self.output = self.stream.output
     
+    def allowed(self):
+        return True
+    
     def parse(self):
         self.attributes = self.input.parse_attributes()
     
@@ -60,3 +63,17 @@ class StreamHandlerList(list):
             if handler.name == name:
                 return handler
         return None
+    
+    def run(self, name):
+        handler = self.get_by_name(name)
+        if not handler:
+            print "command unknown:", name
+            self.stream.output.error("unknown_command", "command %s" % name)
+        else:
+            handler.setup()
+            if not handler.allowed():
+                print "command not allowed:", name
+                self.stream.output.error("command_not_allowed", "command %s" % name)
+            else:
+                handler.parse()
+                handler.run()

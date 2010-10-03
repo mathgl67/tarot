@@ -22,6 +22,7 @@
 
 from PyQt4 import QtCore
 from tarot.stream.abstract import AbstractOutputStream, AbstractInputStream, AbstractStream
+from tarot.stream.handler.server.all import all_client_handler_class
 
 class ServerOutputStream(AbstractOutputStream):
     pass
@@ -35,8 +36,7 @@ class ServerChannelOutputStream(QtCore.QObject):
             session.stream.output.base(name, attributes)
 
 class ServerInputStream(AbstractInputStream):
-    def handle(self, name):
-        self.stream.context.server.command_list.run(name, self.stream)
+    all_handler_class = all_client_handler_class
 
 class ServerStream(AbstractStream):
     def _init_stream(self):

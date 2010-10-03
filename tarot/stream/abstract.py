@@ -74,14 +74,7 @@ class AbstractInputStream(QtCore.QObject):
         return attributes
     
     def handle(self, name):
-        handler = self.handler_list.get_by_name(name)
-        if not handler:
-            print "command unknown:", name
-            self.stream.output.error("unknown_command", "command %s" % name)
-        else:
-            handler.setup()
-            handler.parse()
-            handler.run()
+        self.handler_list.run(name)
     
     def ready_read(self):
         content = self.stream.socket.readAll()

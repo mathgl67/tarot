@@ -20,24 +20,15 @@
 #  along with Tarot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from tarot.stream.handler.abstract import AbstractStreamHandler
+from tarot.stream.handler.server.abstract import AbstractServerStreamHandler
 
-class AbstractServerStreamHandler(AbstractStreamHandler):
-    must_be_auth=True
-    must_be_admin=False
+class AdminShutdownStreamHandler(AbstractServerStreamHandler):
+    name="admin-shutdown"
+    must_be_admin=True
     
-    def setup(self):
-        AbstractStreamHandler.setup(self)
-        self.output_channel = self.stream.output_channel
-        self.session = self.stream.context
-        self.server = self.stream.context.server
-    
-    def allowed(self):
-        if self.must_be_auth and not self.session.user:
-            return False
-        
-        if self.must_be_admin and self.session.user and not self.session.user.is_admin:
-            return False
-        
-        return True
-    
+    def run(self):
+        print "An administrator request a shutdown!"
+        self.server.application.quit()
+
+
+_module_handler_list=[AdminShutdownStreamHandler]

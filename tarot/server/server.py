@@ -21,7 +21,6 @@
 #
 
 from tarot.server.session import SessionList, Session
-from tarot.server.command import CommandList
 
 from PyQt4 import QtCore, QtNetwork
 
@@ -31,10 +30,8 @@ class Server(QtNetwork.QTcpServer):
         self.application = application
         self.newConnection.connect(self.new_connection)
         
-        self.thread_pool = QtCore.QThreadPool.globalInstance()
         self.config_store = config_store
         self.session_list = SessionList()
-        self.command_list = CommandList()
             
     def listen(self):
         if self.config_store.listen_host:

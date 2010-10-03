@@ -20,24 +20,9 @@
 #  along with Tarot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from tarot.stream.handler.abstract import AbstractStreamHandler
+from tarot.stream.handler.server import admin, channel, other
 
-class AbstractServerStreamHandler(AbstractStreamHandler):
-    must_be_auth=True
-    must_be_admin=False
-    
-    def setup(self):
-        AbstractStreamHandler.setup(self)
-        self.output_channel = self.stream.output_channel
-        self.session = self.stream.context
-        self.server = self.stream.context.server
-    
-    def allowed(self):
-        if self.must_be_auth and not self.session.user:
-            return False
-        
-        if self.must_be_admin and self.session.user and not self.session.user.is_admin:
-            return False
-        
-        return True
-    
+all_client_handler_class = []
+all_client_handler_class.extend(admin._module_handler_list)
+all_client_handler_class.extend(channel._module_handler_list)
+all_client_handler_class.extend(other._module_handler_list)
