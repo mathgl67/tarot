@@ -20,36 +20,14 @@
 #  along with Tarot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from tarot.stream.handler.abstract import AbstractStreamHandler
 
+from tarot.stream.handler.server.abstract import AbstractServerStreamHandler
 
-class ChannelJoinHandler(AbstractStreamHandler):
-    name="channel-join"
-    
-    def run(self):
-        self.input.channel_join_received.emit(self.attributes["user"])
-
-
-class ChannelMessageHandler(AbstractStreamHandler):
-    name="channel-message"
-    
-    def run(self):
-        self.input.channel_message_received.emit(self.attributes["user"], self.attributes["message"])
-
-
-class ChannelLeftHandler(AbstractStreamHandler):
-    name="channel-left"
-    
-    def run(self):
-        self.input.channel_left_received.emit(self.attributes["user"])
-
-
-class ChannelUsersHandler(AbstractStreamHandler):
-    name="channel-users"
+class GameStartStreamHandler(AbstractServerStreamHandler):
+    name="game-start"
     
     def parse(self):
         self.user_list = self.input.parse_user_list()
-
+    
     def run(self):
-        self.input.channel_users_received.emit(self.user_list)
-        
+        print "game start for users: %s." % ", ".join(self.user_list)

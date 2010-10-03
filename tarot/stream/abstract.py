@@ -73,6 +73,19 @@ class AbstractInputStream(QtCore.QObject):
             
         return attributes
     
+    def parse_user_list(self):
+        user_list = []
+        while not self.reader.atEnd():
+            self.reader.readNext()
+            if self.reader.isEndElement():
+                if "user" != self.reader.name().toString():
+                    break
+            elif self.reader.isStartElement():
+                if "user" == self.reader.name().toString():
+                    attributes = self.parse_attributes()
+                    user_list.append(attributes["name"])
+        return user_list
+    
     def handle(self, name):
         self.handler_list.run(name)
     

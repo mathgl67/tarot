@@ -24,6 +24,7 @@ from PyQt4 import QtCore
 from tarot.stream.abstract import AbstractOutputStream, AbstractInputStream, AbstractStream
 from tarot.stream.handler.server.admin import AdminShutdownStreamHandler
 from tarot.stream.handler.server.channel import ChannelEnterStreamHandler, ChannelUsersStreamHandler, ChannelMessageStreamHandler
+from tarot.stream.handler.server.game import GameStartStreamHandler
 from tarot.stream.handler.server.other import ErrorStreamHandler, AuthStreamHandler
 
 class ServerOutputStream(AbstractOutputStream):
@@ -41,6 +42,7 @@ class ServerInputStream(AbstractInputStream):
     all_handler_class = [
         AdminShutdownStreamHandler,
         ChannelEnterStreamHandler, ChannelUsersStreamHandler, ChannelMessageStreamHandler,
+        GameStartStreamHandler,
         ErrorStreamHandler, AuthStreamHandler
     ]
 
