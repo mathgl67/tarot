@@ -35,8 +35,7 @@ class Session(QtCore.QThread):
         self.stream.output.start()
         self.user = None
         self.channel = None
-        self.game = None
-    
+
     def socket_disconnected(self):
         print "disconnected"
         if self.channel:
