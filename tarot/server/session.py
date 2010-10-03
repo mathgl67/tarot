@@ -37,8 +37,6 @@ class Session(QtCore.QThread):
         self.channel = None
         self.deck = None
     
-    def send_line(self, line):
-        self.socket.write("%s\n" % line)
     
     def socket_disconnected(self):
         print "disconnected"
@@ -77,11 +75,3 @@ class SessionList(list):
             if session.channel == channel:
                 result.append(session)
         return result
-        
-    def send_to_channel(self, channel, line):
-        for session in self.get_by_channel(channel):
-            session.send_line(line)
-
-    def send_to_all(self, line):
-        for session in self:
-            session.send_line(line)
