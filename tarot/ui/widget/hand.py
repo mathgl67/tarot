@@ -22,18 +22,22 @@
 
 from PyQt4 import QtCore
 
-from tarot.server.session import SessionList
+from tarot.ui.scene.hand import LittleHandScene 
 
-class Game(QtCore.QObject):
-    def __init__(self):
-        self.sessions = SessionList()
-    
-    def append_player_session(self, session):
-        self.sessions.append(session)
+class HandWidget(QtCore.QObject):
+    def __init__(self, window):
+        QtCore.QObject.__init__(self)
+        self.window = window
+        self.image_store = self.window.image_store
+        self.deck = None
         
-    def have_valid_player_count(self):
-        player_count = len(self.sessions)
-        if player_count >= 3 or player_count <= 5:
-            return True
-        return False
+        self.window.stream.input.game_deck.connect(self.set_hand)
+        
+    def set_hand(self, deck):
+        self.deck = deck
+        self.update()
     
+    def update(self):
+        self.scene = LittleHandScene(self.deck, self.image_store, self.window.ui.graphicsViewHand)
+        self.window.ui.graphicsViewHand.setScene(self.scene)
+        

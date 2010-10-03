@@ -24,6 +24,8 @@ from PyQt4 import QtCore
 
 from tarot.stream.handler.abstract import StreamHandlerList
 
+from tarot.game.deck import Deck, DeckGeneration
+
 class AbstractOutputStream(QtCore.QObject):
     def __init__(self, stream):
         QtCore.QObject.__init__(self)
@@ -85,6 +87,29 @@ class AbstractInputStream(QtCore.QObject):
                     attributes = self.parse_attributes()
                     user_list.append(attributes["name"])
         return user_list
+    
+    def parse_card(self):
+        attributes = self.parse_attributes()
+        if attributes.has_key("id"):
+            full = DeckGeneration.full()
+            for card in full.card_list:
+                if card.id() == attributes["id"]:
+                    return card
+        return None
+        
+    def parse_deck(self):
+        deck = Deck()
+        while not self.reader.atEnd():
+            self.reader.readNext()
+            if self.reader.isEndElement():
+                if "card" != self.reader.name().toString():
+                    break
+            elif self.reader.isStartElement():
+                if "card" == self.reader.name().toString():
+                    card = self.parse_card()
+                    if card:
+                        deck.append(card)
+        return deck
     
     def handle(self, name):
         self.handler_list.run(name)

@@ -24,6 +24,7 @@ from PyQt4 import QtCore
 
 from tarot.stream.abstract import AbstractOutputStream, AbstractInputStream, AbstractStream
 from tarot.stream.handler.client.other import ErrorHandler, AuthHandler
+from tarot.stream.handler.client.game import GameStartHandler, GameDeckHandler
 from tarot.stream.handler.client.channel import ChannelJoinHandler, ChannelLeftHandler, ChannelMessageHandler, ChannelUsersHandler
 
 class ClientOutputStream(AbstractOutputStream):
@@ -62,10 +63,13 @@ class ClientInputStream(AbstractInputStream):
     channel_left_received = QtCore.pyqtSignal(str)
     channel_users_received = QtCore.pyqtSignal(list)
     channel_message_received = QtCore.pyqtSignal(str, str)
+    game_start = QtCore.pyqtSignal(list)
+    game_deck = QtCore.pyqtSignal(object)
     
     # define handler class list
     all_handler_class = [
         ErrorHandler, AuthHandler,
+        GameStartHandler, GameDeckHandler,
         ChannelJoinHandler, ChannelLeftHandler, ChannelMessageHandler, ChannelUsersHandler
     ]
 

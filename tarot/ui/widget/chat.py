@@ -32,6 +32,7 @@ class ChatWidget(QtCore.QObject):
         self.lineEdit = self.window.ui.lineEditChat
         self.lineEdit.returnPressed.connect(self.send_message)
         
+        self.stream.input.game_start.connect(self.game_start)
         self.stream.input.channel_message_received.connect(self.message)
         self.stream.input.channel_join_received.connect(self.user_join)
         self.stream.input.channel_left_received.connect(self.user_left)
@@ -122,3 +123,8 @@ class ChatWidget(QtCore.QObject):
         self.notice("%s left." % user)
         print "ask channel users update"
         self.stream.output.channel_users()
+
+    def game_start(self, user_list):
+        self.notice("Game start with players: %s" % (
+            ", ".join(user_list)
+        ))

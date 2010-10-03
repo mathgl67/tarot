@@ -20,27 +20,23 @@
 #  along with Tarot.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from tarot.game.deck import DeckGeneration
-from tarot.game.distribute import Distribute
+from tarot.stream.handler.abstract import AbstractStreamHandler
 
-from PyQt4 import QtCore
 
-class Game(QtCore.QObject):
-    def __init__(self, user_list):
-        QtCore.QObject.__init__(self)
-        self.player_list = user_list
-        self.deck = {}
-        self.contract = {}
-        self.dog = None
+class GameStartHandler(AbstractStreamHandler):
+    name="game-start"
     
-    def distribute(self):
-        full = DeckGeneration.full()
-        full.shuffle()
+    def parse(self):
+        self.user_list = self.input.parse_user_list()
+    
+    def run(self):
+        self.input.game_start.emit(self.user_list)
         
-        distributer = Distribute(full, len(self.player_list))
-        (deck_list, self.dog) = distributer.do()
-        idx = 0
-        for player in self.player_list:
-            self.deck[player] = deck_list[idx]
-            idx=idx+1  
+class GameDeckHandler(AbstractStreamHandler):
+    name="game-deck"
+    
+    def parse(self):
+        self.deck = self.input.parse_deck()
         
+    def run(self):
+        self.input.game_deck.emit(self.deck)

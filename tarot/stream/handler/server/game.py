@@ -23,6 +23,8 @@
 
 from tarot.stream.handler.server.abstract import AbstractServerStreamHandler
 
+from tarot.game.game import Game
+
 class GameStartStreamHandler(AbstractServerStreamHandler):
     name="game-start"
     
@@ -31,3 +33,12 @@ class GameStartStreamHandler(AbstractServerStreamHandler):
     
     def run(self):
         print "game start for users: %s." % ", ".join(self.user_list)
+        
+        self.stream.output_channel.game_start(self.user_list)
+        self.session.game = Game(self.user_list)
+        self.session.game.distribute()
+        
+        for user_name, user_deck in self.session.game.deck.items():
+            session = self.server.session_list.get_by_user_name(user_name)
+            session.stream.output.game_deck(user_deck)
+        
