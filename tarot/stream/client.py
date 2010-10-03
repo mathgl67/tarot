@@ -23,10 +23,13 @@
 from PyQt4 import QtCore
 
 from tarot.stream.abstract import AbstractOutputStream, AbstractInputStream, AbstractStream
-from tarot.stream.handler.client.error import ErrorHandler
+from tarot.stream.handler.client.other import ErrorHandler, AuthHandler
 from tarot.stream.handler.client.channel import ChannelJoinHandler, ChannelLeftHandler, ChannelMessageHandler, ChannelUsersHandler
 
 class ClientOutputStream(AbstractOutputStream):
+    def admin_shutdown(self):
+        self.base("admin-shutdown")
+        
     def auth(self, username, password):
         self.base("auth", {"user": username, "password": password})
 
@@ -53,6 +56,8 @@ class ClientOutputStream(AbstractOutputStream):
 class ClientInputStream(AbstractInputStream):
     # define signals
     error_received = QtCore.pyqtSignal(str, str)
+    auth_success = QtCore.pyqtSignal()
+    auth_error = QtCore.pyqtSignal(int, str)
     channel_join_received = QtCore.pyqtSignal(str)
     channel_left_received = QtCore.pyqtSignal(str)
     channel_users_received = QtCore.pyqtSignal(list)
@@ -60,7 +65,7 @@ class ClientInputStream(AbstractInputStream):
     
     # define handler class list
     all_handler_class = [
-        ErrorHandler,
+        ErrorHandler, AuthHandler,
         ChannelJoinHandler, ChannelLeftHandler, ChannelMessageHandler, ChannelUsersHandler
     ]
 

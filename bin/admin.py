@@ -20,6 +20,9 @@
 #  You should have received a copy of the GNU General Public License
 #  along with Tarot.  If not, see <http://www.gnu.org/licenses/>.
 #
+import sys
+from tarot.admin import AdminApplication
 
 if __name__ == '__main__':
-    pass
+    app = AdminApplication(sys.argv)
+    app.exec_()

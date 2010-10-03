@@ -31,3 +31,14 @@ class ErrorHandler(AbstractStreamHandler):
             self.attributes["name"],
             self.attributes["message"] if self.attributes["message"] else "No error message"
         )
+
+class AuthHandler(AbstractStreamHandler):
+    name="auth"
+    
+    def run(self):
+        if self.attributes['result'] == "success":
+            self.input.auth_success.emit()
+        else:
+            code = int(self.attributes["code"])
+            message = self.attributes["message"]
+            self.input.auth_error.emit(code, message)
