@@ -85,10 +85,12 @@ class GameWindow(QtGui.QMainWindow):
                 print "select:", user_name
                 selected[0].setBackgroundColor(QtGui.QColor("green"))
                 self.game_players.append(user_name)
+                selected[0].setSelected(False)
             else:
                 print "unselect:", user_name
                 selected[0].setBackgroundColor(QtGui.QColor("white"))
                 self.game_players.remove(user_name)
+                selected[0].setSelected(False)
             
 
     def game_start(self):

@@ -22,7 +22,7 @@
 
 from tarot.server.session import SessionList, Session
 
-from PyQt4 import QtCore, QtNetwork
+from PyQt4 import QtNetwork
 
 class Server(QtNetwork.QTcpServer):
     def __init__(self, application, config_store):
