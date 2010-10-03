@@ -23,6 +23,7 @@
 from PyQt4 import QtGui, QtNetwork
 
 from tarot.ui.widget.chat import ChatWidget
+from tarot.ui.widget.users import UsersWidget
 from tarot.ui.generated.game import Ui_GameWindow
 from tarot.ui.window.new_connection import ConnectionDialog
 from tarot.stream.client import ClientStream
@@ -34,23 +35,14 @@ class GameWindow(QtGui.QMainWindow):
         self.socket = QtNetwork.QTcpSocket()
         self.socket.connected.connect(self.connected)
         
-        self.stream = ClientStream(self.socket)
-        self.stream.input.channel_message_received.connect(self.channel_message_received)
-        self.stream.input.channel_join_received.connect(self.channel_join_received)
-        self.stream.input.channel_left_received.connect(self.channel_left_received)
-        self.stream.input.channel_users_received.connect(self.channel_users_received)
+        self.stream = ClientStream(self.socket)    
         
         self.ui = Ui_GameWindow()
         self.ui.setupUi(self)
- 
         self.ui.actionConnection.triggered.connect(self.connection)
+        
         self.chat_widget = ChatWidget(self)
-        
-        #game tab
-        self.ui.pushButtonAppendGame.clicked.connect(self.append_to_game)
-        self.ui.pushButtonGameStart.clicked.connect(self.game_start)
-        
-        self.game_players = []
+        self.user_widget = UsersWidget(self)
                  
     def connection(self):
         dialog = ConnectionDialog()
@@ -75,51 +67,6 @@ class GameWindow(QtGui.QMainWindow):
                 self.connection_opts["channel"],
                 self.connection_opts["channel_password"]
             )
-
-    def append_to_game(self):
-        selected = self.ui.listWidgetUsers.selectedItems()
-        if len(selected) == 1:
-            user_name = selected[0].text()
-            
-            if user_name not in self.game_players:
-                print "select:", user_name
-                selected[0].setBackgroundColor(QtGui.QColor("green"))
-                self.game_players.append(user_name)
-                selected[0].setSelected(False)
-            else:
-                print "unselect:", user_name
-                selected[0].setBackgroundColor(QtGui.QColor("white"))
-                self.game_players.remove(user_name)
-                selected[0].setSelected(False)
-            
-
-    def game_start(self):
-        player_count = self.ui.listWidgetPlayers.count()
-        #if not player_count >= 3 or not player_count <= 5:
-        #    message = QtGui.QMessageBox(QtGui.QMessageBox.Warning, "Error", "You can start game only if you have between 3 and 5 players")
-        #    message.exec_()
-        
-        user_list = []      
-        for item_index in range(0, player_count): 
-            item = self.ui.listWidgetPlayers.item(item_index)
-            user_list.append(item.text())
-        
-        self.socket.game_start(user_list)
-
-    def channel_join_received(self, user):
-        self.chat_widget.notice("%s enter." % user)
-        print "ask channel users update"
-        self.stream.output.channel_users()
-
-    def channel_left_received(self, user):
-        self.chat_widget.notice("%s left." % user)
-        print "ask channel users update"
-        self.stream.output.channel_users()
-
-    def channel_message_received(self, user, message):
-        self.chat_widget.message(user, message) 
     
-    def channel_users_received(self, user_list):
-        self.ui.listWidgetUsers.clear()
-        for user in user_list:
-            self.ui.listWidgetUsers.addItem(user)
+         
+    

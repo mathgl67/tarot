@@ -39,7 +39,15 @@ class ClientOutputStream(AbstractOutputStream):
 
     def channel_users(self):
         self.base("channel-users")
-
+        
+    def game_start(self, user_list):
+        self.writer.writeStartElement("game-start")
+        for user in user_list:
+            self.writer.writeStartElement("user")
+            self.writer.writeAttribute("name", user)
+            self.writer.writeEndElement()
+        self.writer.writeEndElement()
+        
 class ClientInputStream(AbstractInputStream):
     # define signals
     error_received = QtCore.pyqtSignal(str, str)

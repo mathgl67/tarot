@@ -77,7 +77,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidgetServer">
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tabChat">
         <attribute name="title">
@@ -111,36 +111,23 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
-          <widget class="QListWidget" name="listWidgetUsers"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButtonAppendGame">
-           <property name="text">
-            <string>Append to game</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab">
-        <attribute name="title">
-         <string>Game</string>
-        </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_6">
-         <item>
-          <widget class="QListWidget" name="listWidgetPlayers"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButtonGameStart">
-           <property name="text">
-            <string>Start</string>
+          <widget class="QListWidget" name="listWidgetUsers">
+           <property name="selectionMode">
+            <enum>QAbstractItemView::MultiSelection</enum>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButtonGameClear">
+          <widget class="QPushButton" name="pushButtonSetUnsetPlayer">
            <property name="text">
-            <string>Clear</string>
+            <string>Set/Unset player</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButtonStartGame">
+           <property name="text">
+            <string>Start Game</string>
            </property>
           </widget>
          </item>
@@ -266,22 +253,5 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>pushButtonGameClear</sender>
-   <signal>clicked()</signal>
-   <receiver>listWidgetPlayers</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>770</x>
-     <y>371</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>770</x>
-     <y>201</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

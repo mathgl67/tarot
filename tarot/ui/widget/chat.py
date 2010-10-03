@@ -23,13 +23,18 @@
 from PyQt4 import QtCore
 
 class ChatWidget(QtCore.QObject):
-    def __init__(self, main_window):
+    def __init__(self, window):
         QtCore.QObject.__init__(self)
         
-        self.main_window = main_window
-        self.webView = self.main_window.ui.webViewChat
-        self.lineEdit = self.main_window.ui.lineEditChat
+        self.window = window
+        self.stream = self.window.stream
+        self.webView = self.window.ui.webViewChat
+        self.lineEdit = self.window.ui.lineEditChat
         self.lineEdit.returnPressed.connect(self.send_message)
+        
+        self.stream.input.channel_message_received.connect(self.message)
+        self.stream.input.channel_join_received.connect(self.user_join)
+        self.stream.input.channel_left_received.connect(self.user_left)
         
         self.css = """
             .notice {
@@ -104,6 +109,16 @@ class ChatWidget(QtCore.QObject):
         message = self.lineEdit.text()
         self.lineEdit.clear()
         print "should send:", message
-        if self.main_window.socket:
-            self.main_window.stream.output.channel_message(message)
+        if self.window.socket:
+            self.stream.output.channel_message(message)
             
+
+    def user_join(self, user):
+        self.notice("%s enter." % user)
+        print "ask channel users update"
+        self.stream.output.channel_users()
+
+    def user_left(self, user):
+        self.notice("%s left." % user)
+        print "ask channel users update"
+        self.stream.output.channel_users()
