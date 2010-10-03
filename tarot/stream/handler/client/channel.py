@@ -62,5 +62,3 @@ class ChannelUsersHandler(AbstractStreamHandler):
     def run(self):
         self.input.channel_users_received.emit(self.user_list)
         
-
-_module_handler_list = [ChannelJoinHandler, ChannelLeftHandler, ChannelMessageHandler, ChannelUsersHandler]

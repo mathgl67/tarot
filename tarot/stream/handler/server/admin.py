@@ -29,6 +29,3 @@ class AdminShutdownStreamHandler(AbstractServerStreamHandler):
     def run(self):
         print "An administrator request a shutdown!"
         self.server.application.quit()
-
-
-_module_handler_list=[AdminShutdownStreamHandler]

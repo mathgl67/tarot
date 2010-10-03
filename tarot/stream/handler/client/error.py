@@ -31,6 +31,3 @@ class ErrorHandler(AbstractStreamHandler):
             self.attributes["name"],
             self.attributes["message"] if self.attributes["message"] else "No error message"
         )
-
-
-_module_handler_list = [ErrorHandler]

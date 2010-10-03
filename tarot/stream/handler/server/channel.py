@@ -108,6 +108,3 @@ class ChannelMessageStreamHandler(AbstractServerStreamHandler):
         message = self.attributes.get("message", "")
         
         self.output_channel.base("channel-message", {"user": self.session.user.name, "message": message})
-
-
-_module_handler_list = [ChannelEnterStreamHandler, ChannelMessageStreamHandler, ChannelUsersStreamHandler]

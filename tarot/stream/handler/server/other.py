@@ -78,5 +78,3 @@ class AuthStreamHandler(AbstractServerStreamHandler):
             "code": "1",
             "message": "User or password incorrect"
         })
-
-_module_handler_list = [ErrorStreamHandler, AuthStreamHandler]
